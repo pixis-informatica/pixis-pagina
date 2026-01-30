@@ -101,6 +101,23 @@ html {
 .categorias-nav a:hover {
     box-shadow: 0 0 15px #7f00ff;
 }
+.categorias-nav {
+    position: sticky;
+    top: 90px;
+    z-index: 900;
+
+    background: transparent;
+    backdrop-filter: none;
+}
+
+/* mobile */
+@media (max-width: 768px) {
+    .categorias-nav {
+        top: 55px;
+    }
+}
+
+
 /* CATÁLOGO TODO JUNTO 
 RELIAZAR SECIONES Y CREACION DE BOTONES VOY A COMPLEMENTAR CON LO QUE HICE EN MI CASA */
 .Gabinetes {
@@ -157,31 +174,7 @@ RELIAZAR SECIONES Y CREACION DE BOTONES VOY A COMPLEMENTAR CON LO QUE HICE EN MI
     font-weight: bold;
     transform: rotate(10deg);
 }
-.hot::before {
-    content: "HOT";
-    position: absolute;
-    top: 12px;
-    right: -10px;
-    background: #ff0033;
-    color: white;
-    padding: 6px 16px;
-    font-size: 12px;
-    font-weight: bold;
-    box-shadow: 0 0 20px #ff0033;
-}
 
-.limitado::before {
-    content: "LIMITADO";
-    position: absolute;
-    top: 12px;
-    right: -10px;
-    background: #ffb300;
-    color: #000;
-    padding: 6px 14px;
-    font-size: 12px;
-    font-weight: bold;
-    box-shadow: 0 0 15px #ffb300;
-}
 .card {
     background: #0e0016;
     border: 2px solid #7f00ff;
@@ -449,6 +442,39 @@ RELIAZAR SECIONES Y CREACION DE BOTONES VOY A COMPLEMENTAR CON LO QUE HICE EN MI
         right: 20px;
     }
 }
+.btn-top {
+    position: fixed;
+    bottom: 110px;
+    right: 25px;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #7f00ff, #ff00ff);
+    color: white;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 0 20px #ff00ff;
+    transition: 0.3s;
+    z-index: 999;
+}
 
+.btn-top:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 35px #ff00ff;
+}
+
+/* mobile */
+@media (max-width: 768px) {
+    .btn-top {
+        bottom: 100px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+}
 
 
