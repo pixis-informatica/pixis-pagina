@@ -987,3 +987,14 @@ body:has(.categoria:target) .btn-top {
     transition: transform 0.45s ease, opacity 0.3s ease;
     will-change: transform;
 }
+.envios-logo {
+    position: fixed;       
+    bottom: 20px;          
+    left: 20px;            
+    z-index: 1000;         
+}
+
+.envios-logo img {
+    width: 80px;           
+    height: auto;         
+}
