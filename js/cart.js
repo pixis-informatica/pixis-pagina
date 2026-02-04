@@ -1,4 +1,4 @@
-const MODAL_ENABLED = false; // ← cambiar a true cuando quieras activarlo
+const MODAL_ENABLED = true; // ← cambiar a true cuando quieras activarlo
 const cartItems = document.querySelector('.cart-items');
 const cartTotal = document.querySelector('.cart-total strong');
 const cartCount = document.querySelector('.cart-count');
