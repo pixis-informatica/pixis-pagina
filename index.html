@@ -105,6 +105,24 @@
     <img src="img/logos/hiksemi.png" alt="Hiksemi">
   </div>
 </section>
+<div class="buscador-productos">
+  <div class="buscador-wrapper">
+    <span class="icon-search">🔍</span>
+    <input 
+      type="text"
+      id="searchInput"
+      placeholder="Buscar productos (ej: teclado mecánico, gabinete ATX...)">
+  </div>
+
+  <div id="noResults" class="no-resultados">
+    ❌ No se encontraron coincidencias
+  </div>
+</div>
+<section id="busquedaSection" style="display:none;">
+  <h2 class="categoria">RESULTADOS</h2>
+  <div class="productos" id="busquedaProductos"></div>
+</section>
+
 <div class="categorias-nav">
     <a href="#Periféricos">Periféricos</a> 
     <a href="#almacenamiento">Almacenamiento</a>
@@ -119,6 +137,7 @@
     <a href="#Placas madres">Placas madres</a>
     <a href="#Memorias Ram">Memorias Ram</a>
     <a href="#Procesadores">Procesadores</a>
+    <a href="#Herramientas">Herramientas</a>
     <a href="#top" class="btn-top" id="btnHome">
     <i class="fas fa-home"></i>
     </a>
@@ -145,10 +164,17 @@
 
 
             <div class="card pulsante2"
-                 data-img="img/des/raptor inferno black inalambrico des.png"
+                 data-img="img\des\Mouse raptor 24.000dpi white des.png"
                  data-title="Raptor storm white 24000dpi"
-                 data-desc="Inalambrico – respuesta max 1000hz
-                Bluetooth 250hz Doungle 1000hz Cable 1000hz"
+                 data-desc="Dimensiones: 125 mm (largo) x 63 mm (ancho) x 40.5 mm (alto) 
+                 Peso: 78 g 
+                 Botones: 7 botones (izquierdo, derecho, central, adelante, retroceso, ajuste DPI, 2.4G/Off/BT)
+                 Modos de iluminación RGB: 8 efectos de iluminación diferentes 
+                 Conectividad: 2.4G, Cable TIPO-C, Bluetooth 
+                 DPI: Ajustable entre 800 y 24000 DPI, con memoria y colores asignados a cada nivel 
+                 Tasa de retorno (Polling rate): Predeterminada en 1000 Hz, ajustable a 125 Hz, 250 Hz, 500 Hz y 1000 Hz 
+                 Batería: Litio de 650 mAh, 3,7 V 
+                 Sistemas operativos compatibles: Win7, Win8, Win10, Windows VISTA, Windows XP"
                  data-price="$73.000">
                 <img src="img/productos/Mouse raptor 24.000dpi white.png" alt="Mouses">
                 <h3>Raptor storm white 24000dpi</h3>
@@ -240,7 +266,8 @@
                  data-title="Raptor storm white 24000dpi"
                  data-desc="Inalambrico – respuesta max 1000hz
                 Bluetooth 250hz Doungle 1000hz Cable 1000hz"
-                 data-price="$73.000">
+                 data-price="$73.000"
+                 data-video="">
                 <img src="img/productos/Mouse raptor 24.000dpi white.png" alt="Mouses">
                 <h3>Raptor storm white 24000dpi</h3>
                 <p>Inalambrico – respuesta max 1000hz
@@ -319,70 +346,176 @@
 
         <h2>PRODUCTOS DISPONIBLES</h2>
         <h3 id="Periféricos" class="categoria">PERIFÉRICOS</h3>
-        <div class="ordenar-productos">
-        <button class="sortPrice btn-ordenar">Ordenar por precio</button>
+        <div class="categoria-ui">
+        <div class="filtros-panel">
+        <span class="filtro-titulo">Ordenar por:</span>
+        <label class="switch-precio">
+        <input type="checkbox" class="toggle-precio">
+        <span class="slider"></span>
+        <span class="switch-text">Precio menor a mayor</span>
+        </label>
+        <div class="filtros-categoria">
+        <button class="btn-filtro activo" data-filter="all">Todos</button>
+        <button class="btn-filtro" data-filter="teclado">Teclados</button>
+        <button class="btn-filtro" data-filter="teclado-mecanico">Teclados mecánicos</button>
+        <button class="btn-filtro" data-filter="mouse">Mouses</button>
+        <button class="btn-filtro" data-filter="mouse pad">Mouse pads</button>
+        <button class="btn-filtro" data-filter="Auriculares">Auriculares</button>
+        </div>
+        </div>
         </div>
         <div class="productos">
 
             <!-- PRODUCTO -->
-            <div class="card">
+            <div class="card"
+            data-img="img\des\m68 white des.png "
+                 data-title="Teclado Mecanico Raptor M68 white"
+                 data-desc=
+                 "⚡ Rendimiento de Teclas
+- Respuesta rápida para juegos competitivos 🏆
+- Entrada sin conflictos de teclas ➡️ máxima eficiencia y estabilidad
+🔌 Conexión
+- Cableado mediante USB extraíble 🔗
+- Inalámbrico: No ❌
+💻 Compatibilidad
+- Windows 7 / 8 / 10 🖥️
+- macOS 🍎
+✨ Características de la Iluminación Rainbow
+- Efecto arcoíris dinámico: los colores recorren el teclado en ondas o transiciones suaves.
+
+" 
+                 data-price="$37.000"
+                 data-video=""
+                 data-subcategoria="teclado-mecanico">
                 <img src="img/productos/m68 white.png" alt="Teclado mecanico">
-                <h3>Raptor M68 white</h3>
+                <h3>Teclado Mecanico Raptor M68 white</h3>
                 <p>raptor M68 white – switches red outemu</p>
-                <span class="precio">$37.500</span>
+                <span class="precio">$37.000</span>
                 <button 
                  class="btn-add-cart"
-                 data-name="Raptor M68 white"
-                 data-price="37500">Agregar al carrito
+                 data-name="Teclado Mecanico Raptor M68 white"
+                 data-price="37000">Agregar al carrito
                 </button>
                 <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
             </div>
 
-             <div class="card">
+             <div class="card"
+                 data-img="img\des\m87 white des.png"
+                 data-title="Teclado Mecanico Raptor M87 white"
+                 data-desc=
+                 "- 📏 Dimensiones: 352 × 125 × 35 mm
+- ⚖️ Peso: 600 g
+- ⌨️ Número de teclas: 87
+- 🧩 Material: ABS
+- 🎨 Tipo de teclas: Inyección de doble color + grabado láser
+- 🔴 Switches: Outemu Red Switches
+- 🔌 Cable: 1,5 m 
+- 🌈 Iluminación: 17 modos LED
+- ⏱️ Durabilidad: +50 millones de pulsaciones
+- 🛡️ Anti-ghosting: 26 teclas
+- 🔗 Puerto: USB 2.0 (rendimiento máximo)
+- 💻 Compatibilidad: Windows® XP / Vista / 7 (32/64 bit)
+" 
+                 data-price="$37.000"
+                 data-video=""
+             data-subcategoria="teclado-mecanico">
                 <img src="img/productos/m87 white.png" alt="Teclado mecanico">
-                <h3>Raptor M87 white</h3>
+                <h3>Teclado Mecanico Raptor M87 white</h3>
                 <p>raptor M87 white – switches red outemu</p>
                 <span class="precio">$37.500</span>
                 <button 
                  class="btn-add-cart"
-                 data-name="Raptor M87 white"
+                 data-name=" Teclado Mecanico Raptor M87 white"
                  data-price="37500">Agregar al carrito
                 </button>
                 <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
             </div>
 
 
-            <div class="card sin-stock">
+            <div class="card" 
+                 data-img="img\des\m87 white des.png"
+                 data-title="Teclado Mecanico Raptor M87 white"
+                 data-desc=
+                 "- 📏 Dimensiones: 352 × 125 × 35 mm
+- ⚖️ Peso: 600 g
+- ⌨️ Número de teclas: 87
+- 🧩 Material: ABS
+- 🎨 Tipo de teclas: Inyección de doble color + grabado láser
+- 🔴 Switches: Outemu Red Switches
+- 🔌 Cable: 1,5 m 
+- 🌈 Iluminación: 17 modos LED
+- ⏱️ Durabilidad: +50 millones de pulsaciones
+- 🛡️ Anti-ghosting: 26 teclas
+- 🔗 Puerto: USB 2.0 (rendimiento máximo)
+- 💻 Compatibilidad: Windows® XP / Vista / 7 (32/64 bit)
+" 
+                 data-price="$37.000"
+                 data-video=""
+            data-subcategoria="teclado-mecanico">
                 <img src="img/productos/m104 white.png" alt="Teclado mecanico">
-                <h3>Raptor M104 white</h3>
+                <h3>Teclado Mecanico Raptor M104 white</h3>
                 <p>raptor M104 white– switches red outemu</p>
                 <span class="precio">$37.500</span>
                 <button 
                  class="btn-add-cart"
-                 data-name="Raptor 104 white"
+                 data-name="Teclado Mecanico Raptor 104 white"
                  data-price="37500">Agregar al carrito
                 </button>
                 <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
             </div>
 
 
-             <div class="card">
+             <div class="card"
+                 data-img="img\des\m104 black.png"
+                 data-title="Teclado Mecanico Raptor M104 black"
+                 data-desc=
+                 "- 📏 Dimensiones: 426 × 121 × 37 mm
+- ⚖️ Peso: 730 g
+- ⌨️ Número de teclas: 104
+- 🔧 IC: 93F93B
+- 🎨 Keycaps: Tapas de inyección de doble color
+- 🔴 Switches: Outemu Red
+- 🧩 Material: ABS
+- 🔌 Cable: USB Tipo-C, PVC de 1,8 m (desde PCB)
+- 🌈 Iluminación: Rainbow
+- ⏱️ Durabilidad: +50 millones de pulsaciones"
+
+                 data-price="$37.000"
+                 data-video=""
+             data-subcategoria="teclado-mecanico">
                 <img src="img/productos/m104 black.png" alt="Teclado mecanico">
-                <h3>Raptor M104 black</h3>
+                <h3>Teclado Mecanico Raptor M104 black</h3>
                 <p>cable extraible– switches red outemu</p>
                 <span class="precio">$37.500</span>
                 <button 
                  class="btn-add-cart"
-                 data-name="Raptor M104 black"
+                 data-name="Teclado Mecanico Raptor M104 black"
                  data-price="37500">Agregar al carrito
                 </button>
                 <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
             </div>
 
 
-            <div class="card sin-stock">
+            <div class="card sin-stock"
+            data-img="img\des\g203 des.png"
+                 data-title="Mouse Logitech G203"
+                 data-desc=
+                 "- 🖱️ Número de botones: 6 botones programables
+- 🎯 Resolución: 200 – 8000 dpi
+- 🌈 LIGHTSYNC RGB: Sí
+- 🔌 Cable:
+- Lila, Blanco, Azul: 2,1 m (6,89 pies)
+- Negro: 2,1 m
+- ⚡ Capacidad de respuesta:
+- Formato de datos USB: 16 bits/eje
+- Velocidad de respuesta USB: 1000 Hz (1 ms)
+- 🧠 Microprocesador: ARM de 32 bits
+"
+                 data-subcategoria="mouse"
+                 data-price="$37.000"
+                 data-video="">
                 <img src="img/productos/g203.png" alt="Mouses">
-                <h3>Logitech G203</h3>
+                <h3> Mouse Logitech G203</h3>
                 <p>RGB– 1000hz</p>
                 <span class="precio">$37.500</span>
                 <button 
@@ -394,15 +527,30 @@
             </div>
 
 
-             <div class="card">
+             <div class="card"
+             data-img="img\des\Mouse raptor 12.800dpi black des.png"
+                 data-title="Mouse Inalambrico Raptor storm Black 12.800dpi"
+                 data-desc=
+                 "- 🔗 Modos de conexión: Cable + 2.4G + Bluetooth
+- 🔄 Cambio de modo: Botón para alternar entre 2.4G + BT1 + BT2
+- 🎯 DPI ajustable: 800 / 1600 / 2400 / 3200 / 6400 / 12800
+- ⚡ Tasa de retorno:
+- Con cable: 1000 Hz
+- 2.4G: 500 Hz
+- BT: 125 / 256 Hz
+- 💡 Indicador LED de DPI: Sí (rojo, verde, azul, amarillo, cian, violeta)
+"
+                 data-subcategoria="mouse"
+                 data-price="$29.000"
+                 data-video="">
                 <img src="img/productos/Mouse raptor 12.800dpi black.png" alt="Mouses">
-                <h3>Raptor storm Black 12.800dpi</h3>
+                <h3>Mouse Inalambrico Raptor storm Black 12.800dpi</h3>
                 <p>Inalambrico – respuesta max 1000hz
                 Bluetooth 250hz Doungle 500hz Cable 1000hz</p>
                 <span class="precio">$29.000</span>
                 <button 
                  class="btn-add-cart"
-                 data-name="Raptor storm Black 12.800dpi"
+                 data-name="Mouse Inalambrico Raptor storm Black 12.800dpi"
                  data-price="29000">Agregar al carrito
                 </button>
                 <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
@@ -410,13 +558,22 @@
 
 
             <div class="card"
-                 data-img="img/des/raptor inferno black inalambrico des.png"
-                 data-title="Raptor storm white 24000dpi"
-                 data-desc="Inalambrico – respuesta max 1000hz
-                Bluetooth 250hz Doungle 1000hz Cable 1000hz"
-                 data-price="$73.000">
+                 data-img="img\des\Mouse raptor 24.000dpi white des.png"
+                 data-title="Mouse Inalambrico Raptor storm white 24000dpi"
+                 data-desc="Dimensiones: 125 mm (largo) x 63 mm (ancho) x 40.5 mm (alto) 
+                 Peso: 78 g 
+                 Botones: 7 botones (izquierdo, derecho, central, adelante, retroceso, ajuste DPI, 2.4G/Off/BT)
+                 Modos de iluminación RGB: 8 efectos de iluminación diferentes 
+                 Conectividad: 2.4G, Cable TIPO-C, Bluetooth 
+                 DPI: Ajustable entre 800 y 24000 DPI, con memoria y colores asignados a cada nivel 
+                 Tasa de retorno (Polling rate): Predeterminada en 1000 Hz, ajustable a 125 Hz, 250 Hz, 500 Hz y 1000 Hz 
+                 Batería: Litio de 650 mAh, 3,7 V 
+                 Sistemas operativos compatibles: Win7, Win8, Win10, Windows VISTA, Windows XP"
+                 data-price="$37.500"
+                 data-video=""
+                 data-subcategoria="mouse">
                 <img src="img/productos/Mouse raptor 24.000dpi white.png" alt="Mouses">
-                <h3>Raptor storm white 24000dpi</h3>
+                <h3>Mouse Inalambrico Raptor storm white 24000dpi</h3>
                 <p>Inalambrico – respuesta max 1000hz
                 Bluetooth 250hz Doungle 1000hz Cable 1000hz</p>
                 <span class="precio">$37.500</span>
@@ -429,45 +586,80 @@
             </div>
 
 
-            <div class="card sin-stock">
+            <div class="card sin-stock"
+                 data-img="img\des\razer deathadder essential des.png"
+                 data-title="Mouse Razer deathadder essential"
+                 data-desc="- 🖱️ Botones Hyperesponse: 5 programables de manera independiente
+- 🎮 Ventaja competitiva: Control avanzado gracias a la personalización de cada botón
+- ⏱️ Durabilidad: Hasta 10 millones de clicks con switches mecánicos Razer™ premiados
+- 🎯 Sensor óptico: 6,400 DPI reales para movimientos rápidos y precisos
+- ⚡ Fiabilidad: Rendimiento estable y vida útil prolongada
+"
+                 data-price="$37.500"
+                 data-video=""
+                 data-subcategoria="mouse">
                 <img src="img/productos/razer deathadder essential.png" alt="Mouses">
-                <h3>Razer deathadder essential</h3>
+                <h3>Mouse Razer deathadder essential</h3>
                 <p>software – respuesta max 1000hz
                 switches mecanicos</p>
                 <span class="precio">$37.500</span>
                 <button 
                  class="btn-add-cart"
-                 data-name="Razer deathadder essential"
+                 data-name="Mouse Razer deathadder essential"
                  data-price="37500">Agregar al carrito
                 </button>
                 <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
             </div>
 
 
-            <div class="card sin-stock">
+            <div class="card sin-stock"
+                 data-img="img\des\razer blackshark v2 des.png"
+                 data-title="Auriculares Razer blackshark V2"
+                 data-desc="- 🎧 Diafragmas: Razer™ TriForce de 50 mm
+- 🎤 Micrófono: Cardioide Razer™ HyperClear fijo
+- 🔊 Sonido envolvente: 7.1 canales para inmersión total
+- 🔌 Conectividad: Conector analógico de 3,5 mm
+"
+                 data-price="$87.500"
+                 data-video=""
+                 data-subcategoria="Auriculares">
                 <img src="img/productos/razer blackshark v2.png" alt="Mouses">
-                <h3>Razer blackshark V2</h3>
+                <h3> Auriculares Razer blackshark V2</h3>
                 <p>software – sound 7.1
                 jack 3.5 multiplataforma</p>
                 <span class="precio">$87.500</span>
                 <button 
                  class="btn-add-cart"
-                 data-name="Razer blackshark V2"
+                 data-name="Auriculares Razer blackshark V2"
                  data-price="87500">Agregar al carrito
                 </button>
                 <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
             </div>
 
 
-            <div class="card sin-stock">
+            <div class="card sin-stock"
+                 data-img="img\des\razer blackshark v2 des.png"
+                 data-title="Auriculares Razer blackshark V2"
+                 data-desc="- 🔌 Conexión: USB
+- 🌀 Unidad del controlador: 50 mm
+- 📊 Respuesta de frecuencia: 20 Hz ~ 20 KHz
+- 🔊 Sensibilidad: 103 ± 3 dB
+- ⚡ Impedancia: 16 Ω ± 15%
+- 🎤 Micrófono: Sí
+- 🎚️ Control en línea: Volumen, micrófono, silencio
+- 📏 Longitud del cable: 2 m
+"
+                 data-price="$34.500"
+                 data-video=""
+                 data-subcategoria="Auriculares">
                 <img src="img/productos/auriculares gx genius.png" alt="Mouses">
-                <h3>Genius HS-GX580 RGB</h3>
+                <h3>Auriculares Genius HS-GX580 RGB</h3>
                 <p>RGB – USB 2.0
                 Microfono flexible</p>
-                <span class="precio">$35.500</span>
+                <span class="precio">$34.500</span>
                 <button 
                  class="btn-add-cart"
-                 data-name="Genius HS-GX580 RGB"
+                 data-name="Auriculares Genius HS-GX580 RGB"
                  data-price="35500">Agregar al carrito
                 </button>
                 <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
@@ -475,17 +667,70 @@
 
             
             <div class="card"
+             data-img="img/des/raptor inferno white inalambrico des.png"
+             data-title="Auriculares Raptor Inferno Pro X White"
+             data-desc="- 📶 Frecuencia de operación: 2.402 GHz ~ 2.480 GHz
+- 🔋 Voltaje de entrada para carga: DC 4.6–5.5 V
+- ⚡ Corriente de corte de carga: 50 μA
+- 🚨 Alerta de baja tensión: 3.4 V
+- 🎵 Relación señal/ruido (S/N): > 75 dB
+- ⏱️ Tiempo de carga: ~2.5 horas
+- 🔋 Capacidad de la batería: 1000 mAh
+- 📏 Distancia de recepción:  10 m
+- ⚡ Voltaje de operación: 3.1–4.2 V
+- 🔌 Corriente de carga: 2500 mA
+- ⚡ Corriente de operación: ≤ 30 mA (modo 2.4G, sin efectos de luz)
+- 🎧 Método de decodificación de audio: SBC
+- ⏱️ Apagado automático: 5 minutos (en estado desconectado)
+- 📡 Nombre de conexión inalámbrica: RAP AURBT2
+"
+             data-price="$70.000"
+             data-subcategoria="Auriculares">
+             <img src="img/productos/raptor inferno white inalambrico.png" alt="Auriculares">
+             <h3>Auriculares Raptor Inferno Pro X White</h3>
+             <p>7.1 – inalámbrico multiplataforma</p>
+             <span class="precio">$70.000</span>
+             <button
+             class="btn-add-cart"
+             data-name="Auriculares Raptor Inferno Pro X RGB"
+             data-price="73000">
+             Agregar al carrito
+             </button>
+             <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">
+             Consultar</a>
+            </div>
+
+
+             <div class="card"
              data-img="img/des/raptor inferno black inalambrico des.png"
-             data-title="Raptor Inferno Pro X RGB"
-             data-desc="7.1 – inalámbrico multiplataforma"
-             data-price="$73.000">
+             data-title="Auriculares Raptor Inferno Pro X RGB"
+             data-desc="- 🎧 Versión de Bluetooth: 5.0
+- 🔗 Modo de conexión: Bluetooth, 2.4G y con cable
+- 🔊 Sonido: 7.1 envolvente
+- 🌈 Iluminación: RGB
+- 🔋 Tensión de carga: 5V CC
+- 📡 Alcance inalámbrico: 10 m sin barreras
+- 🔋 Capacidad de la batería: 1000 mAh
+- ⏱️ Tiempo de carga: 2–3 horas
+- 🕒 Tiempo en espera: 400 horas
+- 🎵 Duración de uso: 15 horas
+- 🌀 Diámetro del altavoz: 50 mm
+- 📊 Sensibilidad del altavoz: 115 ±3 dB
+- ⚡ Impedancia del altavoz: 22 Ω
+- 📊 Respuesta de frecuencia: 20–20 kHz
+- 🎤 Micrófono: Omnidireccional (4.0 × 1.3 mm)
+- 🎙️ Sensibilidad del micrófono: –40 ±3 dB
+- ⚡ Impedancia del micrófono: 2.2 kΩ
+"
+             data-price="$73.000"
+             data-subcategoria="Auriculares">
              <img src="img/productos/raptor inferno black inalambrico.png" alt="Auriculares">
-             <h3>Raptor Inferno Pro X RGB</h3>
+             <h3>Auriculares Raptor Inferno Pro X RGB</h3>
              <p>7.1 – inalámbrico multiplataforma</p>
              <span class="precio">$73.000</span>
              <button
              class="btn-add-cart"
-             data-name="Raptor Inferno Pro X RGB"
+             data-name="Auriculares Raptor Inferno Pro X RGB"
              data-price="73000">
              Agregar al carrito
              </button>
@@ -493,37 +738,83 @@
              Consultar</a>
             </div>
             
-            <div class="card">
+            <div class="card"
+             data-img="img/des/raptor shadow 7.1 des.png"
+             data-title="Auriculares Raptor Shadow Rgb"
+             data-desc="- 📏 Dimensiones: 205 × 100 × 230 mm
+- ⚖️ Peso: 317.5 g
+- 🔊 Configuración de canales: 7.1
+- 🔌 Longitud del cable: 2 m
+- 🌈 Iluminación: RGB
+- 🔗 Interfaz: USB 2.0
+- ⚡ Impedancia:
+- DCR: 32 ±15%
+- ACR: 12 ±15%
+- 📊 Nivel de presión sonora: 130 dB ±3
+- 🔋 Potencia de entrada: 10 mW
+- ⚡ Potencia máxima de entrada: 20 mW
+- 🎤 Micrófono: 6.0 × 5.0 mm, omnidireccional
+- 🌀 Altavoces: 50 mm
+- 🎙️ Sensibilidad del micrófono: –38 dB ±3 dB
+"
+             data-price="$73.000"
+             data-subcategoria="Auriculares">
                 <img src="img/productos/raptor shadow 7.1.png" alt="Auriculares">
-                <h3>Raptor Shadow Rgb</h3>
+                <h3>Auriculares Raptor Shadow Rgb</h3>
                 <p> 7.1 – USB</p>
                 <span class="precio">$31.500</span>
                 <button                 
                  class="btn-add-cart"
-                 data-name="Raptor Shadow Rgb"
+                 data-name="Auriculares Raptor Shadow Rgb"
                  data-price="31500">Agregar al carrito>
                 </button>
                 <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
             </div>
 
 
-            <div class="card">
+            <div class="card"
+             data-img="img\des\aimzone gris camuflado des.png"
+             data-title="Auriculares Aimzone Gris Camuflado"
+             data-desc="Color: Gris camuflado
+Unidad del altavoz: 50 mm
+Impedancia: 20 O ±15%
+Sensibilidad: 117 ±3 dB
+Rango de frecuencia: 20 – 20,000 Hz
+Micrófono: 6 × 2.7 mm
+Sensibilidad del micrófono: -38 dB ±3 dB
+Impedancia del micrófono: 2.2 kO
+Directividad del micrófono: Omnidireccional
+Longitud del cable: 2.2 m
+Interfaz del headset: 1 × Jack 3.5 mm / 2 × Jack 3.5 mm (cable divisor)
+"
+             data-price="$27.000"
+             data-subcategoria="Auriculares">
                 <img src="img/productos/aimzone gris camuflado.png" alt="Auriculares">
-                <h3>Aimzone Gris Camuflado</h3>
+                <h3>Auriculares Aimzone Gris Camuflado</h3>
                 <p> Jack 3.5 – Camuflado
                 compatible: – consola/pc/telefono</p>
-                <span class="precio">$26.000</span>
+                <span class="precio">$27.000</span>
                 <button                 
                  class="btn-add-cart"
-                 data-name="Aimzone Gris Camuflado"
-                 data-price="26000">Agregar al carrito>
+                 data-name="Auriculares Aimzone Gris Camuflado"
+                 data-price="27000">Agregar al carrito>
                 </button>
                 <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
             </div>
 
 
-            <div class="card">
-                <img src="img/productos/teclado genius.png" alt="Microfono">
+            <div class="card"
+            data-img="img/productos/teclado genius.png"
+            data-desc="
+Teclado de tamaño completo con cable
+Tecla de Copilot con IA para activar el asistente de Copilot (para Windows 11 o superior)
+Tecla FN multimedia de 12 teclas
+Diseño resistente a derrames
+Tecla de perfil bajo
+USB Plug and play"
+            data-subcategoria="Teclados"
+            data-price="$11.000">
+                <img src="img/productos/teclado genius.png" alt="Teclados">
                 <h3>Teclado Genius KB-113</h3>
                 <p> tecla especial copilot
                     USB
@@ -538,8 +829,18 @@
             </div>
 
 
-            <div class="card sin-stock">
-                <img src="img/productos/mouse genius.png" alt="Microfono">
+            <div class="card sin-stock"
+            img="img/productos/mouse genius.pngz"
+            data-desc="
+Teclado de tamaño completo con cable
+Tecla de Copilot con IA para activar el asistente de Copilot (para Windows 11 o superior)
+Tecla FN multimedia de 12 teclas
+Diseño resistente a derrames
+Tecla de perfil bajo
+USB Plug and play"
+            data-subcategoria="Teclados mecanicos"
+            data-price="$11.000">
+                <img src="img/productos/mouse genius.png" alt="Mouses">
                 <h3>Mouse Genius Optico</h3>
                 <p> USB 1200dpi</p>
                 <span class="precio">$3.000</span>
@@ -553,11 +854,14 @@
 
 
             <div class="card"
-             data-img="img/des/raptor inferno black inalambrico des.png"
-             data-title="Raptor Inferno Pro X RGB"
-             data-desc="7.1 – inalámbrico multiplataforma"
-             data-price="$73.000">
-             <img src="img/productos/mouse pad talle s.png" alt="Auriculares">
+             data-img="img/productos/mouse pad talle s.png"
+             data-title="Mouse pad Raptor Talle S Rapti"
+             data-desc="Características:	Borde cosido, impermeable, antideslizante
+   Material:	Base de goma
+   Tamaño:      26cmX21cmX3mm"
+             data-price="$3.000"
+             data-subcategoria="mouse pad">
+             <img src="img/productos/mouse pad talle s.png" alt="Mouse pads">
              <h3>Mouse pad Raptor Talle S</h3>
              <p>diseño rapti – ANTIDESLIZANTE </p>
                 <p>26CM X21CM X3MM</p>
@@ -575,10 +879,15 @@
 
 
             <div class="card"
-             data-img="img/des/raptor inferno black inalambrico des.png"
-             data-title="Raptor Inferno Pro X RGB"
-             data-desc="7.1 – inalámbrico multiplataforma"
-             data-price="$73.000">
+             data-img="img/productos/Mouse pad raptor s.png"
+             data-title="Mouse pad Raptor Talle S"
+             data-desc="Características:	Borde cosido, impermeable, antideslizante
+   Material:	Base de goma
+   Tamaño:      26cmX21cmX3mm"
+             data-price="$3.000"
+             data-subcategoria="mouse pad">
+        
+             
              <img src="img/productos/Mouse pad raptor s.png" alt="Auriculares">
              <h3>Mouse pad Raptor Talle S</h3>
              <p>diseño comun – ANTIDESLIZANTE </p>
@@ -596,11 +905,15 @@
             </div>
 
 
-            <div class="card"
-             data-img="img/des/raptor inferno black inalambrico des.png"
-             data-title="Raptor Inferno Pro X RGB"
-             data-desc="7.1 – inalámbrico multiplataforma"
-             data-price="$73.000">
+            <div class="card sin-stock"
+             data-img="img/productos/Mouse pad raptor L.png"
+             data-title="Mouse pad Raptor Talle l"
+             data-desc="Características:	Borde cosido, impermeable, antideslizante
+Material:	Base de goma
+Tamaño:     45cmX40cm"
+             data-price="$5.000"
+             data-subcategoria="mouse pad">
+           
              <img src="img/productos/Mouse pad raptor L.png" alt="Auriculares">
              <h3>Mouse pad Raptor Talle l</h3>
              <p>diseño comun – ANTIDESLIZANTE </p>
@@ -609,8 +922,34 @@
              <span class="precio">$3.000</span>
              <button
              class="btn-add-cart"
-             data-name="Mouse pad Raptor Talle S normal"
-             data-price="3000">
+             data-name="Mouse pad Raptor Talle L normal"
+             data-price="5000">
+             Agregar al carrito
+             </button>
+             <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">
+             Consultar</a>
+            </div>
+
+
+            <div class="card"
+             data-img="img/productos/Mouse pad Raptor XL.png"
+             data-title="Mouse pad Raptor Talle XL"
+             data-desc="Características:	Borde cosido, impermeable, antideslizante
+Material:	Base de goma
+Tamaño:     90cmX400cmX3mm"
+             data-price="$14.500"
+             data-subcategoria="mouse pad">
+           
+             <img src="img/productos/Mouse pad Raptor XL.png" alt="Auriculares">
+             <h3>Mouse pad Raptor Talle XL</h3>
+             <p>diseño comun – ANTIDESLIZANTE </p>
+                <p>26CM X21CM X3MM</p>
+             
+             <span class="precio">$14.500</span>
+             <button
+             class="btn-add-cart"
+             data-name="Mouse pad Raptor Talle XL"
+             data-price="14500">
              Agregar al carrito
              </button>
              <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">
@@ -621,68 +960,157 @@
        
        
         <h3 id="almacenamiento" class="categoria">ALMACENAMIENTOS</h3>
-        <div class="ordenar-productos">
-        <button class="sortPrice btn-ordenar">Ordenar por precio</button>
+        <div class="categoria-ui">
+        <div class="filtros-panel">
+        <span class="filtro-titulo">Ordenar por:</span>
+        <label class="switch-precio">
+        <input type="checkbox" class="toggle-precio">
+        <span class="slider"></span>
+        <span class="switch-text">Precio menor a mayor</span>
+        </label>
+        <div class="filtros-categoria">
+        <button class="btn-filtro activo" data-filter="all">Todos</button>
+        <button class="btn-filtro" data-filter="240GB">240GB</button>
+        <button class="btn-filtro" data-filter="256GB">256GB</button>
+        <button class="btn-filtro" data-filter="480GB">480GB</button>
+        <button class="btn-filtro" data-filter="512GB">512GB</button>
+        </div>
+        </div>
         </div>
         <div class="productos">
-            <div class="card">
-                <img src="img/productos/hiksemi ssd.png" alt="SSD">
-                <h3>SSD hiksemi wave 240GB</h3>
+            <div class="card"
+                 data-img="img/productos/hiksemi ssd.png"
+                 data-title="Disco SSD hiksemi wave 240GB"
+                 data-desc="Capacity 240 GB
+Max. Seq. Read (MB/S) 530 MB/s
+Max. Seq. Write (MB/S) 400 MB/s
+Max. Ran. 4K read IOPS 30K
+Max. Ran. 4K write IOPS 50K
+Max. Power Consumption 1.3W
+TBW 80TB
+Storage Medium 3D NAND
+Interface SATA III
+MTBF 1,500,000 hours
+Operation temperature 0-70 °C
+Storage temperature -40 °C to 85 °C
+Weight = 34.4 g
+"
+                 data-price="$85.500"
+                 data-subcategoria="240GB">
+                <img src="img/productos/hiksemi ssd.png" alt="SSD 240GB">
+                <h3>Disco SSD hiksemi wave 240GB</h3>
                 <p>240gb</p>
-                <span class="precio">$85.000</span>
+                <span class="precio">$85.500</span>
                 <button                 
                  class="btn-add-cart"
-                 data-name="SSD hiksemi wave 240GB"
-                 data-price="85000">Agregar al carrito>
+                 data-name="Disco SSD hiksemi wave 240GB"
+                 data-price="85500">Agregar al carrito>
                 </button>
                 <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
             </div>
 
 
-             <div class="card">
-                <img src="img/productos/hiksemi ssd.png" alt="SSD">
-                <h3>SSD hiksemi wave 480GB</h3>
+             <div class="card"
+                 data-img="img/productos/hiksemi ssd.png"
+                 data-title="Disco SSD hiksemi wave 480GB"
+                 data-desc="Capacity 480 GB
+Max. Seq. Read (MB/S) 530 MB/s
+Max. Seq. Write (MB/S) 400 MB/s
+Max. Ran. 4K read IOPS 30K
+Max. Ran. 4K write IOPS 50K
+Max. Power Consumption 1.3W
+TBW 80TB
+Storage Medium 3D NAND
+Interface SATA III
+MTBF 1,500,000 hours
+Operation temperature 0-70 °C
+Storage temperature -40 °C to 85 °C
+Weight = 34.4 g
+"
+                 data-price="$134.500"
+                 data-subcategoria="480GB">
+                <img src="img/productos/hiksemi ssd.png" alt="SSD 480GB">
+                <h3>Disco SSD hiksemi wave 480GB</h3>
                 <p>480gb</p>
-                <span class="precio">$124.500</span>
+                <span class="precio">$134.500</span>
                 <button                 
                  class="btn-add-cart"
-                 data-name="SSD hiksemi wave 480GB"
-                 data-price="124500">Agregar al carrito>
+                 data-name="Disco SSD hiksemi wave 480GB"
+                 data-price="134500">Agregar al carrito>
                 </button>
                 <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
             </div>
 
             
-            <div class="card">
-                <img src="img/productos/ssd p210 256gb patriot.png" alt="SSD">
-                <h3>SSD Patriot 256GB</h3>
+            <div class="card"
+                 data-img="img/productos/ssd p210 256gb patriot.png"
+                 data-title="Disco SSD Patriot 256GB"
+                 data-desc="Capacidad 256 GB
+Último controlador SATA III
+Interfaz: SATA III 6Gb/s
+Comando de recorte compatible
+Temperatura de funcionamiento: 0~70°C
+"
+                 data-price="$95.500"
+                 data-subcategoria="256GB">
+                <img src="img/productos/ssd p210 256gb patriot.png" alt="SSD 256GB">
+                <h3>Disco SSD Patriot 256GB</h3>
                 <p>Alta velocidad – Ideal gaming</p>
                 <span class="precio">$95.000</span>
                 <button                 
                  class="btn-add-cart"
-                 data-name="SSD Patriot 256GB"
+                 data-name="Disco SSD Patriot 256GB"
                  data-price="95000">Agregar al carrito>
                 </button>
                 <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
             </div>
 
 
-            <div class="card">
-                <img src="img/productos/ssd p210 512 patriot.png" alt="SSD">
-                <h3>SSD Patriot 512GB</h3>
+            <div class="card"
+                 data-img="img/productos/ssd p210 512 patriot.png"
+                 data-title="Disco SSD Patriot 512GB"
+                 data-desc="Capacidad 512 GB
+Último controlador SATA III
+Interfaz: SATA III 6Gb/s
+Comando de recorte compatible
+Temperatura de funcionamiento: 0~70°C
+"
+                 data-price="$126.000"
+                 data-subcategoria="512GB">
+                <img src="img/productos/ssd p210 512 patriot.png" alt="SSD 512GB">
+                <h3>Disco SSD Patriot 512GB</h3>
                 <p>Alta velocidad – Ideal gaming</p>
                 <span class="precio">$126.000</span>
                 <button                 
                  class="btn-add-cart"
-                 data-name="SSD Patriot 512GB"
+                 data-name="Disco SSD Patriot 512GB"
                  data-price="126000">Agregar al carrito>
                 </button>
                 <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
             </div>
 
 
-             <div class="card">
-                <img src="img/productos/legend nvme 256gb.png" alt="SSD">
+             <div class="card"
+                 data-img="img/productos/legend nvme 256gb.png"
+                 data-title="Adata legend 700 256GB"
+                 data-desc="- 🔋 NAND Flash: 3D NAND 80 × 22 × 3.13 mm (con disipador)
+- ⚡ Interfaz: PCIe Gen3 x4 80 × 22 × 2.15 mm (sin disipador)
+- 📐 Factor de forma: M.2 2280
+- ⚖️ Peso:
+- 9 g / 0.32 oz (con disipador)
+- 6.2 g / 0.22 oz (sin disipador)
+- 🚀 Lectura/Escritura secuencial (máx.):
+- Lectura: 2,000 MB/s
+- Escritura: 1,600 MB/s
+- 🌡️ Temperatura de operación: 0°C – 70°C
+- ❄️ Temperatura de almacenamiento: -40°C – 85°C
+- 📊 TBW (máx. capacidad): 480 TB
+- ⏳ MTBF: 1,500,000 horas
+- 🛡️ Resistencia a golpes: 1500G / 0.5 ms
+"
+                 data-price="$95.000"
+                 data-subcategoria="256GB">
+                <img src="img/productos/legend nvme 256gb.png" alt="SSD 256GB">
                 <h3>Adata legend 700 256GB</h3>
                 <p>Alta velocidad – Nvme Pcie 3.0</p>
                 <span class="precio">$95.000</span>
@@ -695,8 +1123,17 @@
             </div>
 
 
-            <div class="card">
-                <img src="img/productos/hiksemi nvme 256gb 3.0.png" alt="SSD">
+            <div class="card"
+                 data-img="img/productos/hiksemi nvme 256gb 3.0.png"
+                 data-title="Hiksemi m.2 nvme 256GB"
+                 data-desc="Capacidad 256 GB
+                 Último controlador SATA III
+                 Interfaz: SATA III 6Gb/s
+                 Comando de recorte compatible
+                 Temperatura de funcionamiento: 0~70°C"
+                 data-price="$95.000"
+                 data-subcategoria="256GB">
+                <img src="img/productos/hiksemi nvme 256gb 3.0.png" alt="SSD 256GB">
                 <h3>Hiksemi m.2 nvme 256GB</h3>
                 <p>Alta velocidad – Nvme Pcie 3.0</p>
                 <span class="precio">$95.000</span>
@@ -710,7 +1147,7 @@
 
 
              <div class="card">
-                <img src="img/productos/hiksemi nvme 512gb 3.0.png" alt="SSD">
+                <img src="img/productos/hiksemi nvme 512gb 3.0.png" alt="SSD 512GB">
                 <h3>Hiksemi m.2 nvme 512GB</h3>
                 <p>Alta velocidad – Nvme Pcie 3.0</p>
                 <span class="precio">$126.000</span>
@@ -753,27 +1190,74 @@
 
 
         <h3 id="gabinetes" class="categoria">GABINETES</h3>
-         <div class="ordenar-productos">
-        <button class="sortPrice btn-ordenar">Ordenar por precio</button>
+        <div class="categoria-ui">
+        <div class="filtros-panel">
+        <span class="filtro-titulo">Ordenar por:</span>
+        <label class="switch-precio">
+        <input type="checkbox" class="toggle-precio">
+        <span class="slider"></span>
+        <span class="switch-text">Precio menor a mayor</span>
+        </label>
+        <div class="filtros-categoria">
+        <button class="btn-filtro activo" data-filter="all">Todos</button>
+        <button class="btn-filtro" data-filter="Gabinetes ITX/MATX/ATX">Gabinetes ITX/MATX/ATX</button>
+        <button class="btn-filtro" data-filter="Gabinetes ITX/MATX">Gabinetes ITX/MATX</button>
+        </div>
+        </div>
         </div>
         <div class="productos">    
-            <div class="card">
-                <img src="img/productos/gabinete raptor eclypse.png" alt="Gabinetes">
-                <h3>Raptor eclypse</h3>
+            <div class="card"
+                 data-img="img\des\gabinete raptor eclypse des.png"
+                 data-title="Gabinete Raptor eclypse"
+                 data-desc=
+                 "🔩 Material: Acero SPCC
+                📏 Espesor del chasis: 0.5 mm
+                🪟 Panel frontal: Vidrio templado
+                🪟 Panel lateral: Vidrio templado
+                🔌 Puertos: 1 × USB 3.0 + 2 × USB 2.0 + Audio HD
+                💾 Bahías de unidades:
+                3.5 HDD × 2
+                2.5 SSD × 3
+                ⚙️ Altura máxima del CPU Cooler: 157 mm
+                🎮 Longitud máxima de tarjeta gráfica (VGA): 400 mm
+                🧩 Compatibilidad de placa madre: ATX, Micro ATX, ITX
+                📐 Dimensiones: 418 × 280 × 375 mm" 
+                 data-price="$124.000"
+                 data-subcategoria="Gabinetes ITX/MATX/ATX">
+                <img src="img/productos/gabinete raptor eclypse.png" alt="Gabinetes ITX/MATX/ATX">
+                <h3>Gabinete Raptor eclypse RGB</h3>
                 <p>ATX/MATX/ITX – X4 fan RGB</p>
                 <span class="precio">$124.500</span>
                 <button                 
                  class="btn-add-cart"
-                 data-name="Raptor eclypse"
-                 data-price="124.500">Agregar al carrito>
+                 data-name="Gabinete Raptor eclypse"
+                 data-price="124500">Agregar al carrito>
                 </button>
                 <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
             </div>
 
 
-            <div class="card">
-                <img src="img/productos/gabinete vortex.png" alt="gabinete">
-                <h3>Raptor vortex</h3>
+            <div class="card"
+                 data-img="img\des\gabinete vortex des.png"
+                 data-title="Raptor Vortex"
+                 data-desc=
+                 "🧱 Material: Acero SPCC
+                📏 Espesor del chasis: 0,4 mm
+                📐 Dimensiones: 335 x 192 x 445 mm
+                💡 Panel frontal: ABS + tira LED
+                🪟 Panel lateral: Vidrio templado completo (izquierdo)
+                🔌 Puertos: 1× USB 3.0 + 2× USB 2.0 + Audio HD
+                💾 Bahías: 1× HDD 3.5 + 1× SSD 2.5
+                🧊 Altura máxima CPU: 155 mm
+                🎮 GPU: Hasta 290 mm  7 slots
+                🧩 Placas base: ATX,M-ATX,ITX
+                🌬️ Ventilador trasero: 1× 120 mm
+                📦 Dimensiones embalado: 335 × 192 × 445 mm" 
+                 data-price="$49.000"
+                 data-video="https://www.instagram.com/reel/DOoEESAjtL_/"
+                 data-subcategoria="Gabinetes ITX/MATX/ATX">
+                <img src="img/productos/gabinete vortex.png" alt="Gabinetes ITX/MATX/ATX">
+                <h3>Gabinete Raptor vortex</h3>
                 <p>ATX/MATX/ITX – X1 fan RGB</p>
                 <span class="precio">$49.500</span>
                  <button                 
@@ -786,8 +1270,8 @@
             
             
             <div class="card sin-stock">
-                <img src="img/productos/raptor sentinel.png" alt="gabinete">
-                <h3>Raptor Sentinel</h3>
+                <img src="img/productos/raptor sentinel.png" alt="Gabinetes ITX/MATX/ATX">
+                <h3>Gabinete Raptor Sentinel</h3>
                 <p>ATX/MATX/ITX – X4 fan RGB</p>
                 <span class="precio">$67.500</span>
                  <button                 
@@ -799,10 +1283,25 @@
             </div>
 
 
-             <div class="card">
-                <img src="img/productos/thunderstrike black.png" alt="gabinete">
+             <div class="card"
+                 data-img="img\des\thunderstrike black des.png"
+                 data-title="Raptor Thunderstrike Black"
+                 data-desc=
+                 "📏 Dimensiones: 390 × 228 × 390 mm
+ 🖼️ Panel frontal: Vidrio templado completo
+ 🖼️ Panel lateral izquierdo: Vidrio templado completo
+ 🧩 Compatibilidad de placa base: Micro ATX, Mini-ITX
+ 🔌 Puertos:1× USB 3.0• 1× USB 2.0• Audio HD
+ 💾 Bahías para unidades: 1× HDD 3.5 • 1× SSD 2.5
+ 🎮 Longitud máxima GPU: 380 mm
+ 🎨 Color: Negro
+" 
+                 data-price="$65.500"
+                 data-video="https://www.instagram.com/reel/DKGhK-3ucba/"
+                 data-subcategoria="Gabinetes ITX/MATX">
+                <img src="img/productos/thunderstrike black.png" alt="Gabinetes ITX/MATX">
                 <h3>Raptor Thunderstrike black</h3>
-                <p>ATX/MATX/ITX – X1 fan RGB</p>
+                <p>MATX/ITX – X1 fan RGB</p>
                 <span class="precio">$65.500</span>
                  <button                 
                  class="btn-add-cart"
@@ -813,10 +1312,25 @@
             </div>
 
 
-            <div class="card">
-                <img src="img/productos/thunderstrike white.png" alt="gabinete">
+            <div class="card"
+                 data-img="img\des\thunderstrike white des.png"
+                 data-title="Raptor Thunderstrike white"
+                 data-desc=
+                 "📏 Dimensiones: 390 × 228 × 390 mm
+ 🖼️ Panel frontal: Vidrio templado completo
+ 🖼️ Panel lateral izquierdo: Vidrio templado completo
+ 🧩 Compatibilidad de placa base: Micro ATX, Mini-ITX
+ 🔌 Puertos:1× USB 3.0• 1× USB 2.0• Audio HD
+ 💾 Bahías para unidades: 1× HDD 3.5 • 1× SSD 2.5
+ 🎮 Longitud máxima GPU: 380 mm
+ 🎨 Color: Blanco
+" 
+                 data-price="$65.500"
+                 data-video="https://www.instagram.com/reel/DKR3zaNusck/"
+                 data-subcategoria="Gabinetes ITX/MATX">
+                <img src="img/productos/thunderstrike white.png" alt="Gabinetes ITX/MATX">
                 <h3>Raptor Thunderstrike White</h3>
-                <p>ATX/MATX/ITX – X1 fan RGB</p>
+                <p>MATX/ITX – X1 fan RGB</p>
                 <span class="precio">$65.500</span>
                  <button                 
                  class="btn-add-cart"
@@ -826,21 +1340,151 @@
                 <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
             </div>
 
+            
+            <div class="card sin-stock"
+                 data-img="img\des\gabinete gigabyrte negro des.png"
+                 data-title="Gabinete Gigabyte c102 glass Black"
+                 data-desc=
+                 "🔧 Especificaciones Principales
+- Formato: Mid Tower
+- Compatibilidad M/B: Mini ITX / Micro ATX
+- Materiales: Acero, Plástico, Vidrio templado
+- Dimensiones: 450 × 210 × 450 mm
+- Slots de expansión: 5
+💾 Almacenamiento
+- Bahías 3.5: 2
+- Bahías 2.5: 2 + 1 (convertible desde 3.5)
+- Bahías 5.25: ❌ (diseño moderno sin lector óptico)
+🎛️ Panel Frontal I/O
+- 2 × USB 3.0 ⚡
+- Botón Reset 🔄
+- Audio HD 🎧🎤
+🌬️ Refrigeración y Flujo de Aire
+- Ventiladores preinstalados:
+- Frontal: 120 mm ×1
+- Trasero: 120 mm ×1
+- Soporte de ventiladores:
+- Frontal: hasta 3 ×120 mm / 2 ×140 mm
+- Superior: hasta 3 ×120 mm / 2 ×140 mm
+- Lateral: hasta 2 ×120 mm
+- Trasero: 1 ×120 mm
+- Soporte de radiadores:
+- Frontal: hasta 360 mm
+- Superior: hasta 360 mm
+- Lateral: hasta 240 mm
+- Trasero: hasta 120 mm
+⚡ Compatibilidad Máxima
+- Altura CPU Cooler: hasta 165 mm
+- Longitud GPU: hasta 410 mm 🎮
+- Longitud PSU: hasta 200 mm (ATX estándar, no incluida)
+🛡️ Extras
+- Filtros de polvo: Superior, Inferior, Lateral ✨
+
+" 
+                 data-price="$65.500">
+                <img src="img/productos/gabinete gigabyrte negro.png" alt="gabinete">
+                <h3>Gabinete Gigabyte c102 glass Black</h3>
+                <p>ATX/MATX/ITX – X2 fan </p>
+                <span class="precio">no disponible</span>
+                 <button                 
+                 class="btn-add-cart"
+                 data-name="Gabinete Gigabyte c102 glass Black"
+                 data-price="">Agregar al carrito>
+                </button>
+                <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
+            </div>
+
+
+            <div class="card sin-stock "
+                 data-img="img\des\gabinete gigabyrte white des.png"
+                 data-title="Gabinete Gigabyte c102 glass White"
+                 data-desc=
+                 "🔧 Especificaciones Principales
+- Formato: Mid Tower
+- Compatibilidad M/B: Mini ITX / Micro ATX
+- Materiales: Acero, Plástico, Vidrio templado
+- Dimensiones: 450 × 210 × 450 mm
+- Slots de expansión: 5
+💾 Almacenamiento
+- Bahías 3.5: 2
+- Bahías 2.5: 2 + 1 (convertible desde 3.5)
+- Bahías 5.25: ❌ (diseño moderno sin lector óptico)
+🎛️ Panel Frontal I/O
+- 2 × USB 3.0 ⚡
+- Botón Reset 🔄
+- Audio HD 🎧🎤
+🌬️ Refrigeración y Flujo de Aire
+- Ventiladores preinstalados:
+- Frontal: 120 mm ×1
+- Trasero: 120 mm ×1
+- Soporte de ventiladores:
+- Frontal: hasta 3 ×120 mm / 2 ×140 mm
+- Superior: hasta 3 ×120 mm / 2 ×140 mm
+- Lateral: hasta 2 ×120 mm
+- Trasero: 1 ×120 mm
+- Soporte de radiadores:
+- Frontal: hasta 360 mm
+- Superior: hasta 360 mm
+- Lateral: hasta 240 mm
+- Trasero: hasta 120 mm
+⚡ Compatibilidad Máxima
+- Altura CPU Cooler: hasta 165 mm
+- Longitud GPU: hasta 410 mm 🎮
+- Longitud PSU: hasta 200 mm (ATX estándar, no incluida)
+🛡️ Extras
+- Filtros de polvo: Superior, Inferior, Lateral ✨
+
+" 
+                 data-price="$65.500">
+                <img src="img/productos/gabinete gigabyrte white.png" alt="gabinete">
+                <h3>Gabinete Gigabyte c102 glass White</h3>
+                <p>ATX/MATX/ITX – X2 Fan</p>
+                <span class="precio">no disponible</span>
+                 <button                 
+                 class="btn-add-cart"
+                 data-name="Gabinete Gigabyte c102 glass White"
+                 data-price="">Agregar al carrito>
+                </button>
+                <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
+            </div>
+
         </div>
 
 
         <h3 id="Procesadores" class="categoria">Procesadores</h3>
-         <div class="ordenar-productos">
-        <button class="sortPrice btn-ordenar">Ordenar por precio</button>
+        <div class="categoria-ui">
+        <div class="filtros-panel">
+        <span class="filtro-titulo">Ordenar por:</span>
+        <label class="switch-precio">
+        <input type="checkbox" class="toggle-precio">
+        <span class="slider"></span>
+        <span class="switch-text">Precio menor a mayor</span>
+        </label>
+        <div class="filtros-categoria">
+        <button class="btn-filtro activo" data-filter="all">Todos</button>
+        <button class="btn-filtro" data-filter="AM4">AM4</button>
+        <button class="btn-filtro" data-filter="AM5">AM5</button>
+        </div>
+        </div>
         </div>
         <div class="productos">
-            <div class="card">
+            <div class="card"
+                 data-img="img/productos/Ryzen 5 5600gt.png"
+                 data-title="Ryzen 5 5600GT"
+                 data-desc=
+                 "⚡ Velocidad reloj: 3.6 GHz (mín) – 4.6 GHz (máx)
+🧩 Ideal para multitarea y alto rendimiento
+🌀 6 núcleos / 12 hilos para máxima potencia
+Incluye Disipador de Stock
+" 
+                 data-price="$295.000"
+                 data-subcategoria="AM4">
                 <img src="img/productos/Ryzen 5 5600gt.png" alt="Procesadores">
                 <h3>Ryzen 5 5600gt</h3>
                 <p> Graficos integrados – 6 nucleos 12 hilos
                     frecuencia: 3.6ghz - 4.6ghz MAX
                 </p>
-                <span class="precio">$293.500</span>
+                <span class="precio">$295.000</span>
                  <button                 
                  class="btn-add-cart"
                  data-name="Ryzen 5 5600gt"
@@ -850,7 +1494,17 @@
             </div>
 
 
-             <div class="card">
+             <div class="card"
+                 data-img="img/productos/ryzen 5 8600G.png"
+                 data-title="Ryzen 5 5600GT"
+                 data-desc=
+                 "🎮 Gráficos integrados: AMD Radeon™ 760M
+⚡ Velocidad reloj: 4.3 GHz (mín) – 5 GHz (máx)
+🧩 Ideal para multitarea y alto rendimiento
+🌀 6 núcleos / 12 hilos para máxima potencia
+" 
+                 data-price="$235.000"
+                 data-subcategoria="AM5">
                 <img src="img/productos/ryzen 5 8600G.png" alt="Procesadores">
                 <h3>Ryzen 5 8600G</h3>
                 <p> Graficos integrados – 6 nucleos 12 hilos
@@ -868,11 +1522,37 @@
 
         
         <h3 id="Placas madres" class="categoria">Placas madres</h3>
-         <div class="ordenar-productos">
-        <button class="sortPrice btn-ordenar">Ordenar por precio</button>
+        <div class="categoria-ui">
+        <div class="filtros-panel">
+        <span class="filtro-titulo">Ordenar por:</span>
+        <label class="switch-precio">
+        <input type="checkbox" class="toggle-precio">
+        <span class="slider"></span>
+        <span class="switch-text">Precio menor a mayor</span>
+        </label>
+        <div class="filtros-categoria">
+        <button class="btn-filtro activo" data-filter="all">Todos</button>
+        <button class="btn-filtro" data-filter="AM4">AM4</button>
+        <button class="btn-filtro" data-filter="AM5">AM5</button>
+        </div>
+        </div>
         </div>
         <div class="productos">
-             <div class="card">
+            <div class="card"
+                 data-img="img/productos/a520m msi.png"
+                 data-title="Motherboard A520M A-PRO"
+                 data-desc=
+                 "🔹 Procesadores soportados: Desktop 3ra Gen AMD Ryzen™ y AMD Ryzen™ 4000 G-Series
+                 💾 Memoria: DDR4 hasta 4600 MHz (OC)
+                 🚀 Turbo M.2: Velocidad PCI-E Gen3 x4 que maximiza el desempeño de SSDs NVMe
+                 ⚡ Core Boost: Distribución premium y diseño energético digital para más núcleos y mejor rendimiento
+                 📡 DDR4 Boost: Señales de datos puras para máximo desempeño y estabilidad
+                 🛡️ PCB reforzado: Capa de cobre gruesa de 2oz que mejora disipación de calor y confiabilidad
+                 🎧 Audio Boost: Sonido con calidad de estudio para una experiencia inmersiva
+                 🐉 Dragon Center: Software exclusivo MSI con todas las herramientas en una interfaz fácil de usar
+                 " 
+                data-price="$89.000"
+                data-subcategoria="AM4">
                 <img src="img/productos/a520m msi.png" alt="Placas madres">
                 <h3>Motherboard A520M A-PRO</h3>
                 <p> AM4 – MSI</p>
@@ -886,7 +1566,20 @@
             </div>
             
             
-            <div class="card">
+            <div class="card"
+                 data-img="img/productos/a620m msi.png"
+                 data-title="Motherboard PRO A620M-E"
+                 data-desc=
+                 "🔌 Socket: AM5 (Compatible con Ryzen 7000/8000)
+                🧩 Chipset: AMD A620
+                💾 Memoria: DDR5, Dual Channel, hasta 96GB (6800+ MHz OC)
+                🚀 Expansión: 1x PCIe 4.0 x16, 1x PCIe 3.0 x1
+                📂 Almacenamiento: 4x SATA III, 1x M.2 Gen 4
+                🎧 Audio: Realtek ALC897
+                🌐 Red: LAN Gigabit
+                🎮 Puertos traseros: HDMI 2.1, VGA, USB 3.2 Gen 1, USB 2.0, RJ-45" 
+                data-price="$125.500"
+                data-subcategoria="AM5">
                 <img src="img/productos/a620m msi.png" alt="Placas madres">
                 <h3>Motherboard PRO A620M-E</h3>
                 <p> AM5 – MSI</p>
@@ -900,9 +1593,18 @@
             </div>
 
 
-            <div class="card sin-stock">
+            <div class="card sin-stock"
+            data-img="img/productos/Asus a520m-K.png"
+            data-name="Motherboard Asus A520m-K"
+            data-desc="- 🔌 Socket AMD AM4: Listo para procesadores de escritorio Ryzen™ 5000 Series / 4000 G-Series / 3000 Series
+- 🌬️ Enfriamiento completo: Disipador de Chipset y Fan Xpert
+- ⚡ Conectividad ultrarrápida: Compatibilidad con M.2, Ethernet de 1 Gb, USB 3.2 Gen 2 tipo A
+- 🛡️ 5X Protection III: Múltiples protecciones de hardware para la protección integral del sistema
+"
+            data-price="$92.000"
+            data-subcategoria="AM4">
                 <img src="img/productos/Asus a520m-K.png" alt="Placas madres">
-                <h3>Motherboard a520m-K</h3>
+                <h3>Motherboard Prime a520m-K</h3>
                 <p> AM4 – ASUS</p>
                 <span class="precio">$92.000</span>
                  <button                 
@@ -916,9 +1618,32 @@
 
 
 
-        <h3 id="Memorias Ram" class=" categoria">Memorias ram</h3> 
+        <h3 id="Memorias Ram" class=" categoria">Memorias ram</h3>
+        <div class="categoria-ui">
+        <div class="filtros-panel">
+        <span class="filtro-titulo">Ordenar por:</span>
+        <label class="switch-precio">
+        <input type="checkbox" class="toggle-precio">
+        <span class="slider"></span>
+        <span class="switch-text">Precio menor a mayor</span>
+        </label>
+        <div class="filtros-categoria">
+        <button class="btn-filtro activo" data-filter="all">Todos</button>
+        <button class="btn-filtro" data-filter="DDR4">DDR4</button>
+        <button class="btn-filtro" data-filter="DDR5">DDR5</button>
+        </div>
+        </div>
+        </div> 
         <div class="productos">
-            <div class="card">
+            <div class="card"
+                 data-img="img/productos/memoria ram ddr4 hiksemi armor 8gb 3200mhz.png"
+                 data-title="Memoria ram dd4 hiksemi armor 8gb"
+                 data-desc=
+                 "Frecuencia 3200mhz 
+                    Disipacion: si 
+                    Tipo: DDR4" 
+                 data-subcategoria="DDR4"   
+                >
                 <img src="img/productos/memoria ram ddr4 hiksemi armor 8gb 3200mhz.png" alt="memoria">
                 <h3>Memoria ram dd4 hiksemi armor 8gb  </h3>
                 <p> Frecuencia 3200mhz 
@@ -930,7 +1655,14 @@
             </div>
 
 
-            <div class="card">
+            <div class="card"
+                 data-img="img/productos/memoria ram dd4 hiksemi hiker.png"
+                 data-title="Memoria ram dd4 hiksemi hiker 8gb"
+                 data-desc=
+                 "Frecuencia 3200mhz 
+                    Disipacion: NO
+                    Tipo: DDR4"
+                 data-subcategoria="DDR4">
                 <img src="img/productos/memoria ram dd4 hiksemi hiker.png" alt="memoria">
                 <h3>Memoria ram dd4 hiksemi hiker 8gb  </h3>
                 <p> Frecuencia 3200mhz 
@@ -979,60 +1711,295 @@
         
 
         <h3 id="fuentes" class="categoria">FUENTES</h3>
-         <div class="ordenar-productos">
-        <button class="sortPrice btn-ordenar">Ordenar por precio</button>
+         <div class="categoria-ui">
+        <div class="filtros-panel">
+        <span class="filtro-titulo">Ordenar por:</span>
+        <label class="switch-precio">
+        <input type="checkbox" class="toggle-precio">
+        <span class="slider"></span>
+        <span class="switch-text">Precio menor a mayor</span>
+        </label>
+        <div class="filtros-categoria">
+        <button class="btn-filtro activo" data-filter="all">Todos</button>
+        <button class="btn-filtro" data-filter="450w">450w</button>
+        <button class="btn-filtro" data-filter="550w">550w</button>
+        <button class="btn-filtro" data-filter="600w">600w</button>
+        <button class="btn-filtro" data-filter="650w">650w</button>
+        <button class="btn-filtro" data-filter="700w">700w</button>
+        <button class="btn-filtro" data-filter="750w">750w</button>
+        <button class="btn-filtro" data-filter="800w">800w</button>
+        <button class="btn-filtro" data-filter="1000w">1000w</button>
+        </div>
+        </div>
         </div>
         <div class="productos">
-            <div class="card sin-stock">
+            <div class="card sin-stock"
+                 data-img="img\des\fuente raptor 800w 80 plus gold des.png"
+                 data-title="Fuente Raptor Volt 800w"
+                 data-desc=
+                 "Color: Negro
+Certificación de eficiencia: 80 Plus Gold
+Diámetro del ventilador: 12 cm
+Frecuencia: 60 Hz
+Tipo de modulación: Modular
+Con funcionamiento silencioso: Sí
+Con iluminación RGB: No
+Potencial: 800W
+Entrada de CA: 100V-240V
+Conectores:24PIN (20+4PIN)SATA + SATA + IDE PCIE 5.1 8PIN (4+4PIN) 8PIN (6+2PIN)"
+                 data-price="$141500"
+                 data-subcategoria="800w">  
                 <img src="img/productos/fuente raptor 800w 80 plus gold.png" alt="fuentes">
-                <h3>Raptor Volt 800w</h3>
+                <h3>Fuente Raptor Volt 800w</h3>
                 <p> Full modular – 80 plus Gold</p>
                 <span class="precio">$141.500</span>
                  <button                 
                  class="btn-add-cart"
-                 data-name="Microfono Raptor vox"
+                 data-name="Fuente Raptor Volt 800w"
                  data-price="141500">Agregar al carrito>
                 </button>
                 <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
             </div>
 
 
-            <div class="card sin-stock">
+             <div class="card sin-stock "
+                 data-img="img\des\fuente raptor 800w 80 plus gold des.png"
+                 data-title="Fuente Raptor Volt 1000w"
+                 data-desc=
+                 "Color: Negro
+Certificación de eficiencia: 80 Plus Gold
+Diámetro del ventilador: 12 cm
+Frecuencia: 60 Hz
+Tipo de modulación: Modular
+Con funcionamiento silencioso: Sí
+Con iluminación RGB: No
+Potencial: 1000W
+Entrada de CA: 100V-240V
+Conectores:24PIN (20+4PIN)SATA + SATA + IDE PCIE 5.1 8PIN (4+4PIN) 8PIN (6+2PIN)"
+                 data-price="$141.500"
+                 data-subcategoria="1000w">
                 <img src="img/productos/fuente raptor 800w 80 plus gold.png" alt="fuentes">
-                <h3>Raptor Volt 1000w</h3>
+                <h3>Fuente Raptor Volt 1000w</h3>
                 <p> Full modular – 80 plus Gold</p>
                 <span class="precio">$149.000</span>
                  <button                 
                  class="btn-add-cart"
-                 data-name="Raptor Volt 1000w"
+                 data-name="Fuente Raptor Volt 1000w"
                  data-price="149000">Agregar al carrito>
                 </button>
                 <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
             </div>
 
 
-            <div class="card">
+            <div class="card"
+                 data-img="img\des\raptor 650w 80plus bronze des.png"
+                 data-title="Fuente Raptor Volt 650w"
+                 data-desc=
+                 "650w – 80 plus Bronze"
+                 data-price="$77.000"
+                 data-subcategoria="650w">
                 <img src="img/productos/raptor 650w 80plus bronze.png" alt="fuentes">
-                <h3>Raptor Volt 650w</h3>
+                <h3>Fuente Raptor Volt 650w</h3>
                 <p> 650w – 80 plus Bronze</p>
-                <span class="precio">$82.000</span>
+                <span class="precio">$77.000</span>
                 <button                 
                  class="btn-add-cart"
-                 data-name="Raptor Volt 650w"
-                 data-price="82000">Agregar al carrito>
+                 data-name="Fuente Raptor Volt 650w"
+                 data-price="77000">Agregar al carrito>
                 </button>
                 <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
             </div>
+
+
+           
+            <div class="card sin-stock"
+                 data-img="img\des\FUENTE GIGABYTE 450 des.png"
+                 data-title="Fuente Gigabyte 450w 80plus bronze"
+                 data-desc=
+                 "- ⚡ Capacidad de salida: 450W
+- 📏 Dimensiones: 150 × 140 × 86 mm
+- 🌬️ Tipo de ventilador: Ventilador HYB de 120 mm con rodamiento hidráulico
+- 🥉 Certificación 80 PLUS: Bronze
+- 🔋 Eficiencia: 85% en carga típica
+- ⏳ MTBF: >100,000 horas
+- 🛡️ Protecciones: OVP / OPP / SCP / UVP / OCP / OTP
+- 📶 Power Good Signal: 100–500 ms
+- ⏱️ Tiempo de retención (Hold Up Time): >16 ms
+- 🧵 Tipo de cable: Plano, todo negro
+- 🔌 Conectores:
+- ATX/MB 20+4 Pin × 1 : 550 mm ×1
+- CPU/EPS 4+4 Pin × 1 : 600 mm ×1
+- PCI-e 6+2 Pin × 2 : 550 mm + 150 mm ×1
+- SATA × 6 : 500 mm + 120 mm + 120 mm ×2
+- 4 Pin Peripheral × 3 + 4-Pin Floppy × 1 : 500 mm + 120 mm + 120 mm + 120 mm ×1
+"
+                 data-price="$61.500"
+                 data-subcategoria="450w">  
+                <img src="img/productos/FUENTE GIGABYTE 450.png" alt="fuentes">
+                <h3>Fuente Gigabyte 450w 80plus bronze</h3>
+                <p> Similar 500w – 80 plus Bronze</p>
+                <span class="precio">$61.500</span>
+                 <button                 
+                 class="btn-add-cart"
+                 data-name="Fuente Gigabyte 450w 80plus bronze"
+                 data-price="61500">Agregar al carrito>
+                </button>
+                <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
+            </div>
+
+
+            <div class="card sin-stock"
+                 data-img="img\des\FUENTE GIGABYTE 750 BLACK des.png"
+                 data-title="Fuente Gigabyte 750w 80plus bronze"
+                 data-desc=
+                 "- ⚡ Capacidad de salida: 750W
+- 📏 Dimensiones: 150 × 140 × 86 mm
+- 🌬️ Tipo de ventilador: Ventilador FDB de 120 mm con rodamiento dinámico de fluido
+- 🥉 Certificación 80 PLUS: Bronze (230V EU)
+- 🔋 Eficiencia: 88% en carga típica
+- ⏳ MTBF: >100,000 horas
+- 🛡️ Protecciones: OVP / OPP / SCP / UVP / OCP / OTP
+- 📶 Power Good Signal: 100–150 ms
+- ⏱️ Tiempo de retención (Hold Up Time): >16 ms
+- 🧵 Tipo de cable: Grabado, todo negro
+- 🔌 Conectores:
+- ATX/MB 20+4 Pin × 1 : 600 mm ×1
+- CPU/EPS 4+4 Pin × 2 : 600 mm + 150 mm ×1
+- PCI-E 6+2 Pin × 4 : 500 mm + 150 mm ×2
+- SATA × 4 : 500 mm + 150 mm + 150 mm + 150 mm ×1
+- SATA × 3 + Peripheral ×1 : 500 mm + 150 mm + 150 mm + 150 mm ×1
+"
+                 data-price="$90.500"
+                 data-subcategoria="750w">  
+                <img src="img/productos/FUENTE GIGABYTE 750 BLACK.png" alt="fuentes">
+                <h3>Fuente Gigabyte 750w 80plus bronze</h3>
+                <p> 750w – 80 plus Bronze</p>
+                <span class="precio">$120.500</span>
+                 <button                 
+                 class="btn-add-cart"
+                 data-name="Fuente Gigabyte 750w 80plus bronze"
+                 data-price="90500">Agregar al carrito>
+                </button>
+                <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
+            </div>
+
+
+            <div class="card sin-stock"
+                 data-img="img\des\FUENTE GIGABYTE 550 BLACK des.png"
+                 data-title=">Fuente Gigabyte 550w 80plus Silver"
+                 data-desc=
+                 "- - ⚡ Capacidad de salida: 550W
+- 📏 Dimensiones: 150 × 140 × 86 mm
+- 🌬️ Tipo de ventilador: Ventilador FDB de 120 mm con rodamiento dinámico de fluido
+- 🥈 Certificación 80 PLUS: Silver
+- 🔋 Eficiencia: 90% en carga típica (230V EU)
+- ⏳ MTBF: >100,000 horas
+- 🛡️ Protecciones: OVP / OPP / SCP / UVP / OCP / OTP
+- 📶 Power Good Signal: 100–150 ms
+- ⏱️ Tiempo de retención (Hold Up Time): >16 ms
+- 🧵 Tipo de cable: Plano, todo negro
+- 🔌 Conectores:
+- ATX/MB 20+4 Pin × 1 : 600 mm ×1
+- CPU/EPS 4+4 Pin × 1 : 650 mm ×1
+- PCI-e 6+2 Pin × 2 : 600 mm + 120 mm ×1
+- SATA × 3 + 4 Pin Peripheral ×1 : 500 mm + 120 mm + 120 mm + 120 mm ×1
+- SATA × 2 + 4 Pin Peripheral ×2 : 500 mm + 120 mm + 120 mm + 120 mm ×1
+"
+                 data-price="$90.500"
+                 data-subcategoria="550w">  
+                <img src="img/productos/FUENTE GIGABYTE 550 BLACK.png" alt="fuentes">
+                <h3>Fuente Gigabyte 550w Black 80plus Silver</h3>
+                <p> 550w – 80 plus Silver</p>
+                <span class="precio">$90.500</span>
+                 <button                 
+                 class="btn-add-cart"
+                 data-name="Fuente Gigabyte 550w Black 80plus Silver"
+                 data-price="90500">Agregar al carrito>
+                </button>
+                <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
+            </div>
+
+
+            <div class="card sin-stock"
+                 data-img="img\des\FUENTE GIGABYTE 550 WHITE des.png"
+                 data-title="Fuente Gigabyte 550w Ice 80plus Silver"
+                 data-desc=
+                 "- - ⚡ Capacidad de salida: 550W
+- 📏 Dimensiones: 150 × 140 × 86 mm
+- 🌬️ Tipo de ventilador: Ventilador FDB de 120 mm con rodamiento dinámico de fluido
+- 🥈 Certificación 80 PLUS: Silver
+- 🔋 Eficiencia: 90% en carga típica (230V EU)
+- ⏳ MTBF: >100,000 horas
+- 🛡️ Protecciones: OVP / OPP / SCP / UVP / OCP / OTP
+- 📶 Power Good Signal: 100–150 ms
+- ⏱️ Tiempo de retención (Hold Up Time): >16 ms
+- 🧵 Tipo de cable: Plano, todo negro
+- 🔌 Conectores:
+- ATX/MB 20+4 Pin × 1 : 600 mm ×1
+- CPU/EPS 4+4 Pin × 1 : 650 mm ×1
+- PCI-e 6+2 Pin × 2 : 600 mm + 120 mm ×1
+- SATA × 3 + 4 Pin Peripheral ×1 : 500 mm + 120 mm + 120 mm + 120 mm ×1
+- SATA × 2 + 4 Pin Peripheral ×2 : 500 mm + 120 mm + 120 mm + 120 mm ×1
+"
+                 data-price="$120.500"
+                 data-subcategoria="550w">  
+                <img src="img/productos/FUENTE GIGABYTE 550 BLACK.png" alt="fuentes">
+                <h3>Fuente Gigabyte 550w Ice 80plus Silver</h3>
+                <p> 550w – 80 plus Silver</p>
+                <span class="precio">$90.500</span>
+                 <button                 
+                 class="btn-add-cart"
+                 data-name="Fuente Gigabyte 550w Ice 80plus Silver"
+                 data-price="90500">Agregar al carrito>
+                </button>
+                <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
+            </div>
+
+
+
         </div>
 
             
         <h3 id="refrigeracion" class="categoria">REFRIGERACION</h3>
-         <div class="ordenar-productos">
-        <button class="sortPrice btn-ordenar">Ordenar por precio</button>
+        <div class="categoria-ui">
+        <div class="filtros-panel">
+        <span class="filtro-titulo">Ordenar por:</span>
+        <label class="switch-precio">
+        <input type="checkbox" class="toggle-precio">
+        <span class="slider"></span>
+        <span class="switch-text">Precio menor a mayor</span>
+        </label>
+        <div class="filtros-categoria">
+        <button class="btn-filtro activo" data-filter="all">Todos</button>
+        <button class="btn-filtro" data-filter="Water cooling">Water cooling</button>
+        <button class="btn-filtro" data-filter="Cooler cpu Torre">Cooler cpu Torre</button>
+        <button class="btn-filtro" data-filter="Fan Chasis">Fan Chasis</button>
+        <button class="btn-filtro" data-filter="Pastas Termicas">Pastas Termicas</button>
+        <button class="btn-filtro" data-filter="Thermalpads">Thermalpads</button>
+        </div>
+        </div>
         </div>
         <div class="productos">  
-             <div class="card">
-                <img src="img/productos/raptor 240 water display.png" alt="refrigercion">
+             <div class="card"
+                 data-img="img\des\raptor 240 water display des.png"
+                 data-title="Water cooling Raptor Aqua 240 pro"
+                 data-desc=
+                 "⚡ Potencia:250 W
+📏 Tamaño del producto: 277 x 120 x 27mm
+🧱 Materiales: Cobre + Aluminio
+🌬️ Cantidad de ventiladores: 2
+🎨 Color: Negro
+📐 Dimensiones: 120 x 120 x 25mm*2
+🚀 Velocidad: 800 – 1900 RPM ±10%
+🔧 Tipo de rodamiento: Hidráulico
+💨 Flujo de aire: 75 CFM ±10%
+📊 Presión estática: 1.97 mmH₂O
+🔋 Voltaje: 12 VDC / 5 VDC
+⚙️ Potencia: 3.3 W
+🌈retroiluminación: argb "
+                 data-price="$111.000"
+                 data-subcategoria="Water cooling">
+                <img src="img/productos/raptor 240 water display.png" alt="Water cooling">
                 <h3>water cooling Raptor Aqua 240 pro</h3>
                 <p> ARGB – Con display</p>
                 <span class="precio">$111.000</span>
@@ -1045,51 +2012,121 @@
             </div>
 
 
-            <div class="card">
-                <img src="img/productos/raptor 360 water display.png" alt="refrigercion">
-                <h3>water cooling Raptor Aqua 360 pro</h3>
+            <div class="card"
+                 data-img="img\des\raptor 360 water display des.png"
+                 data-title="Water cooling Raptor Aqua 360 pro"
+                 data-desc=
+                 "⚡ Potencia:300 W
+📏 Tamaño del producto: 397 × 120 × 27 mm
+🧱 Materiales: Cobre + Aluminio
+🌬️ Cantidad de ventiladores: 3
+🎨 Color: Negro
+📐 Dimensiones: 120 × 120 × 25 mm*3
+🚀 Velocidad: 800 – 1900 RPM ±10%
+🔧 Tipo de rodamiento: Hidráulico
+💨 Flujo de aire: 75 CFM ±10%
+📊 Presión estática: 1.97 mmH₂O
+🔋 Voltaje: 12 VDC / 5 VDC
+⚙️ Potencia: 3.3 W
+🌈retroiluminación: argb 
+💧bomba: 2500 rpm ±10% "
+                 data-price="$130.500"
+                data-subcategoria="Water cooling">
+                <img src="img/productos/raptor 360 water display.png" alt="Water cooling">
+                <h3>Water Cooling Raptor Aqua 360 pro</h3>
                 <p> ARGB – Con display</p>
                 <span class="precio">$130.500</span>
                 <button                 
                  class="btn-add-cart"
-                 data-name="water cooling Raptor Aqua 360 pro"
+                 data-name="Water Cooling Raptor Aqua 360 pro"
                  data-price="130500">Agregar al carrito>
                 </button>
                 <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
             </div>
 
 
-            <div class="card">
-                <img src="img/productos/raptor 240 water.png" alt="refrigercion">
+            <div class="card"
+                 data-img="img/des/raptor 240 water des.png"
+                 data-title="Water cooling Raptor Aqua 240 Core"
+                 data-desc=
+                 "⚡ Potencia:250 W
+📏 Tamaño del producto: 272 x 120 x 27mm
+🧱 Materiales: Cobre + Aluminio
+🌬️ Cantidad de ventiladores: 2
+🎨 Color: Negro
+📐 Dimensiones: 120 x 120 x 25mm*2
+🚀 Velocidad: 800 – 1800 RPM ±10%
+🔧 Tipo de rodamiento: Hidráulico
+💨 Flujo de aire: 75 CFM ±10%
+📊 Presión estática: 1.97 mmH₂O
+🔋 Voltaje: 12 VDC / 5 VDC
+⚙️ Potencia: 3.3 W
+🌈retroiluminación: argb "
+                 data-price="$98.500"
+                 data-subcategoria="Water cooling">
+                <img src="img/productos/raptor 240 water.png" alt="Water cooling">
                 <h3>water cooling Raptor Aqua 240 core</h3>
                 <p> ARGB – 240mm</p>
-                <span class="precio">$92.000</span>
+                <span class="precio">$98.500</span>
                 <button                 
                  class="btn-add-cart"
                  data-name="water cooling Raptor Aqua 240 core"
-                 data-price="92000">Agregar al carrito>
+                 data-price="98.500">Agregar al carrito>
                 </button>
                 <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
             </div>
 
 
-            <div class="card">
-                <img src="img/productos/raptor 360 water.png" alt="refrigercion">
+            <div class="card"
+                 data-img="img\des\raptor 360 water.png"
+                 data-title="Water cooling Raptor Aqua 360 Core"
+                 data-desc=
+                 "⚡ Potencia:280 W
+📏 Tamaño del producto: 393 × 120 × 27 mm
+🧱 Materiales: Cobre + Aluminio
+🌬️ Cantidad de ventiladores: 3
+🎨 Color: Negro
+📐 Dimensiones: 120 × 120 × 25 mm*3
+🚀 Velocidad: 800 – 1800 RPM ±10%
+🔧 Tipo de rodamiento: Hidráulico
+💨 Flujo de aire: 75 CFM ±10%
+📊 Presión estática: 1.97 mmH₂O
+🔋 Voltaje: 12 VDC / 5 VDC
+⚙️ Potencia: 3.3 W
+🌈retroiluminación: argb  "
+                 data-price="$109.500"
+                 data-subcategoria="Water cooling">
+                <img src="img/productos/raptor 360 water.png" alt="Water cooling">
                 <h3>water cooling Raptor Aqua 360 core</h3>
                 <p> ARGB – 360mm</p>
-                <span class="precio">$102.500</span>
+                <span class="precio">$109.500</span>
                 <button                 
                  class="btn-add-cart"
                  data-name="water cooling Raptor Aqua 360 core"
-                 data-price="102500">Agregar al carrito>
+                 data-price="109500">Agregar al carrito>
                 </button>
                 <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
             </div>
 
 
-            <div class="card">
-                <img src="img/productos/msi a13 240.png" alt="refrigercion">
-                <h3>water cooling Msi A13 240</h3>
+            <div class="card"
+                 data-img="img\des\msi a13 240 des.png"
+                 data-title="Water cooling Msi A13 240"
+                 data-desc=
+                 "📐 Dimensiones: Radiador 277 × 119,6 × 27 mm / Bloque 70,9 × 69,3 × 56,98 mm / Ventiladores 120 × 120 × 25 mm
+🧵 Materiales: Radiador de aluminio / Placa fría de cobre / Tubos EPDM
+🧠 Compatibilidad de zócalos: Intel LGA 1700 / 1851 – AMD AM5 / AM4
+⚙️ Velocidad de bomba: 3800 RPM ±10%
+🔋 Consumo: Bomba 2,88 W / 0,24 A – Ventiladores 1,8 W (máx. 2,16 W) / 0,15 A (máx. 0,18 A)
+🔇 Ruido de bomba: 20 dBA promedio
+💡 Iluminación: ARGB Gen2 en bloque y ventiladores
+🔌Conectores: Bomba 3 pines + 3 pines ARGB 5V (hembra) / Ventiladores 3 pines ARGB 5V + PWM (450 mm)
+⏳Expectativa de vida: Bomba 25.000 horas / Ventiladores 40.000 horas a 40 °C
+"
+                 data-price="$126.000"
+                 data-subcategoria="Water cooling">
+                <img src="img/productos/msi a13 240.png" alt="Water cooling">
+                <h3>Water cooling Msi A13 240</h3>
                 <p> ARGB – 240mm</p>
                 <span class="precio">$126.000</span>
                 <button                 
@@ -1101,68 +2138,146 @@
             </div>
 
 
-            <div class="card">
-                <img src="img/productos/raptor cryo.png" alt="refrigercion">
+            <div class="card"
+                 data-img="img/productos/raptor cryo.png"
+                 data-title="Cooler Cpu Raptor Cryo RGB"
+                 data-desc=
+                 "📏 Tamaño del producto : 95(L) × 65(W) × 133(H) mm
+🌬️ Tamaño del ventilador : 92 × 92 × 25 mm
+⚡ Velocidad del ventilador : 2000 RPM ±10%
+⚖️ Peso : 310 g
+🔌 Conector : 3 pines
+🛠️ Tipo de rodamiento : Hidráulico automático
+🔋 Voltaje de arranque : 7 VDC
+🔋 Voltaje nominal : 12 VDC
+🔋 Corriente nominal : 0.2 A ±10%
+💨 Flujo de aire : 48 CFM
+🔇 Relación señal-ruido : 18 dBA ±10%
+⏳ Vida útil : 50.000 horas
+"
+                 data-price="$18.000"
+                 data-video=""
+                 data-subcategoria="Cooler cpu Torre">
+                <img src="img/productos/raptor cryo.png" alt="Cooler CPU">
                 <h3>Cooler Cpu Raptor Cryo RGB</h3>
                 <p> RGB estatico – 2000rpm
                     compatible con intel/amd
                 </p>
-                <span class="precio">$17.500</span>
+                <span class="precio">$18.000</span>
                 <button                 
                  class="btn-add-cart"
                  data-name="Cooler Cpu Raptor Cryo RGB"
-                 data-price="17500">Agregar al carrito>
+                 data-price="18000">Agregar al carrito>
                 </button>
                 <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
             </div>
 
 
-            <div class="card">
-                <img src="img/productos/Kelyx dispador cpu.png" alt="refrigercion">
+            <div class="card"
+             data-img="img/productos/Kelyx dispador cpu.png"
+                 data-title="Kelyx dispador cpu"
+                 data-desc=
+                 "CARACTERISTICAS
+📦 Dimensión: 95(L)*65(W)*133(H)mm
+⚖️ Peso: 310g
+🔗 Interfaz: AMD(AM4/AM5)/INTEL 
+⚡ Potencia: 95W MAX
+🌀Tipo de rodamiento: Hidráulico 
+🌬️ Velocidad del ventilador: 2000RPM
+"
+                 data-price="$15.000"
+                 data-video=""
+                 data-subcategoria="Cooler cpu Torre">
+                <img src="img/productos/Kelyx dispador cpu.png" alt="Cooler CPU">
                 <h3>Kelyx dispador cpu</h3>
                 <p> sin RGB – 2000rpm
                     compatible con intel/amd
                 </p>
-                <span class="precio">$14.000</span>
+                <span class="precio">$15.000</span>
                 <button                 
                  class="btn-add-cart"
                  data-name="Kelyx dispador cpu"
-                 data-price="11000">Agregar al carrito>
+                 data-price="15000">Agregar al carrito>
                 </button>
                 <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
             </div>
 
 
-             <div class="card">
-                <img src="img/productos/astria 200.png" alt="refrigercion">
+             <div class="card"
+                 data-img="img\des\astria 200 des.png"
+                 data-title="Cooler Cpu Thermaltake Astria 200"
+                 data-desc=
+                 "📐 Dimensiones: 124 × 93 × 160 mm (L × W × H)
+ 🏗️ Material del disipador: Aletas de aluminio & heatpipes de cobre
+ 🔩 Heatpipe: Φ6mm × 4 pcs
+ 🌬️ Ventilador: 120 × 120 × 25 mm
+ 🔄 Cantidad de ventiladores: 1 pcs
+ ⚙️ Velocidad del ventilador: PWM 500 ~ 1800 RPM
+ 🔌 Consumo de energía: LED: 3.25 W | Ventilador: 1.8 W & 1.55 W
+ 💨 Flujo de aire: 65.0 CFM
+ 🔇 Ruido acústico: 26.8 dBA
+ ⏳ Vida útil del ventilador: 40,000 horas
+ 🔗 Conexiones: 5V ARGB y pwm
+ ❄️ Capacidad de enfriamiento: 210 W
+ LGA 2066/2011/1851/1700/1200/1156/1155/1151/1150
+ AM5 / AM4"
+                 data-price="$72.500"
+                 data-video=""
+                 data-subcategoria="Cooler cpu Torre">
+                <img src="img/productos/astria 200.png" alt="Cooler CPU">
                 <h3>Cooler Cpu Thermaltake Astria 200</h3>
                 <p> ARGB – 210w</p>
-                <span class="precio">$71.500</span>
+                <span class="precio">$72.500</span>
                 <button                 
                  class="btn-add-cart"
                  data-name="Cooler Cpu Thermaltake Astria 200"
-                 data-price="53500">Agregar al carrito>
+                 data-price="72500">Agregar al carrito>
                 </button>
                 <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
             </div>
 
 
-            <div class="card ">
-                <img src="img/productos/thermaltake ux 200.png" alt="refrigercion">
+            <div class="card "
+                 data-img="img\des\thermaltake ux 200 des.png"
+                 data-title="Cooler Cpu Thermaltake UX 200"
+                 data-desc=
+                 "📐 Dimensiones: 122 × 61 × 156.2 mm L × W × H
+🌬️ Ventilador: 120 × 120 × 25 mm
+⚙️ Velocidad del ventilador: PWM 800 ~ 1800 RPM
+🔇 Ruido acústico: 25.0 dBA
+🔌 Conexión: 5V aRGB header + 2510 - 4Pin
+❄️ Capacidad de enfriamiento: 170 W
+AM5 / AM4 / FM2 / FM1 / AM3+ / AM3 / AM2+ / AM2
+ LGA 1851 / 1700 / 1200 / 1156 / 1155 / 1151 / 1150"
+                 data-price="$59.000"
+                 data-video=""
+                 data-subcategoria="Cooler cpu Torre">
+                <img src="img/productos/thermaltake ux 200.png" alt="Cooler CPU">
                 <h3>Cooler Cpu Thermaltake UX200</h3>
                 <p> ARGB – 170w</p>
-                <span class="precio">$58.500</span>
+                <span class="precio">$59000</span>
                 <button                 
                  class="btn-add-cart"
                  data-name="Cooler Cpu Thermaltake UX200"
-                 data-price="58500">Agregar al carrito>
+                 data-price="59000">Agregar al carrito>
                 </button>
                 <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
             </div>
 
 
-            <div class="card ">
-                <img src="img/productos/Cooler Fan 120x120mm Frost.png" alt="refrigercion">
+            <div class="card"
+                 data-img="img/productos/Cooler Fan 120x120mm Frost.png"
+                 data-title="Cooler Fan Raptor Frost"
+                 data-desc=
+                 "CARACTERISTICAS
+📦 Dimensión: 120*120mm
+🔗 Interfaz: pwm argb 
+🌀 Tipo de rodamiento: Hidráulico 
+🌬️ Velocidad del ventilador: 2000RPM"
+                 data-price="$12.500"
+                 data-video=""
+                 data-subcategoria="Fan Chasis">
+                <img src="img/productos/Cooler Fan 120x120mm Frost.png" alt="Cooler Fan">
                 <h3>Cooler Fan Raptor Frost</h3>
                 <p> ARGB 3 pines – pwm 120mm</p>
                 <span class="precio">$12.500</span>
@@ -1175,8 +2290,19 @@
             </div>
 
 
-            <div class="card ">
-                <img src="img/productos/Pasta Raptor Ice 4g.png" alt="refrigercion">
+            <div class="card"
+                 data-img="img/productos/Pasta Raptor Ice 4g.png"
+                 data-title="Pasta termica Raptor ICE"
+                 data-desc=
+                 "Especificaciones
+Conductividad Térmica  >8,3w/m-K
+Gravedad Especifica  >3,65
+Rango de Temperatura  -50°C - 150°C
+Impedancia Térmica  0.0014 "
+                 data-price="$9.500"
+                 data-video=""
+                 data-subcategoria="Pastas Termicas">
+                <img src="img/productos/Pasta Raptor Ice 4g.png" alt="Pasta Termica">
                 <h3>Pasta termica Raptor ICE</h3>
                 <p> Alto rendimiento 4g – 8.3w/mk</p>
                 <span class="precio">$9.500</span>
@@ -1189,22 +2315,44 @@
             </div>
 
 
-            <div class="card ">
-                <img src="img/productos/Pasta termica arctic 4G.png" alt="refrigercion">
+            <div class="card"
+                 data-img="img/productos/Pasta Raptor Ice 4g.png"
+                 data-title="Pasta termica Arctic Mx-4"
+                 data-desc=
+                 "CONDUCTIVIDAD TERMICA
+                 alto rendimiento
+                 8.5W/M-K"
+                 data-price="$10.500"
+                 data-video=""
+                 data-subcategoria="Pastas Termicas">
+                <img src="img/productos/Pasta termica arctic 4G.png" alt="Pasta Termica">
                 <h3>Pasta termica Arctic Mx-4</h3>
                 <p> Alto rendimiento 4g – 8.5w/mk</p>
-                <span class="precio">$10.000</span>
+                <span class="precio">$10.500</span>
                 <button                 
                  class="btn-add-cart"
                  data-name="Pasta termica Arctic Mx-4"
-                 data-price="10000">Agregar al carrito>
+                 data-price="10500">Agregar al carrito>
                 </button>
                 <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
             </div>
 
 
-            <div class="card ">
-                <img src="img/productos/pad termico Uranus 0.5mm 50x50.png" alt="refrigercion">
+            <div class="card"
+                 data-img="img/productos/pad termico Uranus 0.5mm 50x50.png"
+                 data-title="Pad termico Uranus 0.5mm 50x50"
+                 data-desc=
+                 "CARACTERISTICAS: 
+TRANSFERENCIA TERMICA: 12W/M-K 
+GROSOR: 0.5MM
+DIMENSION: 90MM X 50MM
+TEMPERATURAS DE TRABAJO: -40°/250°C
+
+"
+                 data-price="$8.500"
+                 data-video=""
+                 data-subcategoria="Thermalpads">
+                <img src="img/productos/pad termico Uranus 0.5mm 50x50.png" alt="Thermald pads">
                 <h3>Pad termico Uranus 0.5mm 50x50</h3>
                 <p> Alto rendimiento 50x50 – 12w/mk</p>
                 <span class="precio">$8.500</span>
@@ -1217,8 +2365,20 @@
             </div>
 
 
-            <div class="card ">
-                <img src="img/productos/pad termico Uranus 1mm 90x50.png" alt="refrigercion">
+            <div class="card"
+                 data-img="img/productos/pad termico Uranus 1mm 90x50.png"
+                 data-title="Pad termico Uranus 1.0mm 90x50"
+                 data-desc=
+                 "CARACTERISTICAS: 
+TRANSFERENCIA TERMICA: 12W/M-K 
+GROSOR: 1MM
+DIMENSION: 90MM X 50MM
+TEMPERATURAS DE TRABAJO: -40°/250°C
+
+"
+                 data-price="$8.500"
+                 data-video="">
+                <img src="img/productos/pad termico Uranus 1mm 90x50.png" alt="Thermald pads">
                 <h3>Pad termico Uranus 1.0mm 90x50</h3>
                 <p> Alto rendimiento 90x50 – 12w/mk</p>
                 <span class="precio">$8.500</span>
@@ -1233,35 +2393,119 @@
 
 
         <h3 id="monitores" class="categoria">MONITORES</h3>
-         <div class="ordenar-productos">
-        <button class="sortPrice btn-ordenar">Ordenar por precio</button>
+        <div class="categoria-ui">
+        <div class="filtros-panel">
+        <span class="filtro-titulo">Ordenar por:</span>
+        <label class="switch-precio">
+        <input type="checkbox" class="toggle-precio">
+        <span class="slider"></span>
+        <span class="switch-text">Precio menor a mayor</span>
+        </label>
+        <div class="filtros-categoria">
+        <button class="btn-filtro activo" data-filter="all">Todos</button>
+        <button class="btn-filtro" data-filter="100hz">100hz</button>
+        <button class="btn-filtro" data-filter="200hz">200hz</button>
+        </div>
+        </div>
         </div>
         <div class="productos">  
-            <div class="card">
+            <div class="card"
+            data-img="img/productos/monitor lg 24.png"
+                 data-title="Pad termico Uranus 1.0mm 90x50"
+                 data-desc=
+                 "📏 Tamaño: 23.8 pulgadas
+🖼️ Resolución: 1920 x 1080 (Full HD)
+🌈 Panel: IPS NTSC 72% (CIE1931)
+🧱 Relación de aspecto: 16:9
+💡 Brillo típico: 250 cd/m²
+🔁 Frecuencia de actualización: Hasta 100 Hz
+⚡ Tiempo de respuesta: 5 ms (GtG en modo rápido)
+🔧 Ajuste de posición: Inclinación
+"
+                 data-price="$189.000"
+                 data-video=""
+                 data-subcategoria="100hz">
                 <img src="img/productos/monitor lg 24.png" alt="Monitor">
                 <h3>Monitor LG 24MS500 100hz</h3>
                 <p> 23.8" – 10hz panel IPS</p>
-                <span class="precio">$186.500</span>
+                <span class="precio">$189.000</span>
                 <button                 
                  class="btn-add-cart"
                  data-name="Monitor LG 24MS500 100hz"
-                 data-price="186500">Agregar al carrito>
+                 data-price="189000">Agregar al carrito>
+                </button>
+                <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
+            </div>
+
+
+             <div class="card sin-stock"
+                 data-img="img/productos/monitor gigabyte 25.png"
+                 data-title="Monitor Gigabyte 200hz Ips"
+                 data-desc=
+                 "📏 Tamaño: 23.8 pulgadas
+🖼️ Resolución: 1920 x 1080 (Full HD)
+🌈 Panel: IPS NTSC 72% (CIE1931)
+🧱 Relación de aspecto: 16:9
+💡 Brillo típico: 250 cd/m²
+🔁 Frecuencia de actualización: Hasta 100 Hz
+⚡ Tiempo de respuesta: 5 ms (GtG en modo rápido)
+🔧 Ajuste de posición: Inclinación
+"
+                 data-price="$189.000"
+                 data-video=""
+                 data-subcategoria="200hz">
+                <img src="img/productos/monitor gigabyte 25.png" alt="Monitor">
+                <h3>Monitor Gigabyte 200hz Ips</h3>
+                <p> 24.8" – 20hz panel IPS</p>
+                <span class="precio">$189.000</span>
+                <button                 
+                 class="btn-add-cart"
+                 data-name="Monitor Gigabyte 200hz Ips"
+                 data-price="189000">Agregar al carrito>
                 </button>
                 <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
             </div>
         </div>
 
 
-        <h3 id="Placas de video" class="categoria">PLACAS DE VIDEO</h3>
-         <div class="ordenar-productos">
-        <button class="sortPrice btn-ordenar">Ordenar por precio</button>
+        <h3 id="Placas de video" class="categoria">PLACAS DE VIDEO</h3> 
+        <div class="categoria-ui">
+        <div class="filtros-panel">
+        <span class="filtro-titulo">Ordenar por:</span>
+        <label class="switch-precio">
+        <input type="checkbox" class="toggle-precio">
+        <span class="slider"></span>
+        <span class="switch-text">Precio menor a mayor</span>
+        </label>
+        <div class="filtros-categoria">
+        <button class="btn-filtro activo" data-filter="all">Todos</button>
+        <button class="btn-filtro" data-filter="amd">AMD</button>
+        <button class="btn-filtro" data-filter="nvidia">NVIDIA</button>
+        </div>
+        </div>
         </div>
         <div class="productos"> 
-            <div class="card">
-                <img src="img/productos/rtx 5050.png" alt="Placa de video">
+            <div class="card"
+                 data-img="img\des\rtx 5050 des.png"
+                 data-title="MSI VENTUS X2 RTX 5050"
+                 data-desc=
+                 "🔌 Interfaz: PCI Express® Gen 5 x16 (usa x8)
+ 🚀 Extreme Performance: 2617 MHz (MSI Center)
+ ⚡ Boost: 2602 MHz
+ 🔢 Unidades de procesamiento: 2560
+ 📡 Velocidad de memoria: 20 Gbps
+ 💾 Memoria: 8GB GDDR6
+🔌fuente  minima recomendada: 550w
+🔋consumo: 130w
+
+"
+                 data-price="$629.500"
+                 data-video=""
+                 data-subcategoria="nvidia">
+                <img src="img/productos/rtx 5050.png" alt="Nvidia">
                 <h3>MSI VENTUS X2 RTX 5050</h3>
                 <p> 8GB – DLSS 4</p>
-                <span class="precio">$605.500</span>
+                <span class="precio">$629.500</span>
                 <button                 
                  class="btn-add-cart"
                  data-name="MSI VENTUS X2 RTX 5050"
@@ -1272,26 +2516,66 @@
         </div>
 
         
-        <h3 id="red" class="categoria">REDES</h3>
-         <div class="ordenar-productos">
-        <button class="sortPrice btn-ordenar">Ordenar por precio</button>
+        <h3 id="red" class="categoria">CONECTIVIDAD</h3>
+        <div class="categoria-ui">
+        <div class="filtros-panel">
+        <span class="filtro-titulo">Ordenar por:</span>
+        <label class="switch-precio">
+        <input type="checkbox" class="toggle-precio">
+        <span class="slider"></span>
+        <span class="switch-text">Precio menor a mayor</span>
+        </label>
+        <div class="filtros-categoria">
+        <button class="btn-filtro activo" data-filter="all">Todos</button>
+        <button class="btn-filtro" data-filter="Adaptador de red">Adaptador de red</button>
+        <button class="btn-filtro" data-filter="Adaptador bluetooth">Adaptador bluetooth</button>
+        <button class="btn-filtro" data-filter="Mesh">Mesh</button>
+        </div>
+        </div>
         </div>
         <div class="productos"> 
-            <div class="card">
+            <div class="card"
+                 data-img="img/productos/adaptador bluetooth.png"
+                 data-title="Adaptador Mercusys bluetooth nano USB"
+                 data-desc=
+                 "🔵 Bluetooth 5.3
+ ⚡ Mayor velocidad, 📶 mejor cobertura, 🔒 seguridad reforzada y 🔁 conexión más fiable.
+📡 Conectividad inalámbrica estable
+ 🔗 Comunicación fluida entre dispositivos Bluetooth y tu PC o notebook.
+📏 Diseño nano
+ 🧳 Ultracompacto para máxima portabilidad con alto rendimiento 💪.
+🔄 Compatibilidad retroactiva
+ ✅ Funciona con dispositivos Bluetooth de generaciones anteriores.
+🖥️ Compatibilidad con sistemas operativos
+ 💻 Windows 11 / 10 / 8.1 / 7.
+"
+                 data-price="$7.000"
+                 data-video=""
+                 data-subcategoria="Adaptador bluetooth">
                 <img src="img/productos/adaptador bluetooth.png" alt="Adaptador de Red">
                 <h3>Adaptador Mercusys bluetooth nano USB</h3>
                 <p> bluetooth 5.3 –</p>
-                <span class="precio">$8.000</span>
+                <span class="precio">$7.000</span>
                 <button                 
                  class="btn-add-cart"
-                 data-name="Microfono Raptor vox"
-                 data-price="53500">Agregar al carrito>
+                 data-name="Adaptador Mercusys bluetooth nano USB"
+                 data-price="7.000">Agregar al carrito>
                 </button>
                 <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
             </div>
 
 
-            <div class="card">
+            <div class="card sin-stock"
+                 data-img="img/productos/adaptadro wifi 150.png"
+                 data-title="Adaptador Mercusys wifi 150mbps nano USB"
+                 data-desc=
+                 "⚡Velocidad: 150mbps 
+🟦USB: 2.0
+🛜Frecuencia: 2.4Ghz
+"
+                 data-price="$7.000"
+                 data-video=""
+                 data-subcategoria="Adaptador de red">
                 <img src="img/productos/adaptadro wifi 150.png" alt="Adaptador de Red">
                 <h3>Adaptador Mercusys wifi 150mbps nano USB</h3>
                 <p> 150mbps –</p>
@@ -1305,7 +2589,19 @@
             </div>
 
 
-            <div class="card sin-stock">
+            <div class="card sin-stock"
+                 data-img="img/productos/mesh ac1200 x2.png"
+                 data-name="Mesh AC1200 X2 NODOS mercusys"
+                 data-desc="- 🔍 802.11k → Optimización de roaming mediante medición de la calidad de señal y reporte de vecinos.
+- 🚦 802.11v → Gestión de red mejorada, permite al AP guiar al dispositivo hacia el mejor punto de acceso disponible.
+- 📶 Roaming inteligente → Dispositivos cambian de AP sin cortes perceptibles.
+- ⚡ Menor latencia → Transiciones más rápidas entre nodos.
+- 🔒 Conexión estable → Mejora la experiencia en redes con múltiples puntos de acceso.
+- 🌐 Ideal para Wi-Fi Mesh → Garantiza cobertura uniforme en toda la red.
+¿Quieres que te arme también una tabla comparativa entre 802.11k y 802.11v con sus funciones principales? Sería una forma clara de mostrar cómo se complementan.
+"
+                 data-price="$69.999"
+                 data-subcategoria="Mesh">
                 <img src="img/productos/mesh ac1200 x2.png" alt="Adaptador de Red">
                 <h3>Mesh AC1200 X2 NODOS mercusys</h3>
                 <p> sin descripcion </p>
@@ -1319,7 +2615,19 @@
             </div>
 
 
-            <div class="card sin-stock">
+            <div class="card sin-stock"
+                 data-img="img/productos/mesh ac1200 x3.png"
+                 data-name="Mesh AC1200 X3 NODOS mercusys"
+                 data-desc="- 🔍 802.11k → Optimización de roaming mediante medición de la calidad de señal y reporte de vecinos.
+- 🚦 802.11v → Gestión de red mejorada, permite al AP guiar al dispositivo hacia el mejor punto de acceso disponible.
+- 📶 Roaming inteligente → Dispositivos cambian de AP sin cortes perceptibles.
+- ⚡ Menor latencia → Transiciones más rápidas entre nodos.
+- 🔒 Conexión estable → Mejora la experiencia en redes con múltiples puntos de acceso.
+- 🌐 Ideal para Wi-Fi Mesh → Garantiza cobertura uniforme en toda la red.
+¿Quieres que te arme también una tabla comparativa entre 802.11k y 802.11v con sus funciones principales? Sería una forma clara de mostrar cómo se complementan.
+"
+                 data-price="$69.999"
+                 data-subcategoria="Mesh">
                 <img src="img/productos/mesh ac1200 x3.png" alt="Adaptador de Red">
                 <h3>Mesh AC1200 X3 NODOS mercusys</h3>
                 <p> sin descripcion </p>
@@ -1336,40 +2644,92 @@
 
 
         <h3 id="Cables" class="categoria">CABLES & ADAPTADORES</h3>
-        <div class="ordenar-productos">
-        <button class="sortPrice btn-ordenar">Ordenar por precio</button>
+        <div class="categoria-ui">
+        <div class="filtros-panel">
+        <span class="filtro-titulo">Ordenar por:</span>
+        <label class="switch-precio">
+        <input type="checkbox" class="toggle-precio">
+        <span class="slider"></span>
+        <span class="switch-text">Precio menor a mayor</span>
+        </label>
+        <div class="filtros-categoria">
+        <button class="btn-filtro activo" data-filter="all">Todos</button>
+        <button class="btn-filtro" data-filter="Prolongadores">Prolongadores</button>
+        <button class="btn-filtro" data-filter="Hdmi">Hdmi</button>
+        <button class="btn-filtro" data-filter="Display port">Display port</button>
+        <button class="btn-filtro" data-filter="Conversores">Conversores</button>
+        <button class="btn-filtro" data-filter="Cables adaptadores">Cables adaptadores</button>
         </div>
-    <div class="productos">
-        <div class="card">
+        </div>
+        </div>
+        <div class="productos">
+        <div class="card"
+                 data-img="img/productos/Prolongador 6 tomas NORMALIZADO.png"
+                 data-title="Prolongador de 6 tomas Kelyx"
+                 data-desc=
+                 "⚡ Energía segura y potente
+                 🔌 Conectá hasta 6 dispositivos al mismo tiempo
+🏠 Ideal para hogar u oficina
+💪 Potencia máxima: 2200W
+🛡️ Protección IP20 para tu tranquilidad
+📏 Diseño compacto y confiable
+👉 ¡La solución práctica para mantener tus espacios energizados con seguridad y estilo!
+"
+                 data-price="$14.500"
+                 data-video=""
+                 data-subcategoria="Prolongadores">
         <img src="img/productos/Prolongador 6 tomas NORMALIZADO.png" alt="Cables & adaptadores">
         <h3>Prolongador de 6 tomas</h3>
         <p>Normalizado – corte automático</p>
-        <span class="precio">$14.000</span>
+        <span class="precio">$14.500</span>
         <button
         class="btn-add-cart"
         data-name="Prolongador de 6 tomas"
-        data-price="14000">Agregar al carrito
+        data-price="14500">Agregar al carrito
         </button>
         <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
     </div>
 
 
-    <div class="card">
-        <img src="img/productos/Prolongador 4 tomas  NORMALIZADO.png" alt="Cables & adaptadores">
+    <div class="card"
+            data-img="img/productos/Prolongador 4 tomas  NORMALIZADO.png"
+            data-title="Prolongador de 6 tomas Kelyx"
+            data-desc=
+             "⚡ Energía segura y potente
+            🔌 Conectá hasta 4 dispositivos al mismo tiempo
+🏠 Ideal para hogar u oficina
+💪 Potencia máxima: 2200W
+🛡️ Protección IP20 para tu tranquilidad
+📏 Diseño compacto y confiable
+👉 ¡La solución práctica para mantener tus espacios energizados con seguridad y estilo!
+"
+                 data-price="$12.000"
+                 data-video=""
+                 data-subcategoria="Prolongadores">
+        <img src="img/productos/Prolongador 4 tomas  NORMALIZADO.png" alt="Prolongador">
         <h3>Prolongador de 4 tomas</h3>
         <p>Normalizado – corte automático</p>
-        <span class="precio">$11.000</span>
+        <span class="precio">$12.000</span>
         <button
         class="btn-add-cart"
         data-name="Prolongador de 4 tomas"
-        data-price="11000">Agregar al carrito
+        data-price="12000">Agregar al carrito
         </button>
         <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
     </div>
 
 
-    <div class="card">
-        <img src="img/productos/hdmi 1.5 1080p.png" alt="Cables & adaptadores">
+    <div class="card"
+        data-img="img/productos/hdmi 1.5 1080p.png"
+            data-title="Cable hdmi 1080p 1.5M"
+            data-desc=
+             "°1080p (Full HD): hasta 60HZ
+CERTIFICACION 1.4
+"
+        data-price="$3.000"
+        data-video=""
+        data-subcategoria="Hdmi">
+        <img src="img/productos/hdmi 1.5 1080p.png" alt="Cable Hdmi">
         <h3>Cable hdmi 1080p 1.5M</h3>
         <p>1080p – version 1.4</p>
         <span class="precio">$3.000</span>
@@ -1382,8 +2742,17 @@
     </div>
 
 
-    <div class="card sin-stock">
-        <img src="img/productos/hdmi 5M  kelyx 4k.png" alt="Cables & adaptadores">
+    <div class="card sin-stock"
+    data-img="img/productos/hdmi 1.5 1080p.png"
+            data-title="Cable hdmi 1080p 1.5M"
+            data-desc=
+             "°1080p (Full HD): hasta 60HZ
+CERTIFICACION 1.4
+"
+        data-price="$3.000"
+        data-video=""
+         data-subcategoria="Hdmi">
+        <img src="img/productos/hdmi 5M  kelyx 4k.png" alt="Cable Hdmi">
         <h3>Hdmi 4k kelyx 5M</h3>
         <p> 4k 60hz – version 2.0</p>
         <span class="precio">$6.000</span>
@@ -1396,8 +2765,19 @@
     </div>
 
 
-    <div class="card">
-        <img src="img/productos/hdmi 3M 4k.png" alt="Cables & adaptadores">
+    <div class="card"
+           data-img="img/productos/hdmi 3M 4k.png"
+            data-title="Hdmi 4k kelyx 3M"
+            data-desc=
+             "°1080p (Full HD): hasta 240 Hz
+° 1440p (2K): hasta 144 Hz 
+° 2160p (4K): hasta 60 Hz
+CERTIFICACION 2.0
+"
+        data-price="$5.000"
+        data-video=""
+        data-subcategoria="Hdmi">
+        <img src="img/productos/hdmi 3M 4k.png" alt="Cable Hdmi">
         <h3>Hdmi 4k kelyx 3M</h3>
         <p>4k 60hz – version 2.0</p>
         <span class="precio">$5.000</span>
@@ -1410,8 +2790,19 @@
     </div>
 
 
-    <div class="card">
-        <img src="img/productos/hdmi 10M  kelyx 4k .png" alt="Cables & adaptadores">
+    <div class="card"
+            data-img="img/productos/hdmi 10M  kelyx 4k .png"
+            data-title="Hdmi 4k kelyx 10M"
+            data-desc=
+             "°1080p (Full HD): hasta 240 Hz
+° 1440p (2K): hasta 144 Hz 
+° 2160p (4K): hasta 60 Hz
+CERTIFICACION 2.0
+"
+        data-price="$13.500"
+        data-video=""
+        data-subcategoria="Hdmi">
+        <img src="img/productos/hdmi 10M  kelyx 4k .png" alt="Cable Hdmi">
         <h3>Hdmi 4k kelyx 10M</h3>
         <p>4k 60hz – version 2.0</p>
         <span class="precio">$13.500</span>
@@ -1424,36 +2815,67 @@
     </div>
 
 
-    <div class="card">
-        <img src="img/productos/Conversor kelyx hdmi VGa.png" alt="Cables & adaptadores">
+    <div class="card"
+            data-img="img/productos/Conversor kelyx hdmi VGa.png"
+            data-title="Conversor hdmi a Vga"
+            data-desc=
+             "'HDMI A VGA' NO 'VGA A HDMI'
+             📝Nota: los conversores de señal solamente se manejan a una frecuencia FHD de 60hz
+Resolucion maxima: 1080x1920
+"
+        data-price="$6.500"
+        data-video=""
+        data-subcategoria="Conversores">
+        <img src="img/productos/Conversor kelyx hdmi VGa.png" alt="Adaptadores">
         <h3>Conversor hdmi a Vga</h3>
         <p>max 60hz – 1080p</p>
-        <span class="precio">$13.500</span>
+        <span class="precio">$6.500</span>
         <button
         class="btn-add-cart"
         data-name="Hdmi 4k kelyx 10M"
-        data-price="13500">Agregar al carrito
+        data-price="6500">Agregar al carrito
         </button>
         <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
     </div>
 
 
-    <div class="card">
-        <img src="img/productos/Display port 1.5 8k.png" alt="Cables & adaptadores">
+    <div class="card"
+        data-img="img/productos/Display port 1.5 8k.png"
+            data-title="Display port 1.5M 8k"
+            data-desc=
+             " 🌈 HDR dinámico: Sí
+🎮Compatibilidad: PS5 / Blu-ray / Proyector / Monitor / etc.
+📺 Frecuencia máxima: 8K 60Hz / 4K 120Hz / 2K 240Hz
+⚡ Velocidad máxima: 48 Gbps
+"
+        data-price="$10.000"
+        data-video=""
+        data-subcategoria="Display port">
+        <img src="img/productos/Display port 1.5 8k.png" alt="Cable Displayport">
         <h3>Display port 1.5M 8k</h3>
         <p>8k 60hz – version 1.4</p>
-        <span class="precio">$9.500</span>
+        <span class="precio">$10.000</span>
         <button
         class="btn-add-cart"
         data-name="Display port 1.5M 8k"
-        data-price="9500">Agregar al carrito
+        data-price="10000">Agregar al carrito
         </button>
         <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
     </div>
 
 
-    <div class="card">
-        <img src="img/productos/Cable sata 3 6gbps.png" alt="Cables & adaptadores">
+    <div class="card"
+     data-img="img/productos/Cable sata 3 6gbps.png"
+     data-title="Cable sata 3 6gbps"
+    data-desc="💽 Compatible con HDD, SSD, DVR, CD-RW, DVD
+⚡ Soporta SATA 3.0 (6Gbps) y retrocompatible con SATA 1/2
+🔄 Conexión rápida y sencilla a la placa base
+🛡️ Funda de goma flexible y duradera
+🔒 Clip metálico de seguridad"
+        data-price="$3.500"
+        data-video=""
+        data-subcategoria="Cables adaptadores">
+        <img src="img/productos/Cable sata 3 6gbps.png" alt="Adaptadores">
         <h3>Cable sata 3 6gbps</h3>
         <p>Sata 3 – 6gbps</p>
         <span class="precio">$3.500</span>
@@ -1466,34 +2888,111 @@
     </div>
 
 
-        <div class="card">
-        <img src="img/productos/controladora ARGB.png" alt="Cables & adaptadores">
+    <div class="card"
+        data-img="img/des/controladora ARGB des.png"
+        data-title="Controladora ARGB TECWARE"
+        data-desc="ARGB 3 pin 5v – Power sata"
+        data-price="$12.000"
+        data-video=""
+        data-subcategoria="Cables adaptadores">
+        <img src="img/productos/controladora ARGB.png" alt="Adaptadores">
         <h3>Controladora ARGB</h3>
         <p>ARGB 3 pin 5v – Power sata</p>
-        <span class="precio">$11.000</span>
+        <span class="precio">$12.000</span>
         <button
         class="btn-add-cart"
         data-name="Controladora ARGB"
-        data-price="11000">Agregar al carrito
+        data-price="12000">Agregar al carrito
         </button>
         <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
     </div>
 
 
-    <div class="card">
-        <img src="img/productos/Conversor displayport a vga .png" alt="Cables & adaptadores">
+    <div class="card"
+        data-img="img/productos/Conversor displayport a vga .png"
+        data-title="Conversor displayport a Vga"
+        data-desc="
+        'DISPLAYPORT A VGA' NO 'VGA DISPLAYPORT'
+        📝Nota: los conversores de señal solamente se manejan a una frecuencia FHD de 60hz"
+        data-price="$9.000"
+        data-video="">
+        <img src="img/productos/Conversor displayport a vga .png" alt="Adaptadores">
         <h3>Conversor displayport a Vga</h3>
         <p>fecuencia maxima 60hz – 1080p</p>
-        <span class="precio">$9.500</span>
+        <span class="precio">$9.000</span>
         <button
         class="btn-add-cart"
         data-name="Conversor displayport a Vga"
-        data-price="9500">Agregar al carrito
+        data-price="9000">Agregar al carrito
         </button>
         <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
     </div>
 </div>
-    </section>
+
+        <h3 id="Herramientas" class="categoria">HERRAMIENTAS</h3>
+        <div class="categoria-ui">
+        <div class="filtros-panel">
+        <span class="filtro-titulo">Ordenar por:</span>
+        <label class="switch-precio">
+        <input type="checkbox" class="toggle-precio">
+        <span class="slider"></span>
+        <span class="switch-text">Precio menor a mayor</span>
+        </label>
+        <div class="filtros-categoria">
+        <button class="btn-filtro activo" data-filter="all">Todos</button>
+        <button class="btn-filtro" data-filter="destornilladores">Detornilladores</button>
+        <button class="btn-filtro" data-filter="Manta antiestatica">Manta antiestatica</button>
+        <button class="btn-filtro" data-filter="Alcohol Isopropilico">Alcohol Isopropilico</button>
+        </div>
+        </div>
+        </div>
+    <div class="productos">
+        <div class="card"
+        data-img="img/productos/Kit de destornillador 115.png"
+        data-title="Kit de destornillador 115 piezas"
+        data-desc="
+        Kit de destornillador de precision compatible con:
+        Pc, notebook, consola y telefonos"
+        data-price="$13.500"
+        data-video=""
+        data-subcategoria="destornilladores">
+        <img src="img/productos/Kit de destornillador 115.png" alt="Herramientas">
+        <h3>Kit de destornillador 115 piezas</h3>
+        <p>115 piezas – destornillado de precision</p>
+        <span class="precio">$13.500</span>
+        <button
+        class="btn-add-cart"
+        data-name="Kit de destornillador 115 piezas"
+        data-price="13500">Agregar al carrito
+        </button>
+        <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
+        </div> 
+        
+        
+        <div class="card"
+        data-img="img/productos/Manta antiestatica des.png"
+        data-title="Kit de destornillador 115 piezas"
+        data-desc="
+       USO FACIL PARA ORGANIZAR 
+TUS HERRAMIENTAS DE TRABAJO
+PERFECTO PARA ORGANIZAR TUS TORNILLOS"
+        data-price="$15.500"
+        data-video=""
+        data-subcategoria="destornilladores">
+        <img src="img/productos/Manta antiestatica.png" alt="Herramientas">
+        <h3>Manta antiestatica 45x30</h3>
+        <p>45X30 – perfecto para tecnicos</p>
+        <span class="precio">$15.500</span>
+        <button
+        class="btn-add-cart"
+        data-name="Manta antiestatica 45x30"
+        data-price="15500">Agregar al carrito
+        </button>
+        <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
+        </div>
+
+    </div>
+</section>
 <div class="redes-sociales">
     <a href="https://www.facebook.com/profile.php?id=61583495955781&locale=es_LA" class="red facebook"><i class="fab fa-facebook-f"></i></a>
     <a href="https://www.instagram.com/pixisinformatica/" class="red instagram"><i class="fab fa-instagram"></i></a>
@@ -1523,16 +3022,18 @@
     <div class="cart-items">
         <!-- JS INYECTA LOS PRODUCTOS ACÁ -->
     </div>
+    <button id="btn-clear-cart" class="btn-cart" style="margin-bottom:10px; background: #ff0033; box-shadow:0 0 15px #ff0033;">
+    Vaciar carrito
+</button>
 
-    <div class="cart-footer">
-        <div class="cart-total">
-            <span>Total</span>
-            <strong>$0</strong>
-        </div>
-
-        <a href="#" class="btn-cart">Finalizar compra</a>
+<div class="cart-footer">
+    <div class="cart-total">
+        <span>Total</span>
+        <strong>$0</strong>
     </div>
-</aside>
+
+    <a href="#" class="btn-cart btn-finish">Finalizar compra</a>
+</div>
 
 <!-- JS -->
 
@@ -1559,7 +3060,7 @@ window.addEventListener('scroll', () => {
     <p id="modalDesc"></p>
     <span id="modalPrice" class="modal-price"></span>
 
-    <button class="btn-add-cart">Agregar al carrito</button>
+    <button class="btn-review" id="btnReview" target="_blank">Review</button>
     <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
   </div>
 </div>
