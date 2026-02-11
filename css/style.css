@@ -1094,7 +1094,7 @@ body:has(.categoria:target) .btn-top {
     will-change: transform;
 }
 .envios-logo {
-    position: fixed;       
+    position: fixed;  
     bottom: 20px;          
     left: 20px;            
     z-index: 1000;         
@@ -1103,6 +1103,28 @@ body:has(.categoria:target) .btn-top {
 .envios-logo img {
     width: 150px;           
     height: auto;         
+}
+.envios-texto {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-15deg);
+    color: #ff0033;
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    pointer-events: none;
+
+    /* ✅ borde blanco */
+    -webkit-text-stroke: 1.5px #ffffff;
+
+    /* fallback para navegadores que no soportan stroke */
+    text-shadow:
+        -1px -1px 0 #fff,
+         1px -1px 0 #fff,
+        -1px  1px 0 #fff,
+         1px  1px 0 #fff,
+         0 0 8px rgba(0,0,0,0.6);
 }
 #btn-clear-cart {
     background: #ff0033;
@@ -1319,4 +1341,9 @@ body.buscando .card {
 
 .checkout-data input::placeholder {
   color: #aaa;
+}
+@media (max-width: 768px) {
+  .envios-logo {
+    display: none !important;
+  }
 }
