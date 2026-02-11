@@ -1301,3 +1301,22 @@ body.buscando .card {
   background: rgba(255,255,255,0.15);
   margin: 25px 0;
 }
+.checkout-data {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 15px 0;
+}
+
+.checkout-data input {
+  background: #111;
+  border: 1px solid #7f00ff;
+  color: #fff;
+  padding: 10px;
+  border-radius: 6px;
+  outline: none;
+}
+
+.checkout-data input::placeholder {
+  color: #aaa;
+}

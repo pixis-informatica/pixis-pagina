@@ -85,7 +85,28 @@ btnFinish?.addEventListener('click', e => {
   e.preventDefault();
   if (!cart.length) return;
 
+  // 📥 obtener datos ingresados (NO se guardan)
+  const nombre = document.getElementById('clienteNombre')?.value.trim();
+  const localidad = document.getElementById('clienteLocalidad')?.value.trim();
+  const provincia = document.getElementById('clienteProvincia')?.value.trim();
+  const direccion = document.getElementById('clienteDireccion')?.value.trim();
+  const Codigo = document.getElementById('clienteCodigopostal')?.value.trim();
+
+  // validación básica
+  if (!nombre || !localidad || !provincia || !direccion || !Codigo) {
+    alert('Por favor completá tus datos para continuar.');
+    return;
+  }
+
   let msg = '🛒 *Pedido PIXIS Informática*%0A%0A';
+
+  msg += `👤 *Cliente:* ${nombre}%0A`;
+  msg += `📍 *Dirección:* ${direccion}%0A`;
+  msg += `🏙️ *Localidad:* ${localidad}%0A`;
+  msg += `🗺️ *Provincia:* ${provincia}%0A`;
+  msg += `🗺️ *Codigo Postal* ${Codigo}%0A`;
+  msg += `%0A────────────────────%0A`;
+
   let total = 0;
 
   cart.forEach(i => {
@@ -93,10 +114,10 @@ btnFinish?.addEventListener('click', e => {
     total += i.price * i.qty;
   });
 
-  msg += `%0A*Total:* $${total.toLocaleString()}`;
+  msg += `%0A💰 *Total:* $${total.toLocaleString()}`;
+
   window.open(`https://wa.me/5493856970135?text=${msg}`, '_blank');
 });
-
 /* =========================
    MODAL PRODUCTO
 ========================= */
