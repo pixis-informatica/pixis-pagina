@@ -87,12 +87,12 @@ btnFinish?.addEventListener('click', e => {
 
   // 📥 obtener datos ingresados (NO se guardan)
   const nombre = document.getElementById('clienteNombre')?.value.trim();
-  const Codigo = document.getElementById('clienteCodigo')?.value.trim();
+  const localidad = document.getElementById('clienteLocalidad')?.value.trim();
   const provincia = document.getElementById('clienteProvincia')?.value.trim();
   const direccion = document.getElementById('clienteDireccion')?.value.trim();
 
   // validación básica
-  if (!nombre || !Codigo || !provincia || !direccion) {
+  if (!nombre || !localidad || !provincia || !direccion) {
     alert('Por favor completá tus datos para continuar.');
     return;
   }
