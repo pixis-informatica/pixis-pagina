@@ -87,13 +87,12 @@ btnFinish?.addEventListener('click', e => {
 
   // 📥 obtener datos ingresados (NO se guardan)
   const nombre = document.getElementById('clienteNombre')?.value.trim();
-  const localidad = document.getElementById('clienteLocalidad')?.value.trim();
+  const Codigo = document.getElementById('clienteCodigo')?.value.trim();
   const provincia = document.getElementById('clienteProvincia')?.value.trim();
   const direccion = document.getElementById('clienteDireccion')?.value.trim();
-  const Codigo = document.getElementById('clienteCodigopostal')?.value.trim();
 
   // validación básica
-  if (!nombre || !localidad || !provincia || !direccion || !Codigo) {
+  if (!nombre || !Codigo || !provincia || !direccion) {
     alert('Por favor completá tus datos para continuar.');
     return;
   }
@@ -104,7 +103,6 @@ btnFinish?.addEventListener('click', e => {
   msg += `📍 *Dirección:* ${direccion}%0A`;
   msg += `🏙️ *Localidad:* ${localidad}%0A`;
   msg += `🗺️ *Provincia:* ${provincia}%0A`;
-  msg += `🗺️ *Codigo Postal* ${Codigo}%0A`;
   msg += `%0A────────────────────%0A`;
 
   let total = 0;

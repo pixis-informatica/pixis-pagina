@@ -830,23 +830,6 @@ body:has(.categoria:target) .btn-top {
         padding-bottom: 25px;
     }
 }
-@media (max-width: 768px) {
-
-  .cart {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 100%;
-    height: 100dvh; /* usa viewport real del teléfono */
-    max-height: 100dvh;
-
-    display: flex;
-    flex-direction: column;
-
-    overflow: hidden; /* evita que el panel se estire */
-  }
-
-}
 
 /* ACTIVACIÓN */
 #toggle-cart:checked ~ .cart {
@@ -911,19 +894,6 @@ body:has(.categoria:target) .btn-top {
     color: #00ffd5;
     font-weight: bold;
 }
-@media (max-width: 768px) {
-
-  .cart-items {
-    flex: 1;                 /* ocupa el espacio disponible */
-    overflow-y: auto;        /* scroll interno */
-    padding-bottom: 10px;
-
-    /* scroll suave en iOS */
-    -webkit-overflow-scrolling: touch;
-  }
-
-}
-
 
 /* FOOTER */
 .cart-footer {
@@ -940,16 +910,6 @@ body:has(.categoria:target) .btn-top {
 
 .cart-total strong {
     color: #00ff88;
-}
-@media (max-width: 768px) {
-
-  .cart-footer {
-    flex-shrink: 0;       /* evita que se comprima */
-    background: #0b0b0f;  /* mismo fondo del carrito */
-    padding: 15px;
-    border-top: 1px solid rgba(255,255,255,0.1);
-  }
-
 }
 
 .btn-cart {
