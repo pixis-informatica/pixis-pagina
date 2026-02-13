@@ -607,20 +607,40 @@ body:has(.categoria:target) .btn-top {
 }
 /* FOOTER */
 .footer {
+    position: relative;              /* referencia para el texto absoluto */
     text-align: center;
-    padding: 25px;
-    align-items: center;
-    justify-content: space-between;
+    padding: 25px 20px 50px 20px;    /* 👈 espacio real abajo */
     border-top: 1px solid #ff00ff;
     margin-top: 40px;
     color: #bfa0ff;
 }
 
-   @media (max-width: 768px) {
+/* TEXTO INFERIOR IZQUIERDO */
+.footer-extra {
+    position: center;
+    left: 20px;
+    bottom: 12px;
+
+    font-size: 11px;
+    color: #ffffffcc;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    line-height: 1.4;
+    pointer-events: none;
+}
+@media (max-width: 768px) {
+
     .footer {
-        height: 70px;
-        padding: 0 20px;
+        padding: 20px 15px 60px 15px; /* más espacio abajo */
     }
+
+    .footer-extra {
+        font-size: 9px;
+        max-width: 75%;
+    }
+
+}
 .categoria {
     margin: 70px 0 25px;
     text-align: center;
@@ -629,7 +649,7 @@ body:has(.categoria:target) .btn-top {
     text-shadow: 0 0 15px #00ffd5;
     letter-spacing: 2px;
 }
-}
+
 
 @media (max-width: 768px) {
     .categoria {
@@ -1379,3 +1399,44 @@ body.buscando .card {
     display: none !important;
   }
 }
+/* TEXTO SEGUINOS */
+.footer-follow {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.footer-follow span {
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: #ff00ff;
+    font-weight: 600;
+
+    animation: pixisGlow 2s ease-in-out infinite alternate;
+}
+
+/* animación neon */
+@keyframes pixisGlow {
+    from {
+        opacity: 0.6;
+        text-shadow: 0 0 5px #ff00ff,
+                     0 0 10px #ff00ff,
+                     0 0 20px #7f00ff;
+        transform: translateY(0px);
+    }
+
+    to {
+        opacity: 1;
+        text-shadow: 0 0 10px #ff00ff,
+                     0 0 25px #ff00ff,
+                     0 0 40px #7f00ff;
+        transform: translateY(-2px);
+    }
+}
+@media (max-width:768px){
+    .footer-follow span{
+        font-size:11px;
+        letter-spacing:2px;
+    }
+}
+
