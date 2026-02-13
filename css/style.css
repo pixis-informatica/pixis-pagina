@@ -229,6 +229,9 @@ body:has(.categoria:target) .btn-top {
     gap: 15px;
     margin: 25px 0;
 }
+#categorias {
+    position: relative; /* 🔴 esto es CLAVE */
+}
 .categoria-ui {
     display: flex;
     justify-content: flex-end;
@@ -1146,31 +1149,36 @@ body:has(.categoria:target) .btn-top {
     will-change: transform;
 }
 .envios-logo {
-    position: fixed;  
-    bottom: 20px;          
-    left: 20px;            
-    z-index: 1000;         
+    position: absolute;   /* ahora depende de #categorias */
+    top: -120px;           /* ajusta altura exacta */
+    left: 20px;           /* lo pega al lado izquierdo */
+    z-index: 5;
+
+    display: inline-block;
 }
 
+/* IMAGEN DEL CARTEL */
 .envios-logo img {
-    width: 150px;           
-    height: auto;         
+    width: 150px;
+    height: auto;
+    display: block;
 }
+
+/* TEXTO ¡MUY PRONTO! */
 .envios-texto {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(-15deg);
+
     color: #ff0033;
     font-size: 22px;
     font-weight: 900;
     letter-spacing: 2px;
     pointer-events: none;
 
-    /* ✅ borde blanco */
     -webkit-text-stroke: 1.5px #ffffff;
 
-    /* fallback para navegadores que no soportan stroke */
     text-shadow:
         -1px -1px 0 #fff,
          1px -1px 0 #fff,
@@ -1178,6 +1186,7 @@ body:has(.categoria:target) .btn-top {
          1px  1px 0 #fff,
          0 0 8px rgba(0,0,0,0.6);
 }
+
 #btn-clear-cart {
     background: #ff0033;
     color: #fff;
@@ -1439,4 +1448,88 @@ body.buscando .card {
         letter-spacing:2px;
     }
 }
+.footer-box {
+    position: absolute;
+    left: 20px;
+    bottom: 15px;
 
+    width: 300px;
+    min-height: 85px;
+
+    border-radius: 10px;
+    padding: 10px;
+
+    background: rgba(10, 0, 20, 0.85);
+    backdrop-filter: blur(6px);
+
+    overflow: hidden;
+}
+.footer-box::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: 12px;
+
+    background: linear-gradient(
+        120deg,
+        #ff00ff,
+        #7f00ff,
+        #00eaff,
+        #7f00ff,
+        #ff00ff
+    );
+
+    background-size: 300% 300%;
+    animation: pixisRGB 6s linear infinite;
+
+    z-index: 0;
+    filter: blur(6px); /* suaviza el RGB */
+    opacity: 0.6;
+}
+
+/* capa interna para que el brillo NO toque el texto */
+.footer-box::after {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    background: rgba(8, 0, 18, 0.95);
+    border-radius: 9px;
+    z-index: 1;
+}
+.footer-box-content {
+    position: relative;
+    z-index: 2;
+}
+
+.footer-box-text {
+    color: #ffffff;
+    font-size: 10px;
+    line-height: 1.4;
+    letter-spacing: 0.6px;
+    font-weight: 500;
+}
+
+/* espacio fiscal reservado */
+.footer-box-fiscal {
+    margin-top: 6px;
+    height: 18px; /* espacio reservado */
+}
+@keyframes pixisRGB {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+@media (max-width:768px){
+
+    .footer-box {
+        width: 85%;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 8px;
+    }
+
+    .footer-box-text {
+        font-size: 8px;
+        text-align: center;
+    }
+}
