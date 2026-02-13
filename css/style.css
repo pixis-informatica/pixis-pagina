@@ -616,6 +616,7 @@ body:has(.categoria:target) .btn-top {
     border-top: 1px solid #ff00ff;
     margin-top: 40px;
     color: #bfa0ff;
+    z-index: 1;
 }
 
 /* TEXTO INFERIOR IZQUIERDO */
@@ -1533,3 +1534,95 @@ body.buscando .card {
         text-align: center;
     }
 }
+@media (max-width: 768px) {
+    body {
+        padding-bottom: 120px;
+    }
+}
+@media (max-width: 768px) {
+
+    .wsp-float {
+        bottom: 20px;
+        right: 15px;
+        width: 55px;
+        height: 55px;
+    }
+
+    .btn-top {
+        bottom: 85px; /* lo subimos arriba del WhatsApp */
+        right: 15px;
+        width: 45px;
+        height: 45px;
+    }
+}
+/* ============================
+   FOOTER MOBILE FLOW FIX
+============================ */
+@media (max-width: 768px) {
+
+    /* el contenedor principal del footer pasa a ser vertical */
+    .footer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 40px 20px 120px; /* dejamos espacio para botones flotantes */
+        height: auto; /* importante: que no tenga altura fija */
+    }
+
+    /* la caja principal ya no debe flotar ni superponerse */
+    .footer-box {
+         order: 2;
+        position: center;   /* 🔥 clave: vuelve al flujo normal */
+        width: 100%;
+        max-width: 500px;
+        margin-bottom: 15px;
+    }
+
+    /* el texto informativo baja debajo */
+    .footer-extra {
+        order: 1;
+        position: static;   /* quitamos absolute */
+        transform: none;    /* anulamos translate si tenía */
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto 15px;
+        text-align: center;
+        font-size: 11px;
+        line-height: 1.6;
+    }
+
+    /* copyright también abajo de todo */
+    .footer-copy {
+         order: 3;
+        position: static;
+        transform: none;
+        text-align: center;
+        font-size: 11px;
+        opacity: 0.8;
+    }
+}
+
+
+    /* botones flotantes suben un poco */
+    .whatsapp-float {
+        bottom: 25px;
+        right: 15px;
+        transform: scale(0.9);
+    }
+
+    .home-float {
+        bottom: 95px; /* queda arriba del WhatsApp */
+        right: 15px;
+        transform: scale(0.9);
+    }
+
+    /* redes sociales más compactas */
+    .social-icons {
+        gap: 14px;
+        flex-wrap: wrap;
+    }
+
+    .social-icons a {
+        width: 48px;
+        height: 48px;
+    }
