@@ -1300,7 +1300,7 @@ body:has(.categoria:target) .btn-top {
   width: 100%;
   padding: 14px 18px 14px 45px; /* espacio para la lupa */
   border-radius: 30px;
-  border: 2px solid #7f00ff;
+  border: 2px solid #fafafa;
   background: #0e0016;
   color: #fff;
   font-size: 15px;
@@ -1308,12 +1308,13 @@ body:has(.categoria:target) .btn-top {
 }
 
 #searchInput::placeholder {
-  color: #bfa0ff;
+  color: #ffffff;
 }
 
 #searchInput:focus {
-  box-shadow: 0 0 20px #7f00ff;
+  box-shadow: 0 0 20px #ffffff;
 }
+
 
 /* =========================
    MENSAJE SIN RESULTADOS
@@ -1630,3 +1631,89 @@ body.buscando .card {
         width: 48px;
         height: 48px;
     }
+    .footer-box2 {
+    position: absolute;
+    left: 20px;
+    bottom: 15px;
+
+    width: 200px;
+    min-height: 50px;
+
+    border-radius: 10px;
+    padding: 10px;
+
+    background: rgba(10, 0, 20, 0.85);
+    backdrop-filter: blur(6px);
+
+    overflow: hidden;
+}
+.footer-box2::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: 12px;
+
+    background: linear-gradient(
+        120deg,
+        #ff00ff,
+        #7f00ff,
+        #00eaff,
+        #7f00ff,
+        #ff00ff
+    );
+
+    background-size: 300% 300%;
+    animation: pixisRGB 6s linear infinite;
+
+    z-index: 0;
+    filter: blur(6px); /* suaviza el RGB */
+    opacity: 0.6;
+}
+
+/* capa interna para que el brillo NO toque el texto */
+.footer-box2::after {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    background: rgba(8, 0, 18, 0.95);
+    border-radius: 9px;
+    z-index: 1;
+}
+.footer-box2-content {
+    position: relative;
+    z-index: 2;
+}
+
+.footer-box2-text {
+    color: #ffffff;
+    font-size: 8px;
+    line-height: 1.4;
+    letter-spacing: 0.6px;
+    font-weight: 500;
+}
+
+/* espacio fiscal reservado */
+.footer-box2-fiscal {
+    margin-top: 6px;
+    height: 18px; /* espacio reservado */
+}
+@keyframes pixisRGB {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+@media (max-width:768px){
+
+    .footer-box2 {
+        width: 85%;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 8px;
+    }
+
+    .footer-box2-text {
+        font-size: 8px;
+        text-align: center;
+    }
+}
+
