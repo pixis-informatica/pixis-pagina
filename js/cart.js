@@ -147,6 +147,7 @@ document.addEventListener('click', function (e) {
 
   // cargar datos
   modalImg.src = card.dataset.img;
+  resetZoom();
   modalTitle.textContent = card.dataset.title;
   modalPrice.textContent = card.dataset.price;
 
@@ -186,7 +187,59 @@ document.addEventListener('keydown', e => {
     closeModal();
   }
 });
+/* =========================
+   ZOOM CON SCROLL + MOUSE
+========================= */
 
+const zoomContainer = document.getElementById('modalZoom');
+
+let zoomScale = 1;
+const ZOOM_MIN = 1;
+const ZOOM_MAX = 4;
+
+/* hacer zoom con la rueda */
+zoomContainer.addEventListener('wheel', (e) => {
+  e.preventDefault();
+
+  const rect = zoomContainer.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+
+  const originX = (x / rect.width) * 100;
+  const originY = (y / rect.height) * 100;
+
+  modalImg.style.transformOrigin = `${originX}% ${originY}%`;
+
+  if (e.deltaY < 0) {
+    zoomScale += 0.25;
+  } else {
+    zoomScale -= 0.25;
+  }
+
+  zoomScale = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, zoomScale));
+  modalImg.style.transform = `scale(${zoomScale})`;
+});
+
+/* mover la lupa */
+zoomContainer.addEventListener('mousemove', (e) => {
+  if (zoomScale === 1) return;
+
+  const rect = zoomContainer.getBoundingClientRect();
+  const x = (e.clientX - rect.left) / rect.width * 100;
+  const y = (e.clientY - rect.top) / rect.height * 100;
+
+  modalImg.style.transformOrigin = `${x}% ${y}%`;
+});
+
+/* reset automático */
+zoomContainer.addEventListener('mouseleave', resetZoom);
+
+/* función reset */
+function resetZoom() {
+  zoomScale = 1;
+  modalImg.style.transform = 'scale(1)';
+  modalImg.style.transformOrigin = 'center center';
+}
 /* =========================
    ORDENAR (sin stock al final)
 ========================= */
