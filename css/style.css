@@ -812,8 +812,8 @@ body:has(.categoria:target) .btn-top {
 }
 .cart-icon {
     position: fixed;
-    top: 25px;
-    right: 25px;
+    bottom: 25px;   /* antes: top */
+    left: 25px;     /* antes: right */
     background: color(srgb rgb(255, 255, 255) green blue);
     font-size: 28px;
     cursor: pointer;
@@ -1773,4 +1773,122 @@ body.buscando .card {
 
 .modal-img-zoom:hover::after {
   opacity: 1;
+}
+.search-bubble {
+    position: fixed;
+    bottom: 100px; /* arriba del carrito */
+    left: 25px;
+    width: 65px;
+    height: 65px;
+    background: linear-gradient(45deg, #ffffff, #ffffff);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1002;
+    box-shadow: 0 0 20px #00d9ff;
+    overflow: hidden;
+    transition: 0.4s ease;
+}
+
+.search-bubble input {
+    width: 0;
+    opacity: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: rgb(0, 0, 0);
+    font-size: 14px;
+    transition: 0.4s ease;
+}
+
+/* Expandir */
+.search-bubble.active {
+    width: 220px;
+    border-radius: 40px;
+    padding: 0 15px;
+    justify-content: flex-start;
+}
+
+.search-bubble.active input {
+    width: 100%;
+    opacity: 1;
+}
+.search-icon {
+    width: 22px;
+    height: 22px;
+    pointer-events: none;
+    transition: 0.3s ease;
+}
+.search-bubble.active .search-icon {
+    opacity: 0;
+    transform: scale(0.7);
+}
+/* Botón ubicación */
+.btn-ubicacion {
+    display: inline-block;
+    width: 90px;           /* mismo tamaño visual que el texto */
+    height: 22px;
+    margin-left: 8px;
+    background: #ffffff;
+    border-radius: 4px;
+    position: relative;
+    cursor: pointer;
+}
+
+/* Texto flotante al pasar el mouse */
+.btn-ubicacion {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;      /* tamaño similar al texto */
+    height: 22px;
+    margin-left: 6px;
+    position: relative;
+    cursor: pointer;
+}
+
+.icono-ubicacion {
+    width: 100%;
+    height: 100%;
+}
+
+/* Tooltip */
+/* Ícono ubicación */
+.btn-ubicacion {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;      /* tamaño similar al texto */
+    height: 22px;
+    margin-left: 6px;
+    position: relative;
+    cursor: pointer;
+}
+
+.icono-ubicacion {
+    width: 100%;
+    height: 100%;
+}
+
+/* Tooltip */
+.btn-ubicacion::after {
+    content: "VISITANOS AQUI EN NUESTRO LOCAL";
+    position: absolute;
+    bottom: 140%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #6f00ff;
+    color: #fff;
+    font-size: 11px;
+    padding: 6px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.25s ease;
+}
+
+.btn-ubicacion:hover::after {
+    opacity: 1;
 }

@@ -565,3 +565,28 @@ if (buscando) {
     noResults.style.display = 'none';
   }
 });
+const bubble = document.querySelector('.search-bubble');
+const bubbleInput = document.getElementById('searchBubbleInput');
+const mainSearch = document.getElementById('searchInput');
+
+/* expandir burbuja */
+bubble.addEventListener('click', () => {
+  bubble.classList.add('active');
+  bubbleInput.focus();
+});
+
+/* sincronizar con buscador principal */
+bubbleInput.addEventListener('input', () => {
+  mainSearch.value = bubbleInput.value;
+  mainSearch.dispatchEvent(new Event('input'));
+
+  // volver al inicio de los resultados
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+/* cerrar si queda vacío */
+bubbleInput.addEventListener('blur', () => {
+  if (!bubbleInput.value.trim()) {
+    bubble.classList.remove('active');
+  }
+});
