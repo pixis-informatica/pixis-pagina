@@ -229,6 +229,7 @@ zoomContainer.addEventListener('mousemove', (e) => {
   const y = (e.clientY - rect.top) / rect.height * 100;
 
   modalImg.style.transformOrigin = `${x}% ${y}%`;
+  
 });
 
 /* reset automático */
@@ -240,6 +241,33 @@ function resetZoom() {
   modalImg.style.transform = 'scale(1)';
   modalImg.style.transformOrigin = 'center center';
 }
+/* =========================
+   DOBLE CLICK = ZOOM DIRECTO
+   (usa la misma lógica actual)
+========================= */
+zoomContainer.addEventListener('dblclick', (e) => {
+  e.preventDefault();
+
+  /* si ya está con zoom → vuelve a estado normal */
+  if (zoomScale > 1) {
+    resetZoom();
+    return;
+  }
+
+  /* mismo cálculo de posición que usás en wheel */
+  const rect = zoomContainer.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+
+  const originX = (x / rect.width) * 100;
+  const originY = (y / rect.height) * 100;
+
+  modalImg.style.transformOrigin = `${originX}% ${originY}%`;
+
+  /* aplica zoom inicial */
+  zoomScale = 2; // nivel de zoom al hacer doble click
+  modalImg.style.transform = `scale(${zoomScale})`;
+});
 /* =========================
    ORDENAR (sin stock al final)
 ========================= */
