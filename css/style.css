@@ -147,15 +147,6 @@ body:has(.categoria:target) .btn-top {
     box-shadow: 0 0 35px #ff00ff;
 }
 
-@media (max-width: 768px) {
-    .btn-top {
-        bottom: 100px;
-        right: 20px;
-        width: 50px;      /* mismo tamaño que search-bubble mobile */
-        height: 50px;
-        font-size: 20px;
-    }
-}
 .pulsante2 {
     animation: pulse 1.5s infinite;
 }
@@ -747,15 +738,6 @@ body:has(.categoria:target) .btn-top {
         height: 70px;
         font-size: 34px;
     }
-
-    /* whatsapp flotante */
-    .wsp-float {
-        width: 55px;
-        height: 55px;
-        font-size: 26px;
-        bottom: 20px;
-        right: 20px;
-    }
 }
 .btn-top {
     position: fixed;
@@ -797,8 +779,8 @@ body:has(.categoria:target) .btn-top {
 /* MOBILE */
 @media (max-width: 768px) {
     .btn-top {
-        bottom: 100px;
-        right: 20px;
+        bottom: 90px;   /* misma altura que buscador mobile */
+        right: 20px;    /* lado contrario */
         width: 50px;
         height: 50px;
         font-size: 18px;
@@ -1556,22 +1538,7 @@ body.buscando .card {
         padding-bottom: 120px;
     }
 }
-@media (max-width: 768px) {
 
-    .wsp-float {
-        bottom: 20px;
-        right: 15px;
-        width: 55px;
-        height: 55px;
-    }
-
-    .btn-top {
-        bottom: 85px; /* lo subimos arriba del WhatsApp */
-        right: 15px;
-        width: 45px;
-        height: 45px;
-    }
-}
 /* ============================
    FOOTER MOBILE FLOW FIX
 ============================ */
@@ -1873,4 +1840,26 @@ body.buscando .card {
 
 .btn-ubicacion:hover::after {
     opacity: 1;
+}
+@media (max-width: 768px) {
+
+    /* WhatsApp */
+    .wsp-float {
+        width: 55px;
+        height: 55px;
+        font-size: 26px;
+
+        right: calc(15px + env(safe-area-inset-right));
+        bottom: calc(20px + env(safe-area-inset-bottom));
+    }
+
+    /* Botón TOP */
+    .btn-top {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+
+        right: calc(20px + env(safe-area-inset-right));
+        bottom: calc(100px + env(safe-area-inset-bottom));
+    }
 }
