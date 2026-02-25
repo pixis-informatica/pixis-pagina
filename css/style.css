@@ -114,29 +114,25 @@ html {
     position: fixed;
     bottom: 110px;
     right: 25px;
-    width: 55px;
-    height: 55px;
+    width: 65px;          /* ← mismo tamaño que .search-bubble */
+    height: 65px;         /* ← mismo tamaño que .search-bubble */
     border-radius: 50%;
     background: linear-gradient(45deg, #7f00ff, #ff00ff);
     color: white;
-    font-size: 22px;
+    font-size: 24px;      /* ajustado al nuevo tamaño */
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     text-decoration: none;
     box-shadow: 0 0 20px #ff00ff;
     transition: opacity 0.4s ease, transform 0.4s ease;
     z-index: 999;
+
     opacity: 0;
     pointer-events: none;
     transform: translateY(20px);
-   
-}
-.btn-top {
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(20px);
-    transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 /* cuando se apunta a cualquier categoría */
@@ -151,17 +147,15 @@ body:has(.categoria:target) .btn-top {
     box-shadow: 0 0 35px #ff00ff;
 }
 
-/* mobile */
 @media (max-width: 768px) {
     .btn-top {
         bottom: 100px;
         right: 20px;
-        width: 50px;
+        width: 50px;      /* mismo tamaño que search-bubble mobile */
         height: 50px;
         font-size: 20px;
     }
 }
-
 .pulsante2 {
     animation: pulse 1.5s infinite;
 }
@@ -767,12 +761,12 @@ body:has(.categoria:target) .btn-top {
     position: fixed;
     bottom: 110px;
     right: 25px;
-    width: 55px;
-    height: 55px;
+    width: 65px;
+    height: 65px;
     border-radius: 50%;
     background: linear-gradient(45deg, #7f00ff, #ff00ff);
     color: white;
-    font-size: 22px;
+    font-size: 24px;
 
     display: flex;
     align-items: center;
@@ -807,7 +801,7 @@ body:has(.categoria:target) .btn-top {
         right: 20px;
         width: 50px;
         height: 50px;
-        font-size: 20px;
+        font-size: 18px;
     }
 }
 .cart-icon {
@@ -1625,19 +1619,7 @@ body.buscando .card {
     }
 }
 
-
-    /* botones flotantes suben un poco */
-    .whatsapp-float {
-        bottom: 25px;
-        right: 15px;
-        transform: scale(0.9);
-    }
-
-    .home-float {
-        bottom: 95px; /* queda arriba del WhatsApp */
-        right: 15px;
-        transform: scale(0.9);
-    }
+  
 
     /* redes sociales más compactas */
     .social-icons {
@@ -1778,8 +1760,8 @@ body.buscando .card {
     position: fixed;
     bottom: 100px; /* arriba del carrito */
     left: 25px;
-    width: 65px;
-    height: 65px;
+    width: 50px;
+    height: 50px;
     background: linear-gradient(45deg, #ffffff, #ffffff);
     border-radius: 50%;
     display: flex;
@@ -1823,29 +1805,6 @@ body.buscando .card {
 .search-bubble.active .search-icon {
     opacity: 0;
     transform: scale(0.7);
-}
-@media (max-width: 768px) {
-
-    .search-bubble {
-        width: 50px;
-        height: 50px;
-        bottom: 90px; /* mantiene separación con el carrito */
-        left: 20px;
-    }
-
-    .search-bubble.active {
-        width: 180px; /* ancho cuando se abre en teléfono */
-        height: 50px;
-    }
-
-    .search-icon {
-        width: 18px;
-        height: 18px;
-    }
-
-    .search-bubble input {
-        font-size: 13px;
-    }
 }
 /* Botón ubicación */
 .btn-ubicacion {
