@@ -1824,6 +1824,29 @@ body.buscando .card {
     opacity: 0;
     transform: scale(0.7);
 }
+@media (max-width: 768px) {
+
+    .search-bubble {
+        width: 50px;
+        height: 50px;
+        bottom: 90px; /* mantiene separación con el carrito */
+        left: 20px;
+    }
+
+    .search-bubble.active {
+        width: 180px; /* ancho cuando se abre en teléfono */
+        height: 50px;
+    }
+
+    .search-icon {
+        width: 18px;
+        height: 18px;
+    }
+
+    .search-bubble input {
+        font-size: 13px;
+    }
+}
 /* Botón ubicación */
 .btn-ubicacion {
     display: inline-block;
