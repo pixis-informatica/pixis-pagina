@@ -667,3 +667,50 @@ window.addEventListener('scroll', clampFloaters, { passive: true });
 window.addEventListener('resize', clampFloaters);
 
 clampFloaters();
+/* =========================
+   WhatsApp dinámico desde la CARD
+   (usa los mismos data del modal)
+========================= */
+
+document.addEventListener("click", function(e) {
+
+    const btnWsp = e.target.closest(".btn-wsp");
+    if (!btnWsp) return;
+
+    e.preventDefault(); // ← evita que abra el link fijo
+
+    // buscamos la card padre
+    const card = btnWsp.closest(".card");
+    if (!card) return;
+
+    // usamos TUS data actuales (los del modal)
+    const titulo = card.dataset.title || "Producto";
+    const precio = card.dataset.price || "";
+    const subcategoria = card.dataset.subcategoria || "";
+    const descripcion = card.dataset.desc || "";
+
+    // limpiamos la descripción (saca saltos largos)
+    const descCorta = descripcion
+        .replace(/\n/g, " ")
+        .replace(/\s+/g, " ")
+        .trim()
+        .substring(0, 120); // evita mensajes gigantes
+
+    const mensaje =
+`Hola! 👋
+Quiero consultar por este producto:
+
+🖥️ ${titulo}
+💰 Precio: ${precio}
+📦 Categoría: ${subcategoria}
+
+📝 ${descCorta}...
+
+¿Está disponible?`;
+
+    const telefono = "5493856970135"; // ← TU número
+
+    const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+
+    window.open(url, "_blank");
+});
