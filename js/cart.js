@@ -685,12 +685,7 @@ document.addEventListener("click", function(e) {
     const precio = card.dataset.price || "";
     const subcategoria = card.dataset.subcategoria || "";
     const descripcion = card.dataset.desc || "";
-    const imagen = card.dataset.img || "";
-
-    // Convertimos ruta relativa a URL absoluta
-    const imageUrl = imagen
-        ? window.location.origin + "/" + imagen.replace(/\\/g, "/")
-        : "";
+  
 
     const descCorta = descripcion
         .replace(/\n/g, " ")
@@ -708,8 +703,6 @@ Quiero consultar por este producto:
 
 📝 ${descCorta}...
 
-🖼️ Imagen:
-${imageUrl}
 
 ¿Está disponible?`;
 
