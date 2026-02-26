@@ -668,8 +668,7 @@ window.addEventListener('resize', clampFloaters);
 
 clampFloaters();
 /* =========================
-   WhatsApp dinámico desde la CARD
-   (usa los mismos data del modal)
+   WhatsApp dinámico + Imagen
 ========================= */
 
 document.addEventListener("click", function(e) {
@@ -677,24 +676,27 @@ document.addEventListener("click", function(e) {
     const btnWsp = e.target.closest(".btn-wsp");
     if (!btnWsp) return;
 
-    e.preventDefault(); // ← evita que abra el link fijo
+    e.preventDefault();
 
-    // buscamos la card padre
     const card = btnWsp.closest(".card");
     if (!card) return;
 
-    // usamos TUS data actuales (los del modal)
     const titulo = card.dataset.title || "Producto";
     const precio = card.dataset.price || "";
     const subcategoria = card.dataset.subcategoria || "";
     const descripcion = card.dataset.desc || "";
+    const imagen = card.dataset.img || "";
 
-    // limpiamos la descripción (saca saltos largos)
+    // Convertimos ruta relativa a URL absoluta
+    const imageUrl = imagen
+        ? window.location.origin + "/" + imagen.replace(/\\/g, "/")
+        : "";
+
     const descCorta = descripcion
         .replace(/\n/g, " ")
         .replace(/\s+/g, " ")
         .trim()
-        .substring(0, 120); // evita mensajes gigantes
+        .substring(0, 120);
 
     const mensaje =
 `Hola! 👋
@@ -706,9 +708,12 @@ Quiero consultar por este producto:
 
 📝 ${descCorta}...
 
+🖼️ Imagen:
+${imageUrl}
+
 ¿Está disponible?`;
 
-    const telefono = "5493856970135"; // ← TU número
+    const telefono = "5493856970135"; // ← TU número real
 
     const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
 
