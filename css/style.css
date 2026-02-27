@@ -1863,3 +1863,14 @@ body.buscando .card {
 .btn-ubicacion:hover::after {
     opacity: 1;
 }
+@media (max-width: 768px) {
+
+    .wsp-float,
+    .btn-top,
+    .search-bubble,
+    .cart-icon {
+        transition: transform 0.25s ease-out;
+        will-change: transform;
+    }
+
+}

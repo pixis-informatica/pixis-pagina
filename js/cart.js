@@ -275,49 +275,34 @@ function ordenarProductos(productos, ordenarPorPrecio) {
 
   // 🔁 si se apaga el switch → restaurar orden original
   if (!ordenarPorPrecio) {
-    productos.innerHTML = productos.dataset.originalOrder;
 
-    // reaplicar ocultos por filtro activo
-    const filtroActivo = productos
-      .previousElementSibling
-      .querySelector('.btn-filtro.activo')
-      ?.dataset.filter;
+  // 🔁 restaurar orden original del DOM
+  productos.innerHTML = productos.dataset.originalOrder;
 
-    productos.querySelectorAll('.card').forEach(card => {
-     // 🚫 ignorar cards de destacados
-  const esDestacado = card.closest('.destacados');
-  if (esDestacado) {
-    card.classList.add('oculta');
-    return;}
+  // 🔎 obtener filtro activo actual
+  const filtroActivo = productos
+    .previousElementSibling
+    .querySelector('.btn-filtro.activo')
+    ?.dataset.filter;
 
-  const nombre = normalizar(
-    card.querySelector('h3')?.textContent || ''
-  );
+  // si no hay filtro activo → no hacer nada más
+  if (!filtroActivo || filtroActivo === "todos") return;
 
-  const desc = normalizar(
-    card.querySelector('p')?.textContent || ''
-  );
+  // ✅ reaplicar SOLO el filtro (sin tocar búsqueda)
+  productos.querySelectorAll('.card').forEach(card => {
 
-  const sub = normalizar(
-    card.dataset.subcategoria?.replace(/-/g, ' ') || ''
-  );
+    const subcategoria = card.dataset.subcategoria?.toLowerCase() || "";
 
-  const keywords = `${sub} ${nombre} ${desc}`;
+    if (subcategoria === filtroActivo.toLowerCase()) {
+      card.classList.remove('oculta');
+    } else {
+      card.classList.add('oculta');
+    }
 
-  const match = palabrasBusqueda.some(p =>
-    keywords.includes(p)
-  );
+  });
 
-  if (match) {
-    card.classList.remove('oculta', 'filtrando');
-    hayResultados = true;
-  } else {
-    card.classList.add('oculta');
-  }
-});
-
-    return;
-  }
+  return;
+}
 
   // ordenar visible
   const cards = [...productos.querySelectorAll('.card')]
@@ -418,26 +403,8 @@ cards.forEach((card, i) => {
 
 });
 
-document.querySelectorAll('.toggle-precio').forEach(toggle => {
 
-    toggle.addEventListener('change', () => {
 
-        const productos = toggle
-            .closest('.categoria-ui')
-            .nextElementSibling;
-
-        ordenarProductos(productos, toggle.checked);
-    });
-
-});
-
-function normalizar(texto = '') {
-  return texto
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .trim();
-}
 const SINONIMOS = {
   meca: ['mecanico', 'mecánico', 'mechanical', 'mec'],
   mec: ['mecanico', 'mecánico', 'mechanical', 'meca'],
@@ -618,55 +585,7 @@ bubbleInput.addEventListener('blur', () => {
     bubble.classList.remove('active');
   }
 });
-/* =========================
-   FRENAR FLOTANTES SEGÚN DISPOSITIVO
-========================= */
 
-const footerEl = document.querySelector('.footer');
-const followEl = document.querySelector('.footer-follow'); // redes sociales
-
-const floaters = document.querySelectorAll(
-  '.cart-icon, .search-bubble, .wsp-float, .btn-top'
-);
-
-/* guardar bottom original */
-floaters.forEach(el => {
-  const style = window.getComputedStyle(el);
-  el.dataset.originalBottom = parseFloat(style.bottom) || 20;
-});
-
-function getLimitElement() {
-  /* en móvil usamos redes sociales como límite */
-  if (window.innerWidth <= 768 && followEl) {
-    return followEl;
-  }
-  /* en desktop usamos footer */
-  return footerEl;
-}
-
-function clampFloaters() {
-  const limitEl = getLimitElement();
-  if (!limitEl) return;
-
-  const rect = limitEl.getBoundingClientRect();
-  const viewportHeight = window.innerHeight;
-
-  floaters.forEach(el => {
-    const originalBottom = parseFloat(el.dataset.originalBottom);
-    const overlap = viewportHeight - rect.top;
-
-    if (overlap > 0) {
-      el.style.bottom = `${originalBottom + overlap + 10}px`;
-    } else {
-      el.style.bottom = `${originalBottom}px`;
-    }
-  });
-}
-
-window.addEventListener('scroll', clampFloaters, { passive: true });
-window.addEventListener('resize', clampFloaters);
-
-clampFloaters();
 /* =========================
    WhatsApp dinámico 
 ========================= */
@@ -712,3 +631,40 @@ Quiero consultar por este producto:
 
     window.open(url, "_blank");
 });
+const floatButtons = document.querySelectorAll(
+  '.wsp-float, .btn-top, .search-bubble, .cart-icon'
+);
+
+const footerFollow = document.querySelector('.footer-follow');
+
+function stopFloatsBeforeFooter() {
+
+  if (window.innerWidth > 768) return; // solo telefono
+
+  if (!footerFollow) return;
+
+  const footerTop = footerFollow.getBoundingClientRect().top;
+  const windowHeight = window.innerHeight;
+
+  // distancia desde donde queremos que se frenen
+  const limit = 100; // ← margen antes de "Seguinos"
+
+  if (footerTop < windowHeight - limit) {
+
+    const offset = (windowHeight - limit) - footerTop;
+
+    floatButtons.forEach(btn => {
+      btn.style.transform = `translateY(-${offset}px)`;
+    });
+
+  } else {
+
+    floatButtons.forEach(btn => {
+      btn.style.transform = `translateY(0)`;
+    });
+
+  }
+}
+
+window.addEventListener('scroll', stopFloatsBeforeFooter);
+window.addEventListener('resize', stopFloatsBeforeFooter);
