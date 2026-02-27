@@ -668,7 +668,7 @@ window.addEventListener('resize', clampFloaters);
 
 clampFloaters();
 /* =========================
-   WhatsApp dinámico + Imagen
+   WhatsApp dinámico 
 ========================= */
 
 document.addEventListener("click", function(e) {
