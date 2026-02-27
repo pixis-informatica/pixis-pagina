@@ -1874,3 +1874,9 @@ body.buscando .card {
     }
 
 }
+.wsp-float,
+.btn-top,
+.search-bubble,
+.cart-icon {
+    transition: transform 0.25s ease-out;
+}

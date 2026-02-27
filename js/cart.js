@@ -637,7 +637,7 @@ const floatButtons = document.querySelectorAll(
 
 const footerFollow = document.querySelector('.footer-follow');
 
-function stopFloatsBeforeFooter() {
+function stopFloatsfollowFooter() {
 
   if (window.innerWidth > 768) return; // solo telefono
 
@@ -666,5 +666,57 @@ function stopFloatsBeforeFooter() {
   }
 }
 
-window.addEventListener('scroll', stopFloatsBeforeFooter);
-window.addEventListener('resize', stopFloatsBeforeFooter);
+/* =========================
+   STOP FLOATS — DESKTOP (FIX REAL)
+========================= */
+
+const floatButtonsDesktop = document.querySelectorAll(
+  '.wsp-float, .btn-top, .search-bubble, .cart-icon'
+);
+
+const footerDesktop = document.querySelector('.footer-follow');
+
+function stopFloatsDesktop() {
+
+  // 👉 SOLO DESKTOP
+  if (window.innerWidth <= 768) return;
+  if (!footerDesktop) return;
+
+  // posición REAL del footer dentro del documento
+  const footerTop = footerDesktop.offsetTop;
+  const footerHeight = footerDesktop.offsetHeight;
+
+  // dónde está el scroll ahora
+  const scrollY = window.scrollY + window.innerHeight;
+
+  // distancia antes de tocar el footer
+  const limit = 160; // podés ajustar 140 / 180 según estética
+
+  // punto donde deben empezar a frenar
+  const stopPoint = footerTop + limit;
+
+  if (scrollY >= stopPoint) {
+
+    const offset = scrollY - stopPoint;
+
+    floatButtonsDesktop.forEach(btn => {
+      btn.style.transform = `translateY(-${offset}px)`;
+    });
+
+  } else {
+
+    floatButtonsDesktop.forEach(btn => {
+      btn.style.transform = 'translateY(0)';
+    });
+
+  }
+}
+window.addEventListener('scroll', () => {
+  stopFloatsfollowFooter(); // mobile
+  stopFloatsDesktop();      // desktop
+});
+
+window.addEventListener('resize', () => {
+  stopFloatsfollowFooter();
+  stopFloatsDesktop();
+});
