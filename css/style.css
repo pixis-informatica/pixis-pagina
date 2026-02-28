@@ -1906,3 +1906,25 @@ body.buscando .card {
     accent-color: #7f00ff;
     transform: scale(1.1);
 }
+/* ============================================================
+   ESTADO VISUAL SIN STOCK
+============================================================ */
+
+.card.sin-stock {
+    opacity: 0.55;
+}
+
+/* botones desactivados */
+.card.sin-stock .btn-add-cart,
+.card.sin-stock .btn-wsp {
+    pointer-events: none;
+    cursor: not-allowed;
+    filter: grayscale(100%);
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* opcional: evita animaciones hover */
+.card.sin-stock:hover {
+    transform: none;
+}

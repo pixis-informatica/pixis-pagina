@@ -330,33 +330,49 @@ function aplicarConfiguracionPreciosCategorias() {
 
         const precioHTML = card.querySelector(".precio");
         const botonCart  = card.querySelector(".btn-add-cart");
+        const botonWsp = card.querySelector('.btn-wsp');
 
         if (ocultar) {
 
-          /* Guardar precio original una sola vez */
-          if (!card.dataset.priceBackup && card.dataset.price) {
-            card.dataset.priceBackup = card.dataset.price;
-          }
+  /* GUARDAMOS PRECIO ORIGINAL */
+  if (!card.dataset.priceBackup && card.dataset.price) {
+    card.dataset.priceBackup = card.dataset.price;
+  }
 
-          /* Eliminar precio del sistema */
-          card.dataset.price = "";
+  /* QUITAMOS PRECIO DEL SISTEMA */
+  card.dataset.price = "";
 
-          /* Ocultar visual */
-          if (precioHTML) precioHTML.style.display = "none";
-          if (botonCart)  botonCart.style.display  = "none";
+  /* OCULTAMOS PRECIO Y BOTÓN CARRITO */
+  if (precioHTML) precioHTML.style.display = "none";
+  if (botonCart) botonCart.style.display = "none";
 
-        } else {
+  /* CAMBIAMOS TEXTO DEL BOTÓN WHATSAPP */
+  if (botonWsp) {
 
-          /* Restaurar precio */
-          if (card.dataset.priceBackup) {
-            card.dataset.price = card.dataset.priceBackup;
-          }
+    if (!botonWsp.dataset.textBackup) {
+      botonWsp.dataset.textBackup = botonWsp.textContent;
+    }
 
-          /* Mostrar visual */
-          if (precioHTML) precioHTML.style.display = "";
-          if (botonCart)  botonCart.style.display  = "";
-        }
+    botonWsp.textContent = "Stock disponible · Consultar";
+  }
 
+} else {
+
+  /* RESTAURAMOS PRECIO */
+  if (card.dataset.priceBackup) {
+    card.dataset.price = card.dataset.priceBackup;
+  }
+
+  /* MOSTRAMOS PRECIO Y BOTÓN */
+  if (precioHTML) precioHTML.style.display = "";
+  if (botonCart) botonCart.style.display = "";
+
+  /* RESTAURAMOS TEXTO ORIGINAL */
+  if (botonWsp && botonWsp.dataset.textBackup) {
+    botonWsp.textContent = botonWsp.dataset.textBackup;
+  }
+
+}
       });
 
     });
@@ -975,3 +991,21 @@ window.addEventListener('resize', () => {
   stopFloatsfollowFooter();
   stopFloatsDesktop();
 });
+/* ============================================================
+   BLOQUEO TOTAL PARA PRODUCTOS SIN STOCK
+   - No abre modal
+   - No permite consultar
+   - No permite agregar al carrito
+   - No ejecuta ningún evento interno
+============================================================ */
+
+document.addEventListener('click', function (e) {
+
+  const card = e.target.closest('.card.sin-stock');
+  if (!card) return;
+
+  // ❌ Cancela absolutamente todo
+  e.preventDefault();
+  e.stopImmediatePropagation();
+
+}, true); // ← usamos captura para frenar eventos antes que otros scripts
