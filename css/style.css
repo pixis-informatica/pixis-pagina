@@ -1880,3 +1880,29 @@ body.buscando .card {
 .cart-icon {
     transition: transform 0.25s ease-out;
 }
+.checkout-options {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #7f00ff;
+}
+
+.opt-title {
+    color: #ffd700;
+    font-size: 14px;
+    margin: 10px 0 5px;
+}
+
+.opt-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #fff;
+    margin-bottom: 6px;
+    cursor: pointer;
+}
+
+.opt-check input {
+    accent-color: #7f00ff;
+    transform: scale(1.1);
+}

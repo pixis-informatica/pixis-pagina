@@ -3,10 +3,44 @@ document.querySelectorAll('.productos').forEach(productos => {
     .map(card => card.outerHTML)
     .join('');
 });
+/* TRUE = oculta precios de esa categoría */
+const OCULTAR_PRECIOS_CATEGORIA = {
+  "Periféricos": false,
+  "almacenamiento": false,
+  "gabinetes": false,
+  "fuentes": false,
+  "refrigeración": false,
+  "monitores": false,
+  "Placas de video": true,
+  "red": false,
+  "Cables": false,
+  "Hardware": false,
+  "Placas madres": false,   // ← ejemplo activo
+  "Memorias Ram": false,
+  "Procesadores": false,
+  "Sillas y Escritorios Gamer": false,
+  "Herramientas": false,
+  "Cargadores": false,
+  "Notebook": false,
+  "Camara de Seguridad": false
+};
+
+
+
+
+
 /* =========================
    CONFIG
 ========================= */
 const MODAL_ENABLED = true;
+
+/* =========================
+   CONFIGURACIÓN GLOBAL
+========================= */
+
+// 🔒 cambiar a false cuando habilites todo el país
+const SOLO_SANTIAGO = true;
+
 
 /* =========================
    CARRITO
@@ -19,8 +53,128 @@ const btnClear = document.getElementById('btn-clear-cart');
 
 let cart = [];
 
-/* AGREGAR PRODUCTO */
+
+/* =========================
+   OPCIONES ENTREGA / PAGO
+========================= */
+const retiroLocal = document.getElementById('retiroLocal');
+const envioDomicilio = document.getElementById('envioDomicilio');
+const pagoEfectivo = document.getElementById('pagoEfectivo');
+const pagoTransferencia = document.getElementById('pagoTransferencia');
+
+const inputProvincia = document.getElementById('clienteProvincia');
+const inputLocalidad = document.getElementById('clienteLocalidad');
+
+
+/* =========================
+   LOCALIDADES SANTIAGO
+========================= */
+const localidadesSgo = [
+  "Capital",
+  "La Banda",
+  "Termas de Río Hondo",
+  "Añatuya",
+  "Frías",
+  "Fernández",
+  "Monte Quemado",
+  "Quimilí",
+  "Suncho Corral",
+  "Loreto",
+  "Clodomira",
+  "Beltrán",
+  "Forres"
+];
+
+
+/* =========================
+   BLOQUEAR / LIBERAR PROVINCIA
+========================= */
+if (SOLO_SANTIAGO && inputProvincia) {
+  inputProvincia.value = "Santiago del Estero";
+  inputProvincia.readOnly = true;
+  inputProvincia.style.opacity = "0.7";
+}
+
+
+/* datalist localidades */
+if (inputLocalidad) {
+  const lista = document.createElement('datalist');
+  lista.id = "listaLocalidades";
+
+  localidadesSgo.forEach(loc => {
+    const option = document.createElement('option');
+    option.value = loc;
+    lista.appendChild(option);
+  });
+
+  document.body.appendChild(lista);
+  inputLocalidad.setAttribute("list", "listaLocalidades");
+
+  inputLocalidad.addEventListener('input', () => {
+    inputLocalidad.value =
+      inputLocalidad.value.charAt(0).toUpperCase() +
+      inputLocalidad.value.slice(1);
+
+    validarZonaEnvio();
+  });
+}
+
+
+/* =========================
+   VALIDAR ZONA DE ENVÍO
+========================= */
+function validarZonaEnvio() {
+  if (!envioDomicilio.checked) return;
+
+  const loc = inputLocalidad.value.trim();
+
+  const zonaConEfectivo =
+    loc === "Capital" || loc === "La Banda";
+
+  if (zonaConEfectivo) {
+    pagoEfectivo.disabled = false;
+  } else {
+    pagoEfectivo.checked = false;
+    pagoEfectivo.disabled = true;
+    pagoTransferencia.checked = true;
+  }
+}
+
+
+/* =========================
+   EXCLUSIÓN ENTREGA
+========================= */
+retiroLocal?.addEventListener('change', () => {
+  if (retiroLocal.checked) envioDomicilio.checked = false;
+
+  pagoEfectivo.disabled = false;
+});
+
+envioDomicilio?.addEventListener('change', () => {
+  if (envioDomicilio.checked) {
+    retiroLocal.checked = false;
+    validarZonaEnvio();
+  }
+});
+
+
+/* =========================
+   EXCLUSIÓN PAGO
+========================= */
+pagoEfectivo?.addEventListener('change', () => {
+  if (pagoEfectivo.checked) pagoTransferencia.checked = false;
+});
+
+pagoTransferencia?.addEventListener('change', () => {
+  if (pagoTransferencia.checked) pagoEfectivo.checked = false;
+});
+
+
+/* =========================
+   AGREGAR PRODUCTO
+========================= */
 document.addEventListener('click', e => {
+
   const btn = e.target.closest('.btn-add-cart');
   if (!btn) return;
 
@@ -39,7 +193,9 @@ document.addEventListener('click', e => {
 });
 
 
-/* RENDER */
+/* =========================
+   RENDER
+========================= */
 function renderCart() {
   cartItems.innerHTML = '';
   let total = 0;
@@ -67,42 +223,62 @@ function renderCart() {
   cartCount.textContent = count;
 }
 
-/* VACIAR CARRITO */
+
+/* =========================
+   VACIAR
+========================= */
 btnClear?.addEventListener('click', () => {
   cart = [];
   renderCart();
 });
 
-/* CAMBIAR CANTIDAD */
+
+/* =========================
+   CAMBIAR CANTIDAD
+========================= */
 window.changeQty = (index, delta) => {
   cart[index].qty += delta;
   if (cart[index].qty <= 0) cart.splice(index, 1);
   renderCart();
 };
 
-/* WHATSAPP */
+
+/* =========================
+   FINALIZAR COMPRA
+========================= */
 btnFinish?.addEventListener('click', e => {
   e.preventDefault();
   if (!cart.length) return;
 
-  // 📥 obtener datos ingresados (NO se guardan)
   const nombre = document.getElementById('clienteNombre')?.value.trim();
-  const localidad = document.getElementById('clienteLocalidad')?.value.trim();
-  const provincia = document.getElementById('clienteProvincia')?.value.trim();
+  const localidad = inputLocalidad.value.trim();
   const direccion = document.getElementById('clienteDireccion')?.value.trim();
 
-  // validación básica
-  if (!nombre || !localidad || !provincia || !direccion) {
-    alert('Por favor completá tus datos para continuar.');
+  if (!retiroLocal.checked && !envioDomicilio.checked) {
+    alert('Seleccioná modo de entrega.');
+    return;
+  }
+
+  if (!pagoEfectivo.checked && !pagoTransferencia.checked) {
+    alert('Seleccioná forma de pago.');
+    return;
+  }
+
+  if (envioDomicilio.checked && (!nombre || !localidad || !direccion)) {
+    alert('Para envíos debés completar los datos.');
     return;
   }
 
   let msg = '🛒 *Pedido PIXIS Informática*%0A%0A';
 
-  msg += `👤 *Cliente:* ${nombre}%0A`;
-  msg += `📍 *Dirección:* ${direccion}%0A`;
-  msg += `🏙️ *Localidad:* ${localidad}%0A`;
-  msg += `🗺️ *Provincia:* ${provincia}%0A`;
+  msg += `🚚 *Entrega:* ${retiroLocal.checked ? 'Retiro en el local' : 'Envío a domicilio'}%0A`;
+  msg += `💳 *Pago:* ${pagoEfectivo.checked ? 'Efectivo' : 'Transferencia'}%0A`;
+
+  if (envioDomicilio.checked) {
+    msg += `📦 *Costo de envío:* A consultar%0A`;
+    msg += `%0A👤 ${nombre}%0A📍 ${direccion}%0A🏙️ ${localidad}%0A🗺️ Santiago del Estero%0A`;
+  }
+
   msg += `%0A────────────────────%0A`;
 
   let total = 0;
@@ -115,6 +291,85 @@ btnFinish?.addEventListener('click', e => {
   msg += `%0A💰 *Total:* $${total.toLocaleString()}`;
 
   window.open(`https://wa.me/5493856970135?text=${msg}`, '_blank');
+});
+function aplicarConfiguracionPreciosCategorias() {
+
+  const categorias = document.querySelectorAll("h3.categoria");
+
+  categorias.forEach(titulo => {
+
+    const nombreCategoria = titulo.id?.trim();
+    if (!nombreCategoria) return;
+
+    const ocultar = OCULTAR_PRECIOS_CATEGORIA[nombreCategoria];
+    if (ocultar === undefined) return;
+
+    /* =====================================================
+       BUSCAR TODO LO QUE PERTENECE A ESTA CATEGORÍA
+       (hasta el próximo h3.categoria)
+    ===================================================== */
+
+    let nodo = titulo.nextElementSibling;
+    const elementosCategoria = [];
+
+    while (nodo && !nodo.classList?.contains("categoria")) {
+      elementosCategoria.push(nodo);
+      nodo = nodo.nextElementSibling;
+    }
+
+    /* =====================================================
+       DENTRO DE ESOS ELEMENTOS BUSCAMOS LAS CARDS REALES
+    ===================================================== */
+
+    elementosCategoria.forEach(seccion => {
+
+      const cards = seccion.querySelectorAll?.(".card");
+      if (!cards) return;
+
+      cards.forEach(card => {
+
+        const precioHTML = card.querySelector(".precio");
+        const botonCart  = card.querySelector(".btn-add-cart");
+
+        if (ocultar) {
+
+          /* Guardar precio original una sola vez */
+          if (!card.dataset.priceBackup && card.dataset.price) {
+            card.dataset.priceBackup = card.dataset.price;
+          }
+
+          /* Eliminar precio del sistema */
+          card.dataset.price = "";
+
+          /* Ocultar visual */
+          if (precioHTML) precioHTML.style.display = "none";
+          if (botonCart)  botonCart.style.display  = "none";
+
+        } else {
+
+          /* Restaurar precio */
+          if (card.dataset.priceBackup) {
+            card.dataset.price = card.dataset.priceBackup;
+          }
+
+          /* Mostrar visual */
+          if (precioHTML) precioHTML.style.display = "";
+          if (botonCart)  botonCart.style.display  = "";
+        }
+
+      });
+
+    });
+
+  });
+
+}
+
+/* =========================
+   INICIO
+========================= */
+document.addEventListener("DOMContentLoaded", () => {
+  aplicarConfiguracionPreciosCategorias();
 });
 /* =========================
    MODAL PRODUCTO

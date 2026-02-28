@@ -3078,7 +3078,8 @@ Incluye Disipador de Stock
                 🌐 Red: LAN Gigabit
                 🎮 Puertos traseros: HDMI 2.1, VGA, USB 3.2 Gen 1, USB 2.0, RJ-45" 
                 data-price="$128.000"
-                data-subcategoria="AM5">
+                data-subcategoria="AM5"
+                data>
                 <img src="img/productos/a620m msi.png" alt="Placas madres">
                 <h3>Motherboard PRO A620M-E</h3>
                 <p> AM5 – MSI</p>
@@ -5806,10 +5807,37 @@ Y REPARACION DE INSUMOS INFORMATICOS
     </div>
     <div class="checkout-data">
   <input type="text" id="clienteNombre" placeholder="Nombre y Apellido">
-  <input type="text" id="clienteLocalidad" placeholder="Localidad">
   <input type="text" id="clienteProvincia" placeholder="Provincia">
+  <input type="text" id="clienteLocalidad" placeholder="Localidad">
   <input type="text" id="clienteDireccion" placeholder="Dirección">
   
+</div>
+<div class="checkout-options">
+
+  <p class="opt-title">Modo de entrega</p>
+
+  <label class="opt-check">
+    <input type="checkbox" id="retiroLocal">
+    Retiro en el local
+  </label>
+
+  <label class="opt-check">
+    <input type="checkbox" id="envioDomicilio">
+    Envío a domicilio (a consultar costo)
+  </label>
+
+  <p class="opt-title">Forma de pago</p>
+
+  <label class="opt-check">
+    <input type="checkbox" id="pagoEfectivo">
+    Efectivo
+  </label>
+
+  <label class="opt-check">
+    <input type="checkbox" id="pagoTransferencia">
+    Transferencia
+  </label>
+
 </div>
     <div>
     <a href="#" class="btn-cart btn-finish">Finalizar compra</a>
