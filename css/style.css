@@ -931,6 +931,13 @@ html {
     height: 60px;
     object-fit: contain;
 }
+.cart-item {
+    align-items: center;
+}
+
+.cart-item div {
+    flex: 1;
+}
 
 .cart-item h4 {
     font-size: 14px;
@@ -1927,4 +1934,32 @@ body.buscando .card {
 /* opcional: evita animaciones hover */
 .card.sin-stock:hover {
     transform: none;
+}
+/* =========================
+   ADVERTENCIA CANTIDAD
+========================= */
+
+.cart-warning {
+    margin: 15px 20px 0 20px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: rgba(255, 165, 0, 0.08);
+    border: 1px solid #ff9900;
+    color: #ffcc80;
+    font-size: 13px;
+    line-height: 1.4;
+    animation: fadeWarning 0.3s ease;
+}
+
+@keyframes fadeWarning {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+    .cart-warning {
+        font-size: 12px;
+        margin: 10px 15px 0 15px;
+    }
 }

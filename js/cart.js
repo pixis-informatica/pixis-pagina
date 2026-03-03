@@ -15,7 +15,7 @@ const OCULTAR_PRECIOS_CATEGORIA = {
   "red": false,
   "Cables": false,
   "Hardware": false,
-  "Placas madres": false,   // ← ejemplo activo
+  "Placas madres": false,   
   "Memorias Ram": false,
   "Procesadores": false,
   "Sillas y Escritorios Gamer": false,
@@ -183,11 +183,17 @@ document.addEventListener('click', e => {
 
   if (card.classList.contains('sin-stock')) return;
 
-  const name = btn.dataset.name;
-  const price = parseInt(btn.dataset.price);
+const name = btn.dataset.name;
+const price = parseInt(btn.dataset.price);
+const img = card.dataset.img; // 🔥 usa el mismo que el modal
 
-  const item = cart.find(p => p.name === name);
-  item ? item.qty++ : cart.push({ name, price, qty: 1 });
+const item = cart.find(p => p.name === name);
+
+if (item) {
+  item.qty++;
+} else {
+  cart.push({ name, price, img, qty: 1 });
+}
 
   renderCart();
 });
@@ -206,11 +212,12 @@ function renderCart() {
     count += item.qty;
 
     cartItems.innerHTML += `
-      <div class="cart-item">
-        <div>
-          <h4>${item.name}</h4>
-          <span>$${item.price.toLocaleString()}</span>
-        </div>
+  <div class="cart-item">
+    <img src="${item.img}" alt="${item.name}">
+    <div>
+      <h4>${item.name}</h4>
+      <span>$${item.price.toLocaleString()}</span>
+    </div>
         <div class="cart-qty">
           <button onclick="changeQty(${index}, -1)">−</button>
           <span>${item.qty}</span>
@@ -221,8 +228,35 @@ function renderCart() {
 
   cartTotal.textContent = `$${total.toLocaleString()}`;
   cartCount.textContent = count;
+  mostrarAdvertenciaCantidad();
 }
+/* =========================
+   ADVERTENCIA CANTIDAD MAYOR A 2
+========================= */
+function mostrarAdvertenciaCantidad() {
 
+  // eliminar advertencia anterior si existe
+  const vieja = document.querySelector('.cart-warning');
+  if (vieja) vieja.remove();
+
+  const hayExceso = cart.some(item => item.qty > 2);
+  if (!hayExceso) return;
+
+  const warning = document.createElement('div');
+  warning.className = 'cart-warning';
+
+  warning.innerHTML = `
+    <strong>⚠ Atención:</strong><br>
+    Si solicitás más de 2 unidades de un mismo producto,
+    la disponibilidad deberá confirmarse dentro de nuestros horarios de atención.<br><br>
+    🕒 <strong>Horarios:</strong><br>
+    Lunes a viernes de 09:00 a 12:30 hs y de 13:30 a 21:30 hs.<br>
+    Sábados de 09:00 a 13:00 hs.
+  `;
+
+  const footer = document.querySelector('.cart-footer');
+  footer.parentNode.insertBefore(warning, footer);
+}
 
 /* =========================
    VACIAR
@@ -287,6 +321,17 @@ btnFinish?.addEventListener('click', e => {
     msg += `• ${i.name} x${i.qty} — $${(i.price*i.qty).toLocaleString()}%0A`;
     total += i.price * i.qty;
   });
+  /* =========================
+   AVISO SI ALGÚN PRODUCTO SUPERA 2 UNIDADES
+========================= */
+const hayExceso = cart.some(item => item.qty > 2);
+
+if (hayExceso) {
+  msg += `%0A⚠ *Aviso:* Se solicitaron más de 2 unidades de uno o más productos.%0A`;
+  msg += `La disponibilidad deberá confirmarse dentro de nuestros horarios de atención.%0A`;
+  msg += `🕒 Lunes a viernes 09:00–12:30 y 13:30–21:30.%0A`;
+  msg += `Sábados 09:00–13:00.%0A`;
+}
 
   msg += `%0A💰 *Total:* $${total.toLocaleString()}`;
 
@@ -334,29 +379,49 @@ function aplicarConfiguracionPreciosCategorias() {
 
         if (ocultar) {
 
-  /* GUARDAMOS PRECIO ORIGINAL */
+  const esSinStock = card.classList.contains("sin-stock");
+
+  /* ================================
+     SI ES SIN STOCK → PRIORIDAD TOTAL
+  ================================== */
+  if (esSinStock) {
+
+    if (precioHTML) precioHTML.style.display = "none";
+    if (botonCart) botonCart.style.display = "none";
+
+    if (botonWsp) {
+      botonWsp.textContent = "NO DISPONIBLE";
+      botonWsp.style.color = "#ff0033";
+      botonWsp.style.fontWeight = "bold";
+    }
+
+    return; // 🔥 corta aquí, no aplica "consultar"
+  }
+
+  /* ================================
+     STOCK NORMAL PERO PRECIO OCULTO
+  ================================== */
+
   if (!card.dataset.priceBackup && card.dataset.price) {
     card.dataset.priceBackup = card.dataset.price;
   }
 
-  /* QUITAMOS PRECIO DEL SISTEMA */
   card.dataset.price = "";
 
-  /* OCULTAMOS PRECIO Y BOTÓN CARRITO */
   if (precioHTML) precioHTML.style.display = "none";
   if (botonCart) botonCart.style.display = "none";
 
-  /* CAMBIAMOS TEXTO DEL BOTÓN WHATSAPP */
   if (botonWsp) {
 
     if (!botonWsp.dataset.textBackup) {
       botonWsp.dataset.textBackup = botonWsp.textContent;
     }
 
-    botonWsp.textContent = "Stock disponible · Consultar";
+    botonWsp.textContent = "Stock disponible · Consultar Precio";
   }
 
-} else {
+}
+ else {
 
   /* RESTAURAMOS PRECIO */
   if (card.dataset.priceBackup) {
