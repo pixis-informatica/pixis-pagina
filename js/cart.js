@@ -11,7 +11,7 @@ const OCULTAR_PRECIOS_CATEGORIA = {
   "fuentes": false,
   "refrigeración": false,
   "monitores": false,
-  "Placas de video": true,
+  "Placas de video": false,
   "red": false,
   "Cables": false,
   "Hardware": false,
@@ -65,8 +65,13 @@ const tasasCuotas = {
 
 function calcularTotalConCuotas(totalBase) {
 
-  if (!selectCuotas || selectCuotas.value === "0") {
+  const infoCuotas = document.querySelector(".cart-cuotas-info");
+
+  if (!selectCuotas || selectCuotas.value === "0" || !pagoTarjeta.checked) {
+
     if (cuotasPreviewCarrito) cuotasPreviewCarrito.innerHTML = "";
+    if (infoCuotas) infoCuotas.innerHTML = "";
+
     return totalBase;
   }
 
@@ -82,6 +87,21 @@ function calcularTotalConCuotas(totalBase) {
       <span>${cuotas} cuotas</span>
       <strong>$${Math.round(valorCuota).toLocaleString()}</strong>
     </div>`;
+
+  // 🔥 MENSAJE DEBAJO DEL TOTAL
+  if (infoCuotas) {
+    infoCuotas.innerHTML = `
+      <div class="cart-cuotas-mensaje">
+        Pagás ${cuotas} cuotas de 
+        <strong>$${Math.round(valorCuota).toLocaleString()}</strong><br>
+        <small>
+          El pago se concretará dentro de nuestros horarios de atención 🕒 Horarios:
+Lunes a viernes de 09:00 a 12:30 hs y de 13:30 a 21:30 hs.
+Sábados de 09:00 a 13:00 hs.
+        </small>
+      </div>
+    `;
+  }
 
   return totalConInteres;
 }
@@ -230,7 +250,33 @@ function renderCart() {
 
   mostrarAdvertenciaCantidad();
 }
+const pagoTarjeta = document.getElementById("pagoTarjetaVisual");
+const cuotasPreview = document.getElementById("cuotasPreviewCarrito");
 
+const radiosPago = document.querySelectorAll("input[name='pago']");
+
+radiosPago.forEach(radio => {
+  radio.addEventListener("change", () => {
+
+    if (pagoTarjeta.checked) {
+
+      selectCuotas.style.display = "block";
+      cuotasPreview.style.display = "block";
+
+    } else {
+
+      selectCuotas.style.display = "none";
+      cuotasPreview.style.display = "none";
+      selectCuotas.value = "0";
+      cuotasPreview.innerHTML = "";
+
+      // 🔥 ESTO ES LO IMPORTANTE
+      renderCart(); // recalcula total sin cuotas
+
+    }
+
+  });
+});
 /* =========================
    ADVERTENCIA CANTIDAD MAYOR A 2
 ========================= */
@@ -295,10 +341,23 @@ btnFinish?.addEventListener('click', e => {
     return;
   }
 
-  if (!pagoEfectivo.checked && !pagoTransferencia.checked && selectCuotas.value === "0") {
-    alert('Seleccioná forma de pago.');
-    return;
-  }
+/* =========================
+   VALIDACIÓN FORMA DE PAGO
+========================= */
+
+if (!pagoEfectivo.checked && 
+    !pagoTransferencia.checked && 
+    !pagoTarjeta.checked) {
+
+  alert('Seleccioná forma de pago.');
+  return;
+}
+
+/* 🔥 NUEVA VALIDACIÓN TARJETA SIN CUOTAS */
+if (pagoTarjeta.checked && selectCuotas.value === "0") {
+  alert('Seleccioná la cantidad de cuotas para pagar con tarjeta.');
+  return;
+}
 
   if (envioDomicilio.checked && (!nombre || !localidad || !direccion)) {
     alert('Para envíos debés completar los datos.');
@@ -331,11 +390,38 @@ btnFinish?.addEventListener('click', e => {
     msg += `Sábados 09:00–13:00.%0A`;
   }
 
-  const totalFinal = calcularTotalConCuotas(total);
+/* =========================
+   TOTAL Y MÉTODO DE PAGO
+========================= */
 
-  msg += `%0A💰 *Total:* $${Math.round(totalFinal).toLocaleString()}`;
+msg += `%0A────────────────────%0A`;
 
-  window.open(`https://wa.me/5493856970135?text=${msg}`, '_blank');
+if (pagoTarjeta.checked && selectCuotas.value !== "0") {
+
+  const cuotas = parseInt(selectCuotas.value);
+  const tasa = tasasCuotas[cuotas];
+
+  const totalConInteres = total * tasa;
+  const valorCuota = totalConInteres / cuotas;
+
+  msg += `💳 *Pago:* Tarjeta de crédito%0A`;
+  msg += `💳 ${cuotas} cuotas de $${Math.round(valorCuota).toLocaleString()}%0A`;
+  msg += `💰 *Total final:* $${Math.round(totalConInteres).toLocaleString()}%0A`;
+  msg += `%0A⏳ El pago se concretará dentro de nuestros horarios de atención.%0A`;
+
+} else if (pagoEfectivo.checked) {
+
+  msg += `💵 *Pago:* Efectivo%0A`;
+  msg += `💰 *Total:* $${Math.round(total).toLocaleString()}%0A`;
+
+} else if (pagoTransferencia.checked) {
+
+  msg += `🏦 *Pago:* Transferencia bancaria%0A`;
+  msg += `💰 *Total:* $${Math.round(total).toLocaleString()}%0A`;
+
+}
+
+window.open(`https://wa.me/5493856970135?text=${msg}`, '_blank');
 });
 function aplicarConfiguracionPreciosCategorias() {
 
@@ -538,16 +624,24 @@ function generarDetalleCuotas(precioBase) {
     fila.classList.add("fila-cuota");
 
     fila.innerHTML = `
-      <span>${cuotas} cuotas</span>
-      <strong>${valorCuota.toLocaleString("es-AR", {
-        style: "currency",
-        currency: "ARS"
-      })}</strong>
+      <span>
+        ${cuotas}x 
+        <strong>${valorCuota.toLocaleString("es-AR", {
+          style: "currency",
+          currency: "ARS"
+        })}</strong>
+      </span>
+
+      <span class="total-cuotas">
+        Total: ${total.toLocaleString("es-AR", {
+          style: "currency",
+          currency: "ARS"
+        })}
+      </span>
     `;
 
     lista.appendChild(fila);
   });
-
 }
 /* =========================
    ABRIR MODAL
@@ -1236,3 +1330,22 @@ toggleCart?.addEventListener('change', () => {
     document.body.style.overflow = '';
   }
 });
+const searchBubble = document.querySelector(".search-bubble");
+
+if (toggleCart && searchBubble) {
+
+  toggleCart.addEventListener("change", () => {
+
+    if (window.innerWidth <= 768) {
+
+      if (toggleCart.checked) {
+        searchBubble.classList.add("hide-search-bubble");
+      } else {
+        searchBubble.classList.remove("hide-search-bubble");
+      }
+
+    }
+
+  });
+
+}

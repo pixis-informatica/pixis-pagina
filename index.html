@@ -5798,11 +5798,6 @@ Y REPARACION DE INSUMOS INFORMATICOS
 
   <div class="cart-footer">
 
-    <div class="cart-total">
-      <span>Total</span>
-      <strong>$0</strong>
-    </div>
-
     <!-- ENTREGA -->
     <div class="cart-section">
       <h4>Modo de entrega</h4>
@@ -5830,7 +5825,7 @@ Y REPARACION DE INSUMOS INFORMATICOS
 
       <select id="selectCuotas">
         <option value="0">Seleccionar cuotas</option>
-        <option value="1">1 cuota (Precio de lista)</option>
+        <option value="1">1 cuota </option>
         <option value="3">3 cuotas</option>
         <option value="6">6 cuotas</option>
         <option value="9">9 cuotas</option>
@@ -5839,7 +5834,11 @@ Y REPARACION DE INSUMOS INFORMATICOS
 
       <div id="cuotasPreviewCarrito"></div>
     </div>
-
+     <div class="cart-total">
+      <span>Total</span>
+      <strong>$0</strong>
+    </div>
+    <div class="cart-cuotas-info"></div>
     <button class="btn-finish">Finalizar compra</button>
     <button id="btn-clear-cart">Vaciar carrito</button>
 
@@ -5910,7 +5909,7 @@ window.addEventListener('scroll', () => {
 
     <div class="precio-lista">
       <div>
-        <span>Precio de lista</span>
+        <span>Otros medios de pago</span>
         <strong id="precioLista"></strong>
       </div>
       <button class="btn-ver-cuotas" id="btnVerCuotas">
@@ -5938,7 +5937,7 @@ window.addEventListener('scroll', () => {
       • Única financiera: <strong>Sucrédito</strong>
       <img src="img/logos/sucredito.png" 
            alt="Sucredito" 
-           style="height:18px; vertical-align:middle; margin-left:5px;">
+           style="height:35px; vertical-align:middle; margin-left:5px;">
       (1 pago)
       <br>
       • No aceptamos Banco Santiago ni Banco Sol ☺️
