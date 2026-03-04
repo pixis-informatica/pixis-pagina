@@ -26,9 +26,6 @@ const OCULTAR_PRECIOS_CATEGORIA = {
 };
 
 
-
-
-
 /* =========================
    CONFIG
 ========================= */
@@ -52,7 +49,42 @@ const btnFinish = document.querySelector('.btn-finish');
 const btnClear = document.getElementById('btn-clear-cart');
 
 let cart = [];
+const selectCuotas = document.getElementById('selectCuotas');
+const cuotasPreviewCarrito = document.getElementById('cuotasPreviewCarrito');
 
+/* =========================
+   TASAS CUOTAS
+========================= */
+const tasasCuotas = {
+  1: 1.13,
+  3: 1.31,
+  6: 1.31,
+  9: 1.60,
+  12: 1.60
+};
+
+function calcularTotalConCuotas(totalBase) {
+
+  if (!selectCuotas || selectCuotas.value === "0") {
+    if (cuotasPreviewCarrito) cuotasPreviewCarrito.innerHTML = "";
+    return totalBase;
+  }
+
+  const cuotas = parseInt(selectCuotas.value);
+  const tasa = tasasCuotas[cuotas];
+  if (!tasa) return totalBase;
+
+  const totalConInteres = totalBase * tasa;
+  const valorCuota = totalConInteres / cuotas;
+
+  cuotasPreviewCarrito.innerHTML = `
+    <div class="cuota-item-carrito">
+      <span>${cuotas} cuotas</span>
+      <strong>$${Math.round(valorCuota).toLocaleString()}</strong>
+    </div>`;
+
+  return totalConInteres;
+}
 
 /* =========================
    OPCIONES ENTREGA / PAGO
@@ -65,38 +97,21 @@ const pagoTransferencia = document.getElementById('pagoTransferencia');
 const inputProvincia = document.getElementById('clienteProvincia');
 const inputLocalidad = document.getElementById('clienteLocalidad');
 
-
 /* =========================
    LOCALIDADES SANTIAGO
 ========================= */
 const localidadesSgo = [
-  "Capital",
-  "La Banda",
-  "Termas de Río Hondo",
-  "Añatuya",
-  "Frías",
-  "Fernández",
-  "Monte Quemado",
-  "Quimilí",
-  "Suncho Corral",
-  "Loreto",
-  "Clodomira",
-  "Beltrán",
-  "Forres"
+  "Capital","La Banda","Termas de Río Hondo","Añatuya","Frías",
+  "Fernández","Monte Quemado","Quimilí","Suncho Corral",
+  "Loreto","Clodomira","Beltrán","Forres"
 ];
 
-
-/* =========================
-   BLOQUEAR / LIBERAR PROVINCIA
-========================= */
 if (SOLO_SANTIAGO && inputProvincia) {
   inputProvincia.value = "Santiago del Estero";
   inputProvincia.readOnly = true;
   inputProvincia.style.opacity = "0.7";
 }
 
-
-/* datalist localidades */
 if (inputLocalidad) {
   const lista = document.createElement('datalist');
   lista.id = "listaLocalidades";
@@ -114,22 +129,15 @@ if (inputLocalidad) {
     inputLocalidad.value =
       inputLocalidad.value.charAt(0).toUpperCase() +
       inputLocalidad.value.slice(1);
-
     validarZonaEnvio();
   });
 }
 
-
-/* =========================
-   VALIDAR ZONA DE ENVÍO
-========================= */
 function validarZonaEnvio() {
   if (!envioDomicilio.checked) return;
 
   const loc = inputLocalidad.value.trim();
-
-  const zonaConEfectivo =
-    loc === "Capital" || loc === "La Banda";
+  const zonaConEfectivo = loc === "Capital" || loc === "La Banda";
 
   if (zonaConEfectivo) {
     pagoEfectivo.disabled = false;
@@ -140,13 +148,8 @@ function validarZonaEnvio() {
   }
 }
 
-
-/* =========================
-   EXCLUSIÓN ENTREGA
-========================= */
 retiroLocal?.addEventListener('change', () => {
   if (retiroLocal.checked) envioDomicilio.checked = false;
-
   pagoEfectivo.disabled = false;
 });
 
@@ -157,10 +160,6 @@ envioDomicilio?.addEventListener('change', () => {
   }
 });
 
-
-/* =========================
-   EXCLUSIÓN PAGO
-========================= */
 pagoEfectivo?.addEventListener('change', () => {
   if (pagoEfectivo.checked) pagoTransferencia.checked = false;
 });
@@ -168,7 +167,6 @@ pagoEfectivo?.addEventListener('change', () => {
 pagoTransferencia?.addEventListener('change', () => {
   if (pagoTransferencia.checked) pagoEfectivo.checked = false;
 });
-
 
 /* =========================
    AGREGAR PRODUCTO
@@ -180,29 +178,28 @@ document.addEventListener('click', e => {
 
   const card = btn.closest('.card');
   if (!card) return;
-
   if (card.classList.contains('sin-stock')) return;
 
-const name = btn.dataset.name;
-const price = parseInt(btn.dataset.price);
-const img = card.dataset.img; // 🔥 usa el mismo que el modal
+  const name = btn.dataset.name;
+  const price = parseInt(btn.dataset.price);
+  const img = card.dataset.img;
 
-const item = cart.find(p => p.name === name);
+  const item = cart.find(p => p.name === name);
 
-if (item) {
-  item.qty++;
-} else {
-  cart.push({ name, price, img, qty: 1 });
-}
+  if (item) {
+    item.qty++;
+  } else {
+    cart.push({ name, price, img, qty: 1 });
+  }
 
   renderCart();
 });
-
 
 /* =========================
    RENDER
 ========================= */
 function renderCart() {
+
   cartItems.innerHTML = '';
   let total = 0;
   let count = 0;
@@ -212,12 +209,12 @@ function renderCart() {
     count += item.qty;
 
     cartItems.innerHTML += `
-  <div class="cart-item">
-    <img src="${item.img}" alt="${item.name}">
-    <div>
-      <h4>${item.name}</h4>
-      <span>$${item.price.toLocaleString()}</span>
-    </div>
+      <div class="cart-item">
+        <img src="${item.img}" alt="${item.name}">
+        <div>
+          <h4>${item.name}</h4>
+          <span>$${item.price.toLocaleString()}</span>
+        </div>
         <div class="cart-qty">
           <button onclick="changeQty(${index}, -1)">−</button>
           <span>${item.qty}</span>
@@ -226,16 +223,19 @@ function renderCart() {
       </div>`;
   });
 
-  cartTotal.textContent = `$${total.toLocaleString()}`;
   cartCount.textContent = count;
+
+  const totalFinal = calcularTotalConCuotas(total);
+  cartTotal.textContent = `$${Math.round(totalFinal).toLocaleString()}`;
+
   mostrarAdvertenciaCantidad();
 }
+
 /* =========================
    ADVERTENCIA CANTIDAD MAYOR A 2
 ========================= */
 function mostrarAdvertenciaCantidad() {
 
-  // eliminar advertencia anterior si existe
   const vieja = document.querySelector('.cart-warning');
   if (vieja) vieja.remove();
 
@@ -255,17 +255,8 @@ function mostrarAdvertenciaCantidad() {
   `;
 
   const footer = document.querySelector('.cart-footer');
-  footer.parentNode.insertBefore(warning, footer);
+  footer?.parentNode.insertBefore(warning, footer);
 }
-
-/* =========================
-   VACIAR
-========================= */
-btnClear?.addEventListener('click', () => {
-  cart = [];
-  renderCart();
-});
-
 
 /* =========================
    CAMBIAR CANTIDAD
@@ -276,6 +267,17 @@ window.changeQty = (index, delta) => {
   renderCart();
 };
 
+selectCuotas?.addEventListener('change', () => {
+  renderCart();
+});
+
+/* =========================
+   VACIAR
+========================= */
+btnClear?.addEventListener('click', () => {
+  cart = [];
+  renderCart();
+});
 
 /* =========================
    FINALIZAR COMPRA
@@ -293,7 +295,7 @@ btnFinish?.addEventListener('click', e => {
     return;
   }
 
-  if (!pagoEfectivo.checked && !pagoTransferencia.checked) {
+  if (!pagoEfectivo.checked && !pagoTransferencia.checked && selectCuotas.value === "0") {
     alert('Seleccioná forma de pago.');
     return;
   }
@@ -306,10 +308,8 @@ btnFinish?.addEventListener('click', e => {
   let msg = '🛒 *Pedido PIXIS Informática*%0A%0A';
 
   msg += `🚚 *Entrega:* ${retiroLocal.checked ? 'Retiro en el local' : 'Envío a domicilio'}%0A`;
-  msg += `💳 *Pago:* ${pagoEfectivo.checked ? 'Efectivo' : 'Transferencia'}%0A`;
 
   if (envioDomicilio.checked) {
-    msg += `📦 *Costo de envío:* A consultar%0A`;
     msg += `%0A👤 ${nombre}%0A📍 ${direccion}%0A🏙️ ${localidad}%0A🗺️ Santiago del Estero%0A`;
   }
 
@@ -321,19 +321,19 @@ btnFinish?.addEventListener('click', e => {
     msg += `• ${i.name} x${i.qty} — $${(i.price*i.qty).toLocaleString()}%0A`;
     total += i.price * i.qty;
   });
-  /* =========================
-   AVISO SI ALGÚN PRODUCTO SUPERA 2 UNIDADES
-========================= */
-const hayExceso = cart.some(item => item.qty > 2);
 
-if (hayExceso) {
-  msg += `%0A⚠ *Aviso:* Se solicitaron más de 2 unidades de uno o más productos.%0A`;
-  msg += `La disponibilidad deberá confirmarse dentro de nuestros horarios de atención.%0A`;
-  msg += `🕒 Lunes a viernes 09:00–12:30 y 13:30–21:30.%0A`;
-  msg += `Sábados 09:00–13:00.%0A`;
-}
+  const hayExceso = cart.some(item => item.qty > 2);
 
-  msg += `%0A💰 *Total:* $${total.toLocaleString()}`;
+  if (hayExceso) {
+    msg += `%0A⚠ *Aviso:* Se solicitaron más de 2 unidades de uno o más productos.%0A`;
+    msg += `La disponibilidad deberá confirmarse dentro de nuestros horarios de atención.%0A`;
+    msg += `🕒 Lunes a viernes 09:00–12:30 y 13:30–21:30.%0A`;
+    msg += `Sábados 09:00–13:00.%0A`;
+  }
+
+  const totalFinal = calcularTotalConCuotas(total);
+
+  msg += `%0A💰 *Total:* $${Math.round(totalFinal).toLocaleString()}`;
 
   window.open(`https://wa.me/5493856970135?text=${msg}`, '_blank');
 });
@@ -462,6 +462,93 @@ const modalDesc = document.getElementById('modalDesc');
 const modalPrice = document.getElementById('modalPrice');
 const btnReview = document.getElementById('btnReview');
 
+function actualizarPreciosModal(precioBase) {
+
+  const precioNumerico = parseFloat(
+    precioBase.replace(/\./g, "").replace(",", ".").replace("$", "")
+  );
+
+  const contado = precioNumerico;
+  const local = precioNumerico * 0.97; // -3%
+  const lista = precioNumerico * 1.13; // 1 cuota
+
+  document.getElementById("precioContado").textContent =
+    contado.toLocaleString("es-AR", { style: "currency", currency: "ARS" });
+
+  document.getElementById("precioLocal").textContent =
+    local.toLocaleString("es-AR", { style: "currency", currency: "ARS" });
+
+  document.getElementById("precioLista").textContent =
+    lista.toLocaleString("es-AR", { style: "currency", currency: "ARS" });
+
+  generarDetalleCuotas(precioNumerico);
+}
+function generarPreviewCuotas(precioBase) {
+
+  const modalCuotas = document.getElementById("modalCuotas");
+  if (!modalCuotas) return;
+
+  modalCuotas.innerHTML = "";
+
+  const precioNumerico = parseFloat(
+    precioBase.replace(/\./g, "").replace(",", ".").replace("$", "")
+  );
+
+  Object.keys(tasasCuotas).forEach(cuotas => {
+
+    const tasa = tasasCuotas[cuotas];
+    const precioConInteres = precioNumerico * tasa;
+    const valorCuota = precioConInteres / cuotas;
+
+    const cuotaFormateada = valorCuota.toLocaleString("es-AR", {
+      style: "currency",
+      currency: "ARS"
+    });
+
+    const div = document.createElement("div");
+    div.classList.add("cuota-item");
+
+    div.innerHTML = `
+      <span>${cuotas}x</span>
+      <strong>${cuotaFormateada}</strong>
+    `;
+
+    modalCuotas.appendChild(div);
+
+  });
+
+}
+/* =========================
+   GENERADOR MODAL CUOTAS DETALLE
+========================= */
+function generarDetalleCuotas(precioBase) {
+
+  const lista = document.getElementById("listaCuotas");
+  if (!lista) return;
+
+  lista.innerHTML = "";
+
+  Object.keys(tasasCuotas).forEach(cuotas => {
+
+    const tasa = tasasCuotas[cuotas];
+    const total = precioBase * tasa;
+    const valorCuota = total / cuotas;
+
+    const fila = document.createElement("div");
+    fila.classList.add("fila-cuota");
+
+    fila.innerHTML = `
+      <span>${cuotas} cuotas</span>
+      <strong>${valorCuota.toLocaleString("es-AR", {
+        style: "currency",
+        currency: "ARS"
+      })}</strong>
+    `;
+
+    lista.appendChild(fila);
+  });
+
+}
 /* =========================
    ABRIR MODAL
 ========================= */
@@ -483,10 +570,41 @@ document.addEventListener('click', function (e) {
 
   // cargar datos
   modalImg.src = card.dataset.img;
+  /* =========================
+   GALERÍA MÚLTIPLE
+========================= */
+
+const thumbsContainer = document.getElementById("modalThumbs");
+thumbsContainer.innerHTML = "";
+
+let images = [];
+
+if (card.dataset.gallery) {
+  images = card.dataset.gallery.split(",");
+} else {
+  images = [card.dataset.img];
+}
+
+modalImg.src = images[0];
+resetZoom();
+
+images.forEach(src => {
+
+  const thumb = document.createElement("img");
+  thumb.src = src.trim();
+
+  thumb.addEventListener("click", () => {
+    modalImg.src = src.trim();
+    resetZoom();
+  });
+
+  thumbsContainer.appendChild(thumb);
+
+});
   resetZoom();
   modalTitle.textContent = card.dataset.title;
-  modalPrice.textContent = card.dataset.price;
-
+  actualizarPreciosModal(card.dataset.price);
+  generarPreviewCuotas(card.dataset.price);
   modalDesc.innerHTML = card.dataset.desc
     .split('\n')
     .filter(l => l.trim())
@@ -521,6 +639,32 @@ document.querySelector('.modal-overlay')?.addEventListener('click', closeModal);
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && modal.classList.contains('active')) {
     closeModal();
+  }
+});
+/* =========================
+   ABRIR / CERRAR MODAL CUOTAS
+========================= */
+
+const btnVerCuotas = document.getElementById("btnVerCuotas");
+const modalCuotasDetalle = document.getElementById("modalCuotasDetalle");
+const cerrarCuotas = document.getElementById("cerrarCuotas");
+
+if (btnVerCuotas) {
+  btnVerCuotas.addEventListener("click", () => {
+    modalCuotasDetalle?.classList.add("active");
+  });
+}
+
+if (cerrarCuotas) {
+  cerrarCuotas.addEventListener("click", () => {
+    modalCuotasDetalle?.classList.remove("active");
+  });
+}
+
+/* cerrar si clickea fuera */
+modalCuotasDetalle?.addEventListener("click", (e) => {
+  if (e.target === modalCuotasDetalle) {
+    modalCuotasDetalle.classList.remove("active");
   }
 });
 /* =========================
@@ -1074,3 +1218,21 @@ document.addEventListener('click', function (e) {
   e.stopImmediatePropagation();
 
 }, true); // ← usamos captura para frenar eventos antes que otros scripts
+document.querySelectorAll('.btn-wsp').forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    e.stopPropagation();
+  });
+});
+/* =========================
+   BLOQUEAR SCROLL BODY
+========================= */
+
+const toggleCart = document.getElementById('toggle-cart');
+
+toggleCart?.addEventListener('change', () => {
+  if (toggleCart.checked) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = '';
+  }
+});

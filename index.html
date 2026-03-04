@@ -5779,68 +5779,72 @@ Y REPARACION DE INSUMOS INFORMATICOS
 <input type="checkbox" id="toggle-cart" hidden>
 
 <label for="toggle-cart" class="cart-icon">
-    🛒
-    <span class="cart-count">0</span>
+  🛒
+  <span class="cart-count">0</span>
 </label>
 
-<!-- OVERLAY -->
-<label for="toggle-cart" class="cart-overlay"></label>
+<div class="cart-overlay"></div>
 
-<!-- PANEL CARRITO -->
-<aside class="cart">
-    <div class="cart-header">
-        <h3>Tu carrito</h3>
-        <label for="toggle-cart" class="close-cart">✕</label>
-    </div>
+<div class="cart-modal">
 
-    <div class="cart-items">
-        <!-- JS INYECTA LOS PRODUCTOS ACÁ -->
-    </div>
-    <button id="btn-clear-cart" class="btn-cart" style="margin-bottom:10px; background: #ff0033; box-shadow:0 0 15px #ff0033;">
-    Vaciar carrito
-</button>
+  <div class="cart-header">
+    <h3>Tu carrito</h3>
+    <label for="toggle-cart" class="close-cart">✕</label>
+  </div>
 
-<div class="cart-footer">
+  <div class="cart-body">
+    <div class="cart-items"></div>
+  </div>
+
+  <div class="cart-footer">
+
     <div class="cart-total">
-        <span>Total</span>
-        <strong>$0</strong>
+      <span>Total</span>
+      <strong>$0</strong>
     </div>
-    <div class="checkout-data">
-  <input type="text" id="clienteNombre" placeholder="Nombre y Apellido">
-  <input type="text" id="clienteProvincia" placeholder="Provincia">
-  <input type="text" id="clienteLocalidad" placeholder="Localidad">
-  <input type="text" id="clienteDireccion" placeholder="Dirección">
-  
-</div>
-<div class="checkout-options">
 
-  <p class="opt-title">Modo de entrega</p>
+    <!-- ENTREGA -->
+    <div class="cart-section">
+      <h4>Modo de entrega</h4>
+      <label><input type="radio" id="retiroLocal" name="entrega"> Retiro en el local</label>
+      <label><input type="radio" id="envioDomicilio" name="entrega"> Envío a domicilio</label>
+    </div>
 
-  <label class="opt-check">
-    <input type="checkbox" id="retiroLocal">
-    Retiro en el local
-  </label>
+    <!-- DATOS ENVÍO -->
+    <div class="cart-section">
+      <input type="text" id="clienteNombre" placeholder="Nombre completo">
+      <input type="text" id="clienteProvincia" placeholder="Provincia">
+      <input type="text" id="clienteLocalidad" placeholder="Localidad">
+      <input type="text" id="clienteDireccion" placeholder="Dirección">
+    </div>
 
-  <label class="opt-check">
-    <input type="checkbox" id="envioDomicilio">
-    Envío a domicilio (a consultar costo)
-  </label>
+    <!-- PAGO -->
+    <div class="cart-section">
+      <h4>Forma de pago</h4>
+      <label><input type="radio" id="pagoEfectivo" name="pago"> Efectivo</label>
+      <label><input type="radio" id="pagoTransferencia" name="pago"> Transferencia</label>
+      <label>
+        <input type="radio" name="pago" id="pagoTarjetaVisual">
+        Tarjeta de crédito
+      </label>
 
-  <p class="opt-title">Forma de pago</p>
+      <select id="selectCuotas">
+        <option value="0">Seleccionar cuotas</option>
+        <option value="1">1 cuota (Precio de lista)</option>
+        <option value="3">3 cuotas</option>
+        <option value="6">6 cuotas</option>
+        <option value="9">9 cuotas</option>
+        <option value="12">12 cuotas</option>
+      </select>
 
-  <label class="opt-check">
-    <input type="checkbox" id="pagoEfectivo">
-    Efectivo
-  </label>
+      <div id="cuotasPreviewCarrito"></div>
+    </div>
 
-  <label class="opt-check">
-    <input type="checkbox" id="pagoTransferencia">
-    Transferencia
-  </label>
+    <button class="btn-finish">Finalizar compra</button>
+    <button id="btn-clear-cart">Vaciar carrito</button>
 
-</div>
-    <div>
-    <a href="#" class="btn-cart btn-finish">Finalizar compra</a>
+  </div>
+
 </div>
 <div class="search-bubble">
   <svg class="search-icon" viewBox="0 0 24 24">
@@ -5867,19 +5871,94 @@ window.addEventListener('scroll', () => {
   <div class="modal-overlay"></div>
 
   <div class="modal-content">
-    <button class="modal-close">&times;</button>
+  <button class="modal-close">&times;</button>
 
-    <div class="modal-img-zoom" id="modalZoom">
-  <img id="modalImg" src="" alt="Producto">
-</div>
+  <div class="modal-grid">
 
-    <h3 id="modalTitle"></h3>
-    <p id="modalDesc"></p>
-    <span id="modalPrice" class="modal-price"></span>
+    <!-- GALERÍA -->
+    <div class="modal-gallery">
 
-    <button class="btn-review" id="btnReview" target="_blank">Review</button>
-    <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">Consultar</a>
+      <div class="modal-thumbs" id="modalThumbs"></div>
+
+      <div class="modal-img-zoom" id="modalZoom">
+        <img id="modalImg" src="" alt="Producto">
+      </div>
+
+    </div>
+
+    <!-- INFO -->
+    <div class="modal-info">
+
+  <h3 id="modalTitle"></h3>
+
+  <div id="modalDesc" class="modal-desc"></div>
+
+  <!-- =========================
+       BLOQUE PRECIOS ESTILO COMPRA GAMER
+  ========================== -->
+  <div class="modal-precios">
+
+    <div class="precio-contado">
+      <span>Precio contado / transferencia</span>
+      <strong id="precioContado"></strong>
+    </div>
+
+    <div class="precio-local">
+      <span>Abonando en efectivo</span>
+      <strong id="precioLocal"></strong>
+    </div>
+
+    <div class="precio-lista">
+      <div>
+        <span>Precio de lista</span>
+        <strong id="precioLista"></strong>
+      </div>
+      <button class="btn-ver-cuotas" id="btnVerCuotas">
+        Ver cuotas
+      </button>
+    </div>
+
+    <div class="logos-tarjetas">
+      <img src="img/logos/mastercard.png" alt="Mastercard">
+      <img src="img/logos/naranja.png" alt="Naranja X">
+      <img src="img/logos/visa.png" alt="Visa">
+    </div>
+
   </div>
+
+  <!-- =========================
+       INFORMACIÓN MEDIOS DE PAGO
+  ========================== -->
+  <div class="modal-pagos">
+    <p class="pagos-info">
+      💳 También aceptamos tarjetas de crédito nacionales 
+      (Naranja X, Visa y Mastercard bancarizadas).
+      <br><br>
+
+      • Única financiera: <strong>Sucrédito</strong>
+      <img src="img/logos/sucredito.png" 
+           alt="Sucredito" 
+           style="height:18px; vertical-align:middle; margin-left:5px;">
+      (1 pago)
+      <br>
+      • No aceptamos Banco Santiago ni Banco Sol ☺️
+    </p>
+  </div>
+
+  <!-- BOTONES -->
+  <button class="btn-review" id="btnReview">Review</button>
+  <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="btn-wsp">
+    Consultar
+  </a>
+
+</div>
+<div class="modal-cuotas-detalle" id="modalCuotasDetalle">
+  <div class="cuotas-content">
+    <span class="cerrar-cuotas" id="cerrarCuotas">✕</span>
+    <h3>Financiación con tarjeta</h3>
+    <div id="listaCuotas"></div>
+  </div>
+</div>
 </div>
 <script src="js/cart.js"></script>
 </body>
