@@ -49,6 +49,51 @@ const btnFinish = document.querySelector('.btn-finish');
 const btnClear = document.getElementById('btn-clear-cart');
 
 let cart = [];
+/* =========================
+   ANIMACION AGREGAR CARRITO
+========================= */
+
+function animarAgregarCarrito(imgSrc, startElement) {
+
+  const cartIcon = document.querySelector(".cart-icon");
+  if (!cartIcon) return;
+
+  const img = document.createElement("img");
+  img.src = imgSrc;
+  img.className = "fly-product";
+
+  const rectStart = startElement.getBoundingClientRect();
+  const rectCart = cartIcon.getBoundingClientRect();
+
+  img.style.left = rectStart.left + "px";
+  img.style.top = rectStart.top + "px";
+
+  document.body.appendChild(img);
+
+  requestAnimationFrame(() => {
+    img.style.left = rectCart.left + "px";
+    img.style.top = rectCart.top + "px";
+    img.style.width = "20px";
+    img.style.height = "20px";
+    img.style.opacity = "0.5";
+  });
+
+  setTimeout(() => {
+
+    img.remove();
+
+    cartIcon.classList.add("shake");
+
+    const count = document.querySelector(".cart-count");
+    count?.classList.add("bump");
+
+    setTimeout(() => {
+      cartIcon.classList.remove("shake");
+      count?.classList.remove("bump");
+    }, 400);
+
+  }, 700);
+}
 const selectCuotas = document.getElementById('selectCuotas');
 const cuotasPreviewCarrito = document.getElementById('cuotasPreviewCarrito');
 
@@ -213,6 +258,9 @@ document.addEventListener('click', e => {
   }
 
   renderCart();
+  animarAgregarCarrito(img, btn);
+
+  showCartMessage(); // 🟢 MENSAJE
 });
 
 /* =========================
@@ -545,9 +593,15 @@ const modal = document.getElementById('modalProduct');
 const modalImg = document.getElementById('modalImg');
 const modalTitle = document.getElementById('modalTitle');
 const modalDesc = document.getElementById('modalDesc');
-const modalPrice = document.getElementById('modalPrice');
 const btnReview = document.getElementById('btnReview');
+const btnAddToCart = document.getElementById("btnAddToCart");
 
+let productoActual = null;
+let botonOriginal = null;
+
+/* =========================
+   ACTUALIZAR PRECIOS
+========================= */
 function actualizarPreciosModal(precioBase) {
 
   const precioNumerico = parseFloat(
@@ -555,8 +609,8 @@ function actualizarPreciosModal(precioBase) {
   );
 
   const contado = precioNumerico;
-  const local = precioNumerico * 0.97; // -3%
-  const lista = precioNumerico * 1.13; // 1 cuota
+  const local = precioNumerico * 0.97;
+  const lista = precioNumerico * 1.13;
 
   document.getElementById("precioContado").textContent =
     contado.toLocaleString("es-AR", { style: "currency", currency: "ARS" });
@@ -569,6 +623,10 @@ function actualizarPreciosModal(precioBase) {
 
   generarDetalleCuotas(precioNumerico);
 }
+
+/* =========================
+   PREVIEW CUOTAS
+========================= */
 function generarPreviewCuotas(precioBase) {
 
   const modalCuotas = document.getElementById("modalCuotas");
@@ -602,10 +660,10 @@ function generarPreviewCuotas(precioBase) {
     modalCuotas.appendChild(div);
 
   });
-
 }
+
 /* =========================
-   GENERADOR MODAL CUOTAS DETALLE
+   DETALLE CUOTAS
 ========================= */
 function generarDetalleCuotas(precioBase) {
 
@@ -643,62 +701,73 @@ function generarDetalleCuotas(precioBase) {
     lista.appendChild(fila);
   });
 }
+
 /* =========================
    ABRIR MODAL
 ========================= */
 document.addEventListener('click', function (e) {
 
-  // ❌ no abrir si se clickea botones
   if (
     e.target.closest('.btn-add-cart') ||
     e.target.closest('.btn-wsp')
   ) return;
 
-  const card = e.target.closest('.card');
-  if (!card) return;
+const card = e.target.closest('.card');
+if (!card) return;
 
-  // 🛑 NUEVO → si está sin stock NO abrir modal
-  if (card.classList.contains('sin-stock')) return;
+if (card.classList.contains('sin-stock')) return;
+if (!MODAL_ENABLED) return;
 
-  if (!MODAL_ENABLED) return;
+const btn = card.querySelector(".btn-add-cart");
 
-  // cargar datos
-  modalImg.src = card.dataset.img;
+productoActual = {
+  name: btn.dataset.name,
+  price: parseInt(btn.dataset.price),
+  img: card.dataset.img
+};
+
+// pasar datos al botón del modal
+const modalBtn = document.getElementById("btnAddToCart");
+modalBtn.dataset.name = productoActual.name;
+modalBtn.dataset.price = productoActual.price;
+
   /* =========================
-   GALERÍA MÚLTIPLE
-========================= */
+     GALERÍA
+  ========================== */
 
-const thumbsContainer = document.getElementById("modalThumbs");
-thumbsContainer.innerHTML = "";
+  const thumbsContainer = document.getElementById("modalThumbs");
+  thumbsContainer.innerHTML = "";
 
-let images = [];
+  let images = [];
 
-if (card.dataset.gallery) {
-  images = card.dataset.gallery.split(",");
-} else {
-  images = [card.dataset.img];
-}
+  if (card.dataset.gallery) {
+    images = card.dataset.gallery.split(",");
+  } else {
+    images = [card.dataset.img];
+  }
 
-modalImg.src = images[0];
-resetZoom();
+  modalImg.src = images[0];
+  resetZoom();
 
-images.forEach(src => {
+  images.forEach(src => {
 
-  const thumb = document.createElement("img");
-  thumb.src = src.trim();
+    const thumb = document.createElement("img");
+    thumb.src = src.trim();
 
-  thumb.addEventListener("click", () => {
-    modalImg.src = src.trim();
-    resetZoom();
+    thumb.addEventListener("click", () => {
+      modalImg.src = src.trim();
+      resetZoom();
+    });
+
+    thumbsContainer.appendChild(thumb);
+
   });
 
-  thumbsContainer.appendChild(thumb);
-
-});
   resetZoom();
   modalTitle.textContent = card.dataset.title;
   actualizarPreciosModal(card.dataset.price);
   generarPreviewCuotas(card.dataset.price);
+
   modalDesc.innerHTML = card.dataset.desc
     .split('\n')
     .filter(l => l.trim())
@@ -719,7 +788,33 @@ images.forEach(src => {
 
 
 /* =========================
-   CERRAR MODAL  (solo una vez)
+   BOTÓN AGREGAR AL CARRITO
+========================= */
+
+const btnAddModal = document.getElementById("btnAddToCart");
+
+btnAddToCart?.addEventListener("click", () => {
+
+  if (!productoActual) return;
+
+  const item = cart.find(p => p.name === productoActual.name);
+
+  if (item) {
+    item.qty++;
+  } else {
+    cart.push({
+      name: productoActual.name,
+      price: parseInt(productoActual.price),
+      img: productoActual.img,
+      qty: 1
+    });
+  }
+
+  renderCart();
+  showCartMessage();
+});
+/* =========================
+   CERRAR MODAL
 ========================= */
 function closeModal() {
   modal.classList.remove('active');
@@ -727,7 +822,6 @@ function closeModal() {
 }
 
 document.querySelector('.modal-close')?.addEventListener('click', closeModal);
-
 document.querySelector('.modal-overlay')?.addEventListener('click', closeModal);
 
 document.addEventListener('keydown', e => {
@@ -735,8 +829,9 @@ document.addEventListener('keydown', e => {
     closeModal();
   }
 });
+
 /* =========================
-   ABRIR / CERRAR MODAL CUOTAS
+   MODAL CUOTAS
 ========================= */
 
 const btnVerCuotas = document.getElementById("btnVerCuotas");
@@ -755,14 +850,14 @@ if (cerrarCuotas) {
   });
 }
 
-/* cerrar si clickea fuera */
 modalCuotasDetalle?.addEventListener("click", (e) => {
   if (e.target === modalCuotasDetalle) {
     modalCuotasDetalle.classList.remove("active");
   }
 });
+
 /* =========================
-   ZOOM CON SCROLL + MOUSE
+   ZOOM + SCROLL + DOBLE CLICK
 ========================= */
 
 const zoomContainer = document.getElementById('modalZoom');
@@ -771,7 +866,6 @@ let zoomScale = 1;
 const ZOOM_MIN = 1;
 const ZOOM_MAX = 4;
 
-/* hacer zoom con la rueda */
 zoomContainer.addEventListener('wheel', (e) => {
   e.preventDefault();
 
@@ -794,7 +888,6 @@ zoomContainer.addEventListener('wheel', (e) => {
   modalImg.style.transform = `scale(${zoomScale})`;
 });
 
-/* mover la lupa */
 zoomContainer.addEventListener('mousemove', (e) => {
   if (zoomScale === 1) return;
 
@@ -803,32 +896,18 @@ zoomContainer.addEventListener('mousemove', (e) => {
   const y = (e.clientY - rect.top) / rect.height * 100;
 
   modalImg.style.transformOrigin = `${x}% ${y}%`;
-  
 });
 
-/* reset automático */
 zoomContainer.addEventListener('mouseleave', resetZoom);
 
-/* función reset */
-function resetZoom() {
-  zoomScale = 1;
-  modalImg.style.transform = 'scale(1)';
-  modalImg.style.transformOrigin = 'center center';
-}
-/* =========================
-   DOBLE CLICK = ZOOM DIRECTO
-   (usa la misma lógica actual)
-========================= */
 zoomContainer.addEventListener('dblclick', (e) => {
   e.preventDefault();
 
-  /* si ya está con zoom → vuelve a estado normal */
   if (zoomScale > 1) {
     resetZoom();
     return;
   }
 
-  /* mismo cálculo de posición que usás en wheel */
   const rect = zoomContainer.getBoundingClientRect();
   const x = e.clientX - rect.left;
   const y = e.clientY - rect.top;
@@ -838,10 +917,15 @@ zoomContainer.addEventListener('dblclick', (e) => {
 
   modalImg.style.transformOrigin = `${originX}% ${originY}%`;
 
-  /* aplica zoom inicial */
-  zoomScale = 2; // nivel de zoom al hacer doble click
+  zoomScale = 2;
   modalImg.style.transform = `scale(${zoomScale})`;
 });
+
+function resetZoom() {
+  zoomScale = 1;
+  modalImg.style.transform = 'scale(1)';
+  modalImg.style.transformOrigin = 'center center';
+}
 /* =========================
    ORDENAR (sin stock al final)
 ========================= */
@@ -1347,5 +1431,16 @@ if (toggleCart && searchBubble) {
     }
 
   });
+
+}
+function showCartMessage(){
+
+  const toast = document.getElementById("cart-toast");
+
+  toast.classList.add("show");
+
+  setTimeout(()=>{
+    toast.classList.remove("show");
+  },2000);
 
 }

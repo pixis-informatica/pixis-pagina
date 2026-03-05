@@ -541,6 +541,37 @@ html {
     color: #000;
     box-shadow: 0 0 15px #00ffd5;
 }
+.fly-product {
+  position: fixed;
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  pointer-events: none;
+  z-index: 9999;
+  transition: all 0.7s cubic-bezier(.25,.8,.25,1);
+}
+
+.cart-icon.shake {
+  animation: cartShake 0.4s;
+}
+
+@keyframes cartShake {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(-10deg); }
+  50% { transform: rotate(10deg); }
+  75% { transform: rotate(-6deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.cart-count.bump {
+  animation: countBump 0.35s;
+}
+
+@keyframes countBump {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
 /* BOTÓN */
 .btn-wsp {
     display: inline-block;
@@ -1566,77 +1597,62 @@ html {
 }
 
 /* =====================================================
-   MOBILE (mantener tu diseño original)
+   MODAL MOBILE FIX
 ===================================================== */
 @media (max-width: 900px) {
 
-  .modal-content {
-      max-width: 420px;
-      width: 90%;
-      max-height: 80vh;
-      padding: 25px;
-      display: flex;
-      flex-direction: column;
+  .modal-content{
+      max-width:420px;
+      width:90%;
+      max-height:90vh;
+      padding:25px;
+
+      display:flex;
+      flex-direction:column;
+
+      overflow-y:auto; /* 🔥 solo el modal scrollea */
   }
 
-  .modal-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
+  .modal-grid{
+      display:flex;
+      flex-direction:column;
+      gap:15px;
   }
 
-  .modal-thumbs {
-      display: flex;
-      flex-direction: row;
-      gap: 10px;
-      justify-content: center;
-      overflow-x: auto;
-      padding-bottom: 5px;
+  .modal-gallery{
+      flex-shrink:0;
   }
 
-  .modal-thumbs img {
-      width: 55px;
-      height: 55px;
+  .modal-info{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
   }
 
-  .modal-img-zoom img {
-      max-height: 300px;
+  /* thumbs */
+  .modal-thumbs{
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      overflow-x:auto;
   }
 
-}
-/* =========================================
-   FIX BOTONES EN MOBILE
-========================================= */
-@media (max-width: 900px) {
-
-  .modal-content {
-      display: flex;
-      flex-direction: column;
-      max-height: 90vh;
+  .modal-thumbs img{
+      width:55px;
+      height:55px;
   }
 
-  .modal-grid {
-      flex: 1;
-      overflow: hidden;
+  /* imagen principal */
+  .modal-img-zoom img{
+      max-height:300px;
+      width:100%;
+      object-fit:contain;
   }
 
-  .modal-info {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      overflow: hidden;
-  }
-
-  /* La descripción hace scroll */
-  #modalDesc {
-      flex: 1;
-      overflow-y: auto;
-  }
-
-  /* Botones siempre visibles */
-  .modal-info .btn-review,
-  .modal-info .btn-wsp {
-      flex-shrink: 0;
+  /* descripción con scroll interno */
+  #modalDesc{
+      max-height:200px;
+      overflow-y:auto;
   }
 
 }
@@ -2680,4 +2696,33 @@ body.buscando .card {
   pointer-events: none;
   transform: scale(0.9);
   transition: all .3s ease;
+}
+
+#cart-toast{
+  position: fixed;
+
+  bottom: 30px;      /* 🔥 lo baja al centro inferior */
+  left: 50%;
+  transform: translateX(-50%) scale(0.9);
+
+  background: #16a34a;
+  color: white;
+
+  padding: 14px 28px;
+  border-radius: 30px;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  opacity: 0;
+  pointer-events: none;
+
+  transition: all .3s ease;
+
+  z-index: 999999;
+}
+
+#cart-toast.show{
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
 }
