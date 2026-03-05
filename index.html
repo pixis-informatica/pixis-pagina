@@ -5811,12 +5811,12 @@ Y REPARACION DE INSUMOS INFORMATICOS
   </div>
 
   <div class="cart-footer">
-
+     
     <!-- ENTREGA -->
     <div class="cart-section">
       <h4>Modo de entrega</h4>
       <label><input type="radio" id="retiroLocal" name="entrega"> Retiro en el local</label>
-      <label><input type="radio" id="envioDomicilio" name="entrega"> Envío a domicilio</label>
+      <label><input type="radio" id="envioDomicilio" name="entrega"> Envío a domicilio (a consultar costo)</label>
     </div>
 
     <!-- DATOS ENVÍO -->
@@ -5853,12 +5853,155 @@ Y REPARACION DE INSUMOS INFORMATICOS
       <strong>$0</strong>
     </div>
     <div class="cart-cuotas-info"></div>
+<div class="cart-terminos">
+
+<label class="terminos-check">
+
+<input type="checkbox" id="aceptaTerminos">
+
+<span>
+He leído y acepto los 
+<button type="button" id="btnAbrirTerminos">
+Términos y condiciones
+</button>
+</span>
+
+</label>
+
+</div>
     <button class="btn-finish">Finalizar compra</button>
     <button id="btn-clear-cart">Vaciar carrito</button>
 
   </div>
 
 </div>
+<div class="modal-terminos" id="modalTerminos">
+
+<div class="terminos-contenido">
+
+<button class="cerrar-terminos" id="cerrarTerminos">✕</button>
+
+<h3>Términos y Condiciones</h3>
+
+<div class="terminos-texto">
+
+<p><strong>Condiciones de la Oferta y Venta – Pixis Informática</strong></p>
+
+<p><strong>Duración de la Oferta</strong></p>
+
+<p>
+Los precios están sujetos al tipo de cambio.<br>
+Pueden modificarse sin previo aviso.
+</p>
+
+<p><strong>Confirmación de Stock</strong></p>
+
+<p>
+Los presupuestos solo podrán abonarse una vez confirmado el stock disponible.
+</p>
+
+<p><strong>Pago Anticipado sin Confirmar Stock</strong></p>
+
+<p>
+No se recomienda realizar pagos sin antes confirmar la disponibilidad de stock.
+</p>
+
+<p>
+Si se abona el producto luego de realizar el pedido sin confirmar stock, y el pago se efectúa mediante nuestro único canal de cobro:
+</p>
+
+<p>
+Alias: pixis.informatica<br>
+CBU: 0000003100061346835943<br>
+Titular de cuenta: Maldonado Pablo Alejandro
+</p>
+
+<p>
+quedará igualmente pendiente de confirmación de stock y acreditación del pago.
+</p>
+
+<p>
+En caso de disponibilidad, se despachará normalmente, ya sea retirando del local o mediante envío a domicilio.
+</p>
+
+<p>
+Los envíos a domicilio implican gastos adicionales a cargo del cliente.
+</p>
+
+<p>
+En caso contrario, se reintegrará el 100% del monto abonado por anticipado.
+</p>
+
+<p>
+Ningún pedido se reserva ni se entrega sin antes confirmarse la acreditación del pago, cualquiera sea la opción elegida.
+</p>
+
+<p><strong>Armado de Computadoras</strong></p>
+
+<p>
+Es obligatorio el anticipo del 100% antes de iniciar la producción.
+</p>
+
+<p><strong>Devoluciones</strong></p>
+
+<p>
+Una vez entregado el producto o ejecutado el servicio, no se aceptan devoluciones.
+</p>
+
+<p><strong>6. Garantía de Productos</strong></p>
+
+<ul>
+
+<li>Todo producto cuenta con garantía por el tiempo indicado en el ticket o factura de compra.</li>
+
+<li>Sin ticket en mano no se podrá cubrir la garantía, sin excepciones.</li>
+
+<li>La garantía aplica únicamente a fallos de fábrica.</li>
+
+<li>Queda excluida en casos de daños físicos, mala manipulación, pines de carga rotos o descomposición por mal uso.</li>
+
+<li>El producto será reemplazado de forma inmediata solo si se presenta en las mismas condiciones de entrega, conservando su envoltorio original.</li>
+
+<li>Todos los cambios por garantía se realizan exclusivamente en nuestro local, para corroborar la falla.</li>
+
+</ul>
+
+<p><strong>6.A Cambios Directos por Garantía</strong></p>
+
+<ul>
+
+<li>En hardware y periféricos seleccionados, la garantía para cambio directo es de 72 horas corridas, aplicable únicamente para clientes de Santiago del Estero Capital y La Banda.</li>
+
+<li>Para productos enviados al interior de la provincia o del país, el plazo de garantía para cambio directo es de 10 días corridos.</li>
+
+<li>Pasados estos plazos, la garantía será gestionada por el fabricante/proveedor, quienes evaluarán el producto y determinarán la cobertura.</li>
+
+<li>Los costos de envío hacia la garantía del fabricante corren por cuenta del cliente.</li>
+
+</ul>
+
+<p><strong>6.B Tiempo de Garantía</strong></p>
+
+<ul>
+
+<li>El tiempo de garantía de cada producto se encuentra indicado en la factura de compra.</li>
+
+<li>En compras con varios artículos, la factura detallará el tiempo de garantía de cada uno.</li>
+
+<li>Es requisito conservar caja, empaques, manuales, etiquetas y accesorios para realizar el trámite de garantía.</li>
+
+<li>Si el fabricante ofrece un tiempo mayor de garantía, una vez vencido el plazo otorgado por Pixis Informática, el cliente deberá gestionar directamente con la marca.</li>
+
+<li>Pixis Informática no tiene responsabilidad alguna sobre esa gestión ni su resolución.</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
 <div class="search-bubble">
   <svg class="search-icon" viewBox="0 0 24 24">
     <circle cx="11" cy="11" r="7" stroke="black" stroke-width="2" fill="none"/>

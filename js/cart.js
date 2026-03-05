@@ -47,7 +47,28 @@ const cartTotal = document.querySelector('.cart-total strong');
 const cartCount = document.querySelector('.cart-count');
 const btnFinish = document.querySelector('.btn-finish');
 const btnClear = document.getElementById('btn-clear-cart');
+const btnAbrirTerminos = document.getElementById("btnAbrirTerminos");
+const modalTerminos = document.getElementById("modalTerminos");
+const cerrarTerminos = document.getElementById("cerrarTerminos");
+const aceptaTerminos = document.getElementById("aceptaTerminos");
 
+/* abrir */
+
+btnAbrirTerminos?.addEventListener("click",()=>{
+modalTerminos.classList.add("active");
+});
+
+/* cerrar */
+
+cerrarTerminos?.addEventListener("click",()=>{
+modalTerminos.classList.remove("active");
+});
+
+modalTerminos?.addEventListener("click",(e)=>{
+if(e.target === modalTerminos){
+modalTerminos.classList.remove("active");
+}
+});
 let cart = [];
 /* =========================
    ANIMACION AGREGAR CARRITO
@@ -377,6 +398,10 @@ btnClear?.addEventListener('click', () => {
    FINALIZAR COMPRA
 ========================= */
 btnFinish?.addEventListener('click', e => {
+  if(!aceptaTerminos.checked){
+alert("Debes aceptar los términos y condiciones para continuar.");
+return;
+}
   e.preventDefault();
   if (!cart.length) return;
 

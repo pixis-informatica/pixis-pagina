@@ -2726,3 +2726,131 @@ body.buscando .card {
   opacity: 1;
   transform: translateX(-50%) scale(1);
 }
+/* =========================
+TERMINOS CHECK
+========================= */
+.modal-terminos{
+opacity:0;
+transition:0.3s;
+}
+
+.modal-terminos.active{
+opacity:1;
+}
+.cart-terminos{
+margin:15px 0;
+font-size:13px;
+}
+
+.terminos-check{
+display:flex;
+align-items:center;
+gap:8px;
+line-height:1.4;
+}
+
+.terminos-check input{
+transform:scale(1.2);
+cursor:pointer;
+}
+
+#btnAbrirTerminos{
+background:none;
+border:none;
+color:#00b7ff;
+cursor:pointer;
+font-weight:600;
+}
+
+
+/* =========================
+MODAL TERMINOS
+========================= */
+
+.modal-terminos{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.7);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:9999;
+}
+
+.modal-terminos.active{
+display:flex;
+}
+
+.terminos-contenido{
+
+position:relative;
+
+background:#111;
+color:#fff;
+
+width:90%;
+max-width:700px;
+max-height:80vh;
+
+padding:25px;
+border-radius:12px;
+
+display:flex;
+flex-direction:column;
+overflow:hidden;
+
+}
+
+/* TITULO */
+
+.terminos-contenido h3{
+margin-bottom:15px;
+color:#ff00ff;
+}
+
+/* TEXTO SCROLL */
+
+.terminos-texto{
+overflow-y:auto;
+font-size:14px;
+line-height:1.6;
+padding-right:10px;
+}
+
+/* BOTON CERRAR */
+
+.cerrar-terminos{
+
+position:absolute;
+right:15px;
+top:10px;
+
+background:none;
+border:none;
+
+font-size:24px;
+color:white;
+cursor:pointer;
+
+}
+
+
+/* =========================
+MOBILE
+========================= */
+
+@media(max-width:600px){
+
+.terminos-contenido{
+
+width:95%;
+max-height:85vh;
+padding:20px;
+
+}
+
+.terminos-texto{
+font-size:13px;
+}
+
+}
