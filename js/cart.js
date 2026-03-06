@@ -451,14 +451,16 @@ btnClear?.addEventListener('click', () => {
    FINALIZAR COMPRA
 ========================= */
 btnFinish?.addEventListener('click', e => {
-  if(!aceptaTerminos.checked){
-alert("Debes aceptar los términos y condiciones para continuar.");
-return;
-}
+
+  if (!aceptaTerminos.checked) {
+    alert("Debes aceptar los términos y condiciones para continuar.");
+    return;
+  }
+
   e.preventDefault();
   if (!cart.length) return;
 
-  const nombre = document.getElementById('clienteNombre')?.value.trim();
+  const nombre    = document.getElementById('clienteNombre')?.value.trim();
   const localidad = inputLocalidad.value.trim();
   const direccion = document.getElementById('clienteDireccion')?.value.trim();
 
@@ -467,31 +469,26 @@ return;
     return;
   }
 
-/* =========================
-   VALIDACIÓN FORMA DE PAGO
-========================= */
+  if (!pagoEfectivo.checked && !pagoTransferencia.checked && !pagoTarjeta.checked) {
+    alert('Seleccioná forma de pago.');
+    return;
+  }
 
-if (!pagoEfectivo.checked && 
-    !pagoTransferencia.checked && 
-    !pagoTarjeta.checked) {
-
-  alert('Seleccioná forma de pago.');
-  return;
-}
-
-/* 🔥 NUEVA VALIDACIÓN TARJETA SIN CUOTAS */
-if (pagoTarjeta.checked && selectCuotas.value === "0") {
-  alert('Seleccioná la cantidad de cuotas para pagar con tarjeta.');
-  return;
-}
+  if (pagoTarjeta.checked && selectCuotas.value === "0") {
+    alert('Seleccioná la cantidad de cuotas para pagar con tarjeta.');
+    return;
+  }
 
   if (envioDomicilio.checked && (!nombre || !localidad || !direccion)) {
     alert('Para envíos debés completar los datos.');
     return;
   }
 
-  let msg = '🛒 *Pedido PIXIS Informática*%0A%0A';
+  /* ── 1. GENERAR PDF ── */
+  generarPDFPresupuesto();
 
+  /* ── 2. ARMAR MENSAJE WHATSAPP ── */
+  let msg = '🛒 *Pedido PIXIS Informática*%0A%0A';
   msg += `🚚 *Entrega:* ${retiroLocal.checked ? 'Retiro en el local' : 'Envío a domicilio'}%0A`;
 
   if (envioDomicilio.checked) {
@@ -501,56 +498,44 @@ if (pagoTarjeta.checked && selectCuotas.value === "0") {
   msg += `%0A────────────────────%0A`;
 
   let total = 0;
-
   cart.forEach(i => {
-    msg += `• ${i.name} x${i.qty} — $${(i.price*i.qty).toLocaleString()}%0A`;
+    msg += `• ${i.name} x${i.qty} — $${(i.price * i.qty).toLocaleString()}%0A`;
     total += i.price * i.qty;
   });
-  
 
   const hayExceso = cart.some(item => item.qty > 2);
-
   if (hayExceso) {
     msg += `%0A⚠ *Aviso:* Se solicitaron más de 2 unidades de uno o más productos.%0A`;
     msg += `La disponibilidad deberá confirmarse dentro de nuestros horarios de atención.%0A`;
-    msg += `🕒 Lunes a viernes 09:00–12:30 y 13:30–21:30.%0A`;
-    msg += `Sábados 09:00–13:00.%0A`;
+    msg += `🕒 Lunes a viernes 09:00–12:30 y 13:30–21:30.%0ASábados 09:00–13:00.%0A`;
   }
 
-/* =========================
-   TOTAL Y MÉTODO DE PAGO
-========================= */
+  msg += `%0A────────────────────%0A`;
 
-msg += `%0A────────────────────%0A`;
+  if (pagoTarjeta.checked && selectCuotas.value !== "0") {
+    const cuotas          = parseInt(selectCuotas.value);
+    const tasa            = tasasCuotas[cuotas];
+    const totalConInteres = total * tasa;
+    const valorCuota      = totalConInteres / cuotas;
+    msg += `💳 *Pago:* Tarjeta de crédito%0A`;
+    msg += `💳 ${cuotas} cuotas de $${Math.round(valorCuota).toLocaleString()}%0A`;
+    msg += `💰 *Total final:* $${Math.round(totalConInteres).toLocaleString()}%0A`;
+    msg += `%0A⏳ El pago se concretará dentro de nuestros horarios de atención.%0A`;
+  } else if (pagoEfectivo.checked) {
+    msg += `💵 *Pago:* Efectivo%0A`;
+    msg += `💰 *Total:* $${Math.round(total).toLocaleString()}%0A`;
+  } else if (pagoTransferencia.checked) {
+    msg += `🏦 *Pago:* Transferencia bancaria%0A`;
+    msg += `💰 *Total:* $${Math.round(total).toLocaleString()}%0A`;
+  }
 
-if (pagoTarjeta.checked && selectCuotas.value !== "0") {
-
-  const cuotas = parseInt(selectCuotas.value);
-  const tasa = tasasCuotas[cuotas];
-
-  const totalConInteres = total * tasa;
-  const valorCuota = totalConInteres / cuotas;
-
-  msg += `💳 *Pago:* Tarjeta de crédito%0A`;
-  msg += `💳 ${cuotas} cuotas de $${Math.round(valorCuota).toLocaleString()}%0A`;
-  msg += `💰 *Total final:* $${Math.round(totalConInteres).toLocaleString()}%0A`;
-  msg += `%0A⏳ El pago se concretará dentro de nuestros horarios de atención.%0A`;
-
-} else if (pagoEfectivo.checked) {
-
-  msg += `💵 *Pago:* Efectivo%0A`;
-  msg += `💰 *Total:* $${Math.round(total).toLocaleString()}%0A`;
-
-} else if (pagoTransferencia.checked) {
-
-  msg += `🏦 *Pago:* Transferencia bancaria%0A`;
-  msg += `💰 *Total:* $${Math.round(total).toLocaleString()}%0A`;
-
-}
-
-window.open(`https://wa.me/5493856970135?text=${msg}`, '_blank');
+  /* ── 3. ABRIR WHATSAPP (con pequeño delay para que el PDF abra primero) ── */
+  setTimeout(() => {
+    window.open(`https://wa.me/5493856970135?text=${msg}`, '_blank');
+  }, 800);
 
 });
+
 function aplicarConfiguracionPreciosCategorias() {
 
   const categorias = document.querySelectorAll("h3.categoria");
@@ -1524,3 +1509,447 @@ function showCartMessage(){
   },2000);
 
 }
+
+function generarPDFPresupuesto() {
+
+  const { jsPDF } = window.jspdf;
+
+  /* ── PROFORMA AUTOINCREMENTAL ── */
+  let contador = localStorage.getItem("pixis_proforma");
+  contador = contador ? parseInt(contador) + 1 : 1;
+  localStorage.setItem("pixis_proforma", contador);
+  const numeroProforma = contador.toString().padStart(6, "0");
+
+  /* ── A4 PORTRAIT ── */
+  const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+  const W = 210;
+
+  /* ── PALETA ── */
+  const MORADO   = [106,  13, 173];
+  const AMARILLO = [255, 215,   0];
+  const NEGRO    = [  0,   0,   0];
+  const BLANCO   = [255, 255, 255];
+  const GRIS_T   = [120, 120, 120];
+  const GRIS_F   = [242, 242, 242];
+  const OSCURO   = [ 30,  30,  30];
+  const ROSA     = [244, 204, 204];
+  const VERDE_C  = [200, 255, 200];
+  const VERDE_D  = [182, 215, 168];
+
+  /* ── FECHA ── */
+  const hoy = new Date();
+  const fechaStr = `${hoy.getDate()}/${hoy.getMonth()+1}/${hoy.getFullYear()}`;
+  /* ── VENCIMIENTO 72HS ── */
+const vencimiento = new Date(hoy);
+vencimiento.setHours(vencimiento.getHours() + 24);
+
+const fechaVenc = `${vencimiento.getDate()}/${vencimiento.getMonth()+1}/${vencimiento.getFullYear()}`;
+
+  /* ── DESCUENTO: 5% solo si efectivo + retiro local ── */
+  const esEfectivoLocal = pagoEfectivo.checked && retiroLocal.checked;
+  const pctDescuento    = esEfectivoLocal ? 5 : 0;
+
+  /* ── DATOS CLIENTE ── */
+  const clienteNombre = document.getElementById("clienteNombre")?.value.trim() || "USUARIO CLIENTE";
+  const localidad     = inputLocalidad?.value.trim()                            || "—";
+  const tieneEnvio    = envioDomicilio?.checked;
+
+  /* ════════════════════════════════════════
+     BARRA SUPERIOR
+  ════════════════════════════════════════ */
+  doc.setFillColor(...MORADO);
+  doc.rect(0, 0, W, 7, "F");
+
+  /* ════════════════════════════════════════
+     CABECERA: 3 COLUMNAS  (y: 8 – 68)
+  ════════════════════════════════════════ */
+
+  /* ── COL IZQUIERDA ── */
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(14);
+  doc.setTextColor(...GRIS_T);
+  doc.text("PIXIS INFORMATICA", 8, 16);
+
+  doc.setDrawColor(...GRIS_T);
+  doc.setLineWidth(0.3);
+  doc.line(8, 18, 68, 18);
+
+  const infoEmpresa = [
+    ["Dir:",  "JUJUY 412 EDIF. SAN ANTONIO"],
+    ["",      "2 PISO OF. B"],
+    ["Tel:",  "+54 9 3856 97-0135"],
+    ["Mail:", "PIXISINFORMATICA.CONTACTO@GMAIL.COM"],
+    ["Web:",  "whatsapp.com/channel/"],
+    ["",      "0029VaaDTIzBfxoF1SBOmj04"],
+  ];
+  let yInfo = 23;
+  infoEmpresa.forEach(([lbl, val]) => {
+    doc.setFont("helvetica", "bold");   doc.setFontSize(7.5); doc.setTextColor(...NEGRO);
+    doc.text(lbl, 8,  yInfo);
+    doc.setFont("helvetica", "normal");
+    doc.text(val, 18, yInfo);
+    yInfo += 4.5;
+  });
+
+  /* ── COL CENTRAL ── */
+  const xC = 105;
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(22);
+  doc.setTextColor(...NEGRO);
+  doc.text("PRESUPUESTO", xC, 16, { align: "center" });
+
+  doc.setFont("helvetica", "italic");
+  doc.setFontSize(8);
+  doc.setTextColor(100,100,100);
+  doc.text("No valido como factura", xC, 21, { align: "center" });
+
+  
+  doc.setDrawColor(...MORADO);
+  doc.setLineWidth(0.5);
+  doc.roundedRect(xC-14, 23, 28, 18, 2, 2, "FD");
+  doc.setFont("helvetica","bold"); doc.setFontSize(9); doc.setTextColor(...MORADO);
+  doc.text("PIXIS",       xC, 31, { align: "center" });
+  doc.setFontSize(7);
+  doc.text("INFORMATICA", xC, 36, { align: "center" });
+
+  [[43,"Fecha",fechaStr],[53,"Validez hasta:",fechaVenc],[63,"N de Pro-forma",numeroProforma]].forEach(([y,lbl,val]) => {
+    doc.setFillColor(245,245,245);
+    doc.rect(xC-24, y, 48, 5, "F");
+    doc.setFont("helvetica","bold"); doc.setFontSize(7.5); doc.setTextColor(...NEGRO);
+    doc.text(lbl, xC, y+3.5, { align:"center" });
+    doc.setFillColor(255,255,255);
+    doc.rect(xC-24, y+5, 48, 5, "F");
+    doc.setFont("helvetica","normal"); doc.setFontSize(8);
+    doc.text(val, xC, y+9.2, { align:"center" });
+  });
+
+  /* ── COL DERECHA — SERVICIOS ── */
+  const xR = 141;
+  const wR = 63;
+  const hR = 58;
+
+  doc.setFillColor(...OSCURO);
+  doc.rect(xR, 8, wR, hR, "F");
+  doc.setDrawColor(...AMARILLO);
+  doc.setLineWidth(1);
+  doc.rect(xR, 8, wR, hR);
+
+  const servicios = [
+    { t:"SERVICIO ESPECIALIZADO EN:",  b:true,  s:6.5, c:AMARILLO },
+    { t:"DIAGNOSTICOS",                b:false, s:6,   c:BLANCO   },
+    { t:"REPARACION Y MANTENIMIENTOS", b:true,  s:6.5, c:AMARILLO },
+    { t:"COMPUTADORAS DE ESCRITORIOS", b:false, s:6,   c:BLANCO   },
+    { t:"NETBOOKS Y NOTEBOOK",         b:false, s:6,   c:BLANCO   },
+    { t:"",                            b:false, s:2,   c:BLANCO   },
+    { t:"VENTA DE INSUMOS EN:",        b:true,  s:6.5, c:AMARILLO },
+    { t:"REPUESTOS DE HARDWARE",       b:false, s:6,   c:BLANCO   },
+    { t:"PERIFERICOS OFICINAS O GAMER",b:false, s:6,   c:BLANCO   },
+    { t:"",                            b:false, s:2,   c:BLANCO   },
+    { t:"SOLUCIONES TERMICAS",         b:true,  s:6.5, c:AMARILLO },
+    { t:"PASTAS TERMICAS ALTO REND.",  b:false, s:6,   c:BLANCO   },
+    { t:"PADS TERMICOS / COOLERS",     b:false, s:6,   c:BLANCO   },
+    { t:"",                            b:false, s:2,   c:BLANCO   },
+    { t:"Cables y Adaptadores",        b:true,  s:6.5, c:AMARILLO },
+    { t:"",                            b:false, s:2,   c:BLANCO   },
+    { t:"ATENCION Y ASESORAMIENTO",    b:true,  s:6.5, c:AMARILLO },
+    { t:"PERSONALIZADO",               b:true,  s:6.5, c:AMARILLO },
+  ];
+  let yS = 13;
+  servicios.forEach(({ t, b, s, c }) => {
+    doc.setFontSize(s);
+    doc.setFont("helvetica", b ? "bold" : "normal");
+    doc.setTextColor(...c);
+    if (t) doc.text(t, xR+2, yS);
+    yS += s * 0.38 + 1;
+  });
+
+  /* ════════════════════════════════════════
+     CLIENTE + TÉRMINOS  (y: 70 – 98)
+  ════════════════════════════════════════ */
+  const yCliente = 75;
+
+  doc.setFillColor(248,248,248);
+  doc.rect(8, yCliente, 125, 26, "F");
+
+  doc.setFillColor(...MORADO);
+  doc.rect(8, yCliente, 28, 6, "F");
+  doc.setFont("helvetica","bold"); doc.setFontSize(8); doc.setTextColor(...BLANCO);
+  doc.text("CLIENTE", 22, yCliente+4.2, { align:"center" });
+
+  doc.setTextColor(...NEGRO); doc.setFontSize(8);
+
+  // NOMBRE
+  doc.setFont("helvetica","bold");   doc.text("NOMBRE:",   10, yCliente+10);
+  doc.setFont("helvetica","normal"); doc.text(clienteNombre, 33, yCliente+10);
+
+  // LOCALIDAD (reemplaza teléfono)
+  doc.setFont("helvetica","bold");   doc.text("LOCALIDAD:", 10, yCliente+16);
+  doc.setFont("helvetica","normal"); doc.text(localidad,     33, yCliente+16);
+
+  // ENVIO A DOMICILIO (reemplaza email)
+  doc.setFont("helvetica","bold");   doc.text("ENVIO A DOMICILIO:", 10, yCliente+22);
+  doc.setFont("helvetica","normal");
+  doc.text(tieneEnvio ? "Si" : "No - RETIRO EN LOCAL", 50, yCliente+22);
+
+  /* Términos y Condiciones */
+  const xTerm = 138;
+  doc.setFont("helvetica","bold"); doc.setFontSize(8.5); doc.setTextColor(...NEGRO);
+  doc.text("Terminos y Condiciones", xTerm, yCliente+5);
+
+  doc.setFont("helvetica","normal"); doc.setFontSize(7);
+  const terminos = [
+    "1.- Duracion de la Oferta: PRECIOS",
+    "    SUJETOS AL TIPO DE CAMBIO.",
+    "    PUEDEN CAMBIAR SIN PREVIO AVISO",
+    "2.- Anticipo del 100% antes de la",
+    "    produccion",
+    "3.- Entregado el producto o ejecutado",
+    "    el servicio no existen devoluciones.",
+  ];
+  let yTerm = yCliente + 11;
+  terminos.forEach(t => { doc.text(t, xTerm, yTerm); yTerm += 3.5; });
+
+  /* ════════════════════════════════════════
+     TABLA PRODUCTOS  (startY: 100)
+  ════════════════════════════════════════ */
+  let totalBase = 0;
+  const rows = cart.map(item => {
+    const sub = item.price * item.qty;
+    totalBase += sub;
+    return [
+      { content: item.qty,                          styles:{ halign:"center" } },
+      item.name,
+      { content:`$${item.price.toLocaleString()}`,  styles:{ halign:"right"  } },
+      { content:`$${sub.toLocaleString()}`,          styles:{ halign:"right"  } },
+    ];
+  });
+
+  doc.autoTable({
+    startY: 110,
+    head:[[
+      { content:"CANTIDAD",    styles:{ halign:"center" } },
+      { content:"PRODUCTO",    styles:{ halign:"center" } },
+      { content:"P. UNITARIO", styles:{ halign:"right"  } },
+      { content:"TOTAL",       styles:{ halign:"right"  } },
+    ]],
+    body: rows,
+    theme:"grid",
+    styles:     { font:"helvetica", fontSize:8, cellPadding:1.5 },
+    headStyles: { fillColor:MORADO, textColor:BLANCO, fontStyle:"bold", fontSize:8.5 },
+    alternateRowStyles: { fillColor:GRIS_F },
+    columnStyles:{
+      0:{ cellWidth:20  },
+      1:{ cellWidth:110 },
+      2:{ cellWidth:35  },
+      3:{ cellWidth:35  },
+    },
+    margin:{ left:8, right:8 },
+    pageBreak: "avoid",
+  styles:{
+  font:"helvetica",
+  fontSize:8,
+  cellPadding:1.5,
+  overflow:'linebreak'
+}
+  });
+
+   let yFin = doc.lastAutoTable.finalY + 8;
+
+/* espacio restante en hoja */
+const espacioRestante = 289 - yFin;
+
+/* espacio necesario para totales + cuotas */
+let espacioNecesario = 60;
+
+if (pagoTarjeta && pagoTarjeta.checked) {
+  espacioNecesario = 110;
+}
+
+/* si no entra → nueva hoja */
+if (espacioRestante < espacioNecesario) {
+
+  doc.setFillColor(...MORADO);
+  doc.rect(0, 289, W, 8, "F");
+
+  doc.addPage();
+
+  doc.setFillColor(...MORADO);
+  doc.rect(0, 0, W, 7, "F");
+
+  yFin = 20;
+
+}
+
+  /* ════════════════════════════════════════
+     CÁLCULO DESCUENTO
+  ════════════════════════════════════════ */
+  const montoDescuento = esEfectivoLocal ? Math.round(totalBase * 0.05) : 0;
+  const totalNeto      = totalBase - montoDescuento;
+
+  /* ════════════════════════════════════════
+     BLOQUE TOTALES
+  ════════════════════════════════════════ */
+  const xLbl = 120;
+  const xVal = W - 10;
+
+  doc.setFontSize(8.5); doc.setTextColor(...NEGRO);
+
+  // Total parcial
+  doc.setFont("helvetica","normal"); doc.text("Total parcial:", xLbl, yFin);
+  doc.setFont("helvetica","bold");   doc.text(`$${totalBase.toLocaleString()}`, xVal, yFin, { align:"right" });
+  yFin += 5;
+
+  // Descuento
+  if (esEfectivoLocal) {
+    doc.setFillColor(...VERDE_D);
+    doc.rect(xLbl-3, yFin-4, W-xLbl+1, 5.5, "F");
+    doc.setFont("helvetica","bold"); doc.setTextColor(39,78,19);
+    doc.text("Descuento (5% ef. local):", xLbl-1, yFin);
+    doc.text(`- $${montoDescuento.toLocaleString()}`, xVal, yFin, { align:"right" });
+    doc.setTextColor(...NEGRO);
+  } else {
+    doc.setFont("helvetica","normal"); doc.text("Descuento (%):", xLbl, yFin);
+    doc.setFont("helvetica","bold");   doc.text("0%", xVal, yFin, { align:"right" });
+  }
+  yFin += 5;
+
+  // NETO
+  doc.setFont("helvetica","normal"); doc.setTextColor(...NEGRO);
+  doc.text("NETO:", xLbl, yFin);
+  doc.setFont("helvetica","bold");
+  doc.text(`$${totalNeto.toLocaleString()}`, xVal, yFin, { align:"right" });
+  yFin += 5;
+
+  // Envío Delivery
+  doc.setFont("helvetica","normal"); doc.text("Envio Delivery:", xLbl, yFin);
+  doc.setFont("helvetica","bold");   doc.text("0,00", xVal, yFin, { align:"right" });
+  yFin += 6;
+
+  /* ── FILA ROSA DESTACADA ── */
+  const textoDestacado = esEfectivoLocal
+    ? "PRECIO EFECTIVO EN LOCAL"
+    : "PRECIO TRANSFERENCIA";
+
+  doc.setFillColor(...ROSA);
+  doc.rect(xLbl-3, yFin-5, W-xLbl+1, 9, "F");
+  doc.setDrawColor(200,100,100);
+  doc.setLineWidth(0.3);
+  doc.rect(xLbl-3, yFin-5, W-xLbl+1, 9);
+
+  doc.setFont("helvetica","bold"); doc.setFontSize(7.5); doc.setTextColor(...NEGRO);
+  doc.text(textoDestacado, xLbl-1, yFin);
+  doc.setFontSize(12);
+  doc.text(`$${totalNeto.toLocaleString()}`, xVal, yFin, { align:"right" });
+
+  yFin += 8;
+
+  /* ════════════════════════════════════════
+     TABLA CUOTAS — solo si tarjeta
+     Si no entra en la página, salto limpio
+  ════════════════════════════════════════ */
+  if (pagoTarjeta && pagoTarjeta.checked) {
+
+    const cuotasSel  = parseInt(selectCuotas.value) || 0;
+    // Altura estimada: header 10mm + 5 filas × 14mm = 80mm
+    const altoTabla  = 55;
+    const espacioLib = 289 - yFin;
+
+    if (espacioLib < altoTabla) {
+      // Barra pie en página actual
+      doc.setFillColor(...MORADO);
+      doc.rect(0, 289, W, 8, "F");
+      doc.setFont("helvetica","normal"); doc.setFontSize(6.5); doc.setTextColor(...BLANCO);
+      doc.text("PIXIS INFORMATICA  |  +54 9 3856 97-0135  |  PIXISINFORMATICA.CONTACTO@GMAIL.COM", W/2, 294, { align:"center" });
+      doc.addPage();
+      doc.setFillColor(...MORADO);
+      doc.rect(0, 0, W, 7, "F");
+      yFin = 15;
+    }
+
+    const filasC = [1, 3, 6, 9, 12].map(c => {
+      const tasa     = tasasCuotas[c];
+      const totalFin = Math.round(totalBase * tasa);
+      const cuotaVal = Math.round(totalFin / c);
+      return [
+        `${c} CUOTA${c > 1 ? "S" : ""} DE:`,
+        { content:`$${cuotaVal.toLocaleString()}`,  styles:{ halign:"right" } },
+        { content:`$${totalFin.toLocaleString()}`,  styles:{ halign:"right" } },
+        c,
+      ];
+    });
+
+    doc.autoTable({
+      startY: yFin,
+      tableWidth: 120,
+      head:[[
+        { content:"PAGA CON TU TARJETA DE CREDITO EN:", colSpan:2,
+          styles:{ halign:"center", fillColor:MORADO, textColor:BLANCO, fontStyle:"bold", fontSize:8 } },
+        { content:"TOTAL",
+          styles:{ halign:"center", fillColor:MORADO, textColor:BLANCO, fontStyle:"bold", fontSize:8 } },
+        { content:"", styles:{ fillColor:MORADO, cellWidth:0.1 } },
+      ]],
+      body: filasC,
+      theme: "grid",
+      styles:{ font:"helvetica", fontSize:8, cellPadding:1.2 },
+      columnStyles:{
+        0:{ cellWidth:42                },
+        1:{ cellWidth:38, halign:"right"},
+        2:{ cellWidth:38, halign:"right"},
+        3:{ cellWidth:0.1               },
+      },
+      didParseCell(data) {
+        if (data.section === "body") {
+          const cuotaFila = data.row.raw[3];
+          if (cuotaFila === cuotasSel) {
+            data.cell.styles.fillColor = VERDE_C;
+            data.cell.styles.fontStyle = "bold";
+            data.cell.styles.textColor = NEGRO;
+          }
+          if (data.column.index === 3) {
+            data.cell.styles.textColor  = BLANCO;
+            data.cell.styles.fillColor  = BLANCO;
+            data.cell.styles.lineColor  = BLANCO;
+            data.cell.styles.lineWidth  = 0;
+          }
+        }
+      },
+      margin:{ left: 45, right:45 },
+      pageBreak: "avoid",   // <-- fuerza que toda la tabla quede junta
+    });
+
+    yFin = doc.lastAutoTable.finalY + 6;
+  }
+
+  /* ── "Gracias por la Preferencia!!!" ── */
+  const yGracias = 282;
+
+doc.setFont("helvetica","bold");
+doc.setFontSize(11);
+doc.setTextColor(...MORADO);
+doc.text("¡¡ Gracias por la Preferencia !!", W/2, yGracias, { align:"center" });
+
+  /* ════════════════════════════════════════
+     BARRA INFERIOR
+  ════════════════════════════════════════ */
+  doc.setFillColor(...MORADO);
+  doc.rect(0, 289, W, 8, "F");
+  doc.setFont("helvetica","normal"); doc.setFontSize(6.5); doc.setTextColor(...BLANCO);
+  doc.text(
+    "PIXIS INFORMATICA  |  +54 9 3856 97-0135  |  PIXISINFORMATICA.CONTACTO@GMAIL.COM",
+    W/2, 294, { align:"center" }
+  );
+
+const pdfBlob = doc.output("blob");
+
+const url = URL.createObjectURL(pdfBlob);
+
+const link = document.createElement("a");
+link.href = url;
+link.download = `Presupuesto_PIXIS_${numeroProforma}.pdf`;
+link.click();
+}
+
+
+
+
