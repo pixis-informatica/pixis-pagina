@@ -38,7 +38,21 @@ const MODAL_ENABLED = true;
 // 🔒 cambiar a false cuando habilites todo el país
 const SOLO_SANTIAGO = true;
 
+function obtenerNumeroPresupuesto(){
 
+let numero = localStorage.getItem("pixis_presupuesto");
+
+if(!numero){
+numero = 1;
+}else{
+numero = parseInt(numero) + 1;
+}
+
+localStorage.setItem("pixis_presupuesto",numero);
+
+return numero.toString().padStart(6,"0");
+
+}
 /* =========================
    CARRITO
 ========================= */
@@ -70,6 +84,26 @@ modalTerminos.classList.remove("active");
 }
 });
 let cart = [];
+/* =========================
+   COPIAR ALIAS / CBU
+========================= */
+
+document.addEventListener("click",(e)=>{
+
+const btn = e.target.closest(".btn-copiar");
+if(!btn) return;
+
+const texto = btn.dataset.copy;
+
+navigator.clipboard.writeText(texto);
+
+btn.textContent = "Copiado ✓";
+
+setTimeout(()=>{
+btn.textContent = btn.dataset.copy.length > 15 ? "Copiar CBU" : "Copiar Alias";
+},1500);
+
+});
 /* =========================
    ANIMACION AGREGAR CARRITO
 ========================= */
@@ -179,7 +213,7 @@ const retiroLocal = document.getElementById('retiroLocal');
 const envioDomicilio = document.getElementById('envioDomicilio');
 const pagoEfectivo = document.getElementById('pagoEfectivo');
 const pagoTransferencia = document.getElementById('pagoTransferencia');
-
+const transferenciaInfo = document.getElementById("transferenciaInfo");
 const inputProvincia = document.getElementById('clienteProvincia');
 const inputLocalidad = document.getElementById('clienteLocalidad');
 
@@ -247,13 +281,31 @@ envioDomicilio?.addEventListener('change', () => {
 });
 
 pagoEfectivo?.addEventListener('change', () => {
-  if (pagoEfectivo.checked) pagoTransferencia.checked = false;
+
+  if (pagoEfectivo.checked) {
+
+    pagoTransferencia.checked = false;
+
+    if(transferenciaInfo){
+      transferenciaInfo.style.display = "none";
+    }
+
+  }
+
 });
 
 pagoTransferencia?.addEventListener('change', () => {
-  if (pagoTransferencia.checked) pagoEfectivo.checked = false;
-});
 
+  if (pagoTransferencia.checked) {
+    pagoEfectivo.checked = false;
+
+    if(transferenciaInfo){
+      transferenciaInfo.style.display = "block";
+    }
+
+  }
+
+});
 /* =========================
    AGREGAR PRODUCTO
 ========================= */
@@ -321,6 +373,7 @@ function renderCart() {
 }
 const pagoTarjeta = document.getElementById("pagoTarjetaVisual");
 const cuotasPreview = document.getElementById("cuotasPreviewCarrito");
+
 
 const radiosPago = document.querySelectorAll("input[name='pago']");
 
@@ -453,6 +506,7 @@ if (pagoTarjeta.checked && selectCuotas.value === "0") {
     msg += `• ${i.name} x${i.qty} — $${(i.price*i.qty).toLocaleString()}%0A`;
     total += i.price * i.qty;
   });
+  
 
   const hayExceso = cart.some(item => item.qty > 2);
 
@@ -495,6 +549,7 @@ if (pagoTarjeta.checked && selectCuotas.value !== "0") {
 }
 
 window.open(`https://wa.me/5493856970135?text=${msg}`, '_blank');
+
 });
 function aplicarConfiguracionPreciosCategorias() {
 
@@ -634,7 +689,7 @@ function actualizarPreciosModal(precioBase) {
   );
 
   const contado = precioNumerico;
-  const local = precioNumerico * 0.97;
+  const local = precioNumerico * 0.95;
   const lista = precioNumerico * 1.13;
 
   document.getElementById("precioContado").textContent =
