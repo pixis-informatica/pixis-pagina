@@ -6,6 +6,7 @@
     <title>PIXIS Informática | Catálogo Gamer</title>
 
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/lightmode.css" id="lightmode" disabled>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
@@ -20,6 +21,7 @@
     </div>
 
 </header>
+<button onclick="toggleTheme()">🌙 / ☀️</button>
 <section class="brands-carousel">
   <div class="brands-track">
     <img src="img/logos/msi.png" alt="MSI">
@@ -5832,7 +5834,7 @@ Y REPARACION DE INSUMOS INFORMATICOS
     <!-- PAGO -->
     <div class="cart-section">
       <h4>Forma de pago</h4>
-      <label><input type="radio" id="pagoEfectivo" name="pago"> Efectivo</label>
+      <label><input type="radio" id="pagoEfectivo" name="pago"> Efectivo (5% dto pagando en local)</label>
       <label><input type="radio" id="pagoTransferencia" name="pago"> Transferencia</label>
       <label>
         <input type="radio" name="pago" id="pagoTarjetaVisual">
@@ -6140,6 +6142,12 @@ window.addEventListener('scroll', () => {
 <div class="modal-cuotas-detalle" id="modalCuotasDetalle">
   <div class="cuotas-content">
     <span class="cerrar-cuotas" id="cerrarCuotas">✕</span>
+     <div class="logos-tarjetas">
+      <img src="img/logos/mastercard.png" alt="Mastercard">
+      <img src="img/logos/naranja.png" alt="Naranja X">
+      <img src="img/logos/visa.png" alt="Visa">
+      <img src="img/logos/mercadopago.png" alt="mercadopago">
+    </div>
     <h3>Financiación con tarjeta</h3>
     <div id="listaCuotas"></div>
   </div>

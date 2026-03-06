@@ -1,0 +1,379 @@
+body{
+background:
+        linear-gradient(rgb(255, 253, 253), rgba(133, 130, 130, 0.75)),
+        url("../img/fondo-B.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: white;
+}
+
+
+/* TITULOS */
+
+.destacados h2{
+    color:#000000;
+    text-shadow:none;
+}
+
+.Gabinetes h2{
+    color:#2a2a2a;
+    text-shadow:none;
+}
+
+.categoria{
+    color:#ad31df;
+    text-shadow:none;
+}
+
+/* CATEGORIAS NAV */
+
+.categorias-nav a{
+    background:#ededf2;
+    border:2px solid #a6aec1;
+    color:#2a2a2a;
+}
+
+.categorias-nav a:hover{
+    box-shadow:0 0 10px #a6aec1;
+}
+
+/* FILTROS */
+
+.filtros-panel{
+    background:#000000;
+    border:1px solid #cfd5e1;
+}
+
+.btn-filtro{
+    border:1px solid #a6aec1;
+    color:#ffffff;
+}
+
+.btn-filtro:hover{
+    border-color:#00ecfd;
+    color:#ffffff;
+}
+
+.btn-filtro.activo{
+    background:#03ee49;
+    color:#000000;
+    border-color:#bcd626;
+}
+
+/* TARJETAS PRODUCTO */
+
+.card{
+    background: rgba(197, 197, 197, 0.65); /* gris claro traslúcido */
+    border:1px solid #cfd5e1;
+    box-shadow:0 5px 12px rgba(0,0,0,0.08);
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
+.card h3{
+    color:#2a2a2a;
+}
+
+.card p{
+    color:#555;
+}
+.pulsante {
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 10px rgba(255, 251, 0, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 30px rgb(255, 251, 0);
+    }
+    100% {
+        box-shadow: 0 0 10px rgba(116, 235, 122, 0.582);
+    }
+}
+/* PRECIO (IMPORTANTE QUE RESALTE) */
+
+.precio{
+    color:#1bff81;
+    font-weight:bold;
+}
+
+.precio-viejo{
+    color:#d94b4b;
+}
+
+.precio-oferta{
+    color:#00a86b;
+}
+.precio{
+    color:#0a7a32;
+    font-weight:700;
+}
+
+.precio-lista{
+    color:#363535;
+}
+/* BOTONES */
+.btn-add-cart {
+    margin: 10px 0;
+    padding: 10px 20px;
+    border-radius: 25px;
+    border: 2px solid #00ff00;
+    background: transparent;
+    color: #000000;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-add-cart:hover {
+    background: #bf0eeb;
+    color: #000;
+    box-shadow: 0 0 15px #d9ff00;
+}
+.btn-cart{
+    background:#6c788e;
+    color:white;
+}
+
+.btn-cart:hover{
+    background:#586276;
+}
+
+.btn-wsp{
+    background:linear-gradient(45deg,#32ca4b,#0bad26);
+    box-shadow:0 5px 10px rgba(0,0,0,0.2);
+}
+
+.btn-wsp:hover{
+    background:linear-gradient(45deg,#235adb,#0d57e0);
+}
+
+/* BUSCADOR */
+
+#searchInput{
+    border:2px solid #646464;
+    background:#ffffff;
+    color:#2a2a2a;
+}
+
+#searchInput::placeholder{
+    color:#888;
+}
+
+#searchInput:focus{
+    box-shadow:0 0 10px rgba(0,0,0,0.15);
+}
+
+/* MODAL PRODUCTO */
+
+.modal-content{
+    background:#ffffff;
+    border:1px solid #cfd5e1;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+.modal-img-container{
+    background:#6c6d6e;
+}
+.modal-desc{
+    color:#555;
+}
+
+.modal-price{
+    color:#008a3d;
+}
+
+.modal-close{
+    color:#2a2a2a;
+}
+/* texto general modal */
+.modal-content{
+    color:#868484;
+}
+
+/* titulos */
+.modal-content h1,
+.modal-content h2,
+.modal-content h3{
+    color:#1a1a1a;
+}
+
+/* listas y descripciones */
+.modal-content p,
+.modal-content li{
+    color:#3a3a3a;
+}
+.modal-precios span {
+    color: #000;
+}
+.precio-contado{
+   color: #000; 
+}
+.precio-local strong{
+    color: #00a86b;
+}
+.precio-lista strong{
+    color: #000;
+}
+.btn-ver-cuotas {
+  border: 1px solid #00ff22;
+  color: #000000;
+  
+}
+.modal-cuotas-detalle {
+  background: rgba(184, 184, 184, 0.85);
+}
+
+.modal-cuotas-detalle h3{
+  color: #000000;
+}
+.cuotas-content {
+  background: #cccccc;
+}
+
+
+.fila-cuota {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.cuota-total {
+ 
+  color: #009e1a;
+}
+.fila-cuota {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.fila-cuota span:first-child {
+  color: #000000;
+}
+
+.total-cuotas {
+  color: #07b81f;
+  
+}
+/* CARRITO */
+
+.cart-modal{
+    background:#666666;
+    border:1px solid #fdfdfd;
+}
+
+.cart-header{
+    border-bottom:1px solid #ffffff;
+}
+
+.cart-header h3{
+    color:#03d9ff;
+}
+
+.cart-footer{
+    background:#525252;
+}
+
+.cart-item{
+    background:#868686;
+    border-bottom:1px solid #cfd5e1;
+}
+
+.cart-item h4{
+    color:#2a2a2a;
+}
+
+.cart-item span{
+    color:#00ff73;
+}
+/* Cantidad */
+
+.cart-qty {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cart-qty button {
+  width: 26px;
+  height: 26px;
+  font-size: 14px;
+
+  border-radius: 6px;
+  border: 1px solid #4dbcd8;
+  background: #000303;
+  color: #fff;
+
+  cursor: pointer;
+}
+
+.cart-qty button:hover {
+  background: #21acec;
+}
+
+.cart-qty span {
+  font-size: 13px;
+  font-weight: bold;
+  min-width: 18px;
+  text-align: center;
+}
+.cart-total{
+    border-top:2px solid #00f134;
+}
+
+.cart-total strong{
+    color:#f8f8f8;
+}
+
+/* INPUTS */
+
+.cart-section input[type="text"]{
+    background:#ffffff;
+    border:1px solid #cfd5e1;
+    color:#2a2a2a;
+}
+
+#selectCuotas{
+    background:#ffffff;
+    border:1px solid #cfd5e1;
+    color:#2a2a2a;
+}
+
+/* BOTON FINALIZAR */
+
+.btn-finish{
+    background:linear-gradient(90deg,#0055f1,#72e1f0);
+}
+
+/* BOTON VACIAR */
+
+#btn-clear-cart{
+    background:#ff4d4d;
+}
+
+/* FOOTER */
+
+.footer{
+    border-top:1px solid #cfd5e1;
+    color:#000000;
+}
+
+.footer-follow span{
+    color:#ff00f2;
+}
+
+/* REDES */
+
+.red{
+    background:#3b3b3b;
+    box-shadow:0 4px 10px rgba(253, 2, 241, 0.1);
+}
+
+/* SEPARADOR */
+
+.separador-categoria{
+    background:#484849;
+}

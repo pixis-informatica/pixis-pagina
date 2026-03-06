@@ -270,10 +270,9 @@ html {
 }
 
 .card {
-  transition:
-    opacity 0.35s ease,
-    transform 0.35s ease;
-  will-change: transform, opacity;
+    background: rgba(207, 213, 225, 0.05); /* gris claro traslúcido */
+    border: 1px solid #cfd5e1;
+    backdrop-filter: blur(4px);
 }
 
 /* salida animada */
@@ -2610,7 +2609,9 @@ body.buscando .card {
   opacity: 1;
   pointer-events: all;
 }
-
+.modal-cuotas-detalle h3{
+  color: #00ff0d;
+}
 .cuotas-content {
   background: #111;
   width: 380px;
