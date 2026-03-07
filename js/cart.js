@@ -1977,5 +1977,20 @@ function toggleTheme(){
   }
 
 }
+const btnCategorias = document.getElementById("btnCategorias");
+const categorias = document.querySelector(".categorias-nav");
+const destacados = document.querySelector(".destacados"); // tu section siguiente
 
+btnCategorias.addEventListener("click", () => {
+    categorias.classList.toggle("active");
 
+    if (categorias.classList.contains("active")) {
+        // Calculamos la altura real del menu
+        const height = categorias.scrollHeight;
+        // Agregamos margen-top a destacados
+        destacados.style.marginTop = height + 20 + "px"; // 20px extra de padding
+    } else {
+        // Quitamos el margen cuando se cierra
+        destacados.style.marginTop = "0px";
+    }
+});

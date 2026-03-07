@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
+<head >
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PIXIS Informática | Catálogo Gamer</title>
@@ -13,15 +13,56 @@
     <a href="https://wa.me/message/EYUUSVNG5HPNF1" class="wsp-float">
     <i class="fab fa-whatsapp"></i>
     </a>
-<body id="top">
+<body class="header" id="top">
+  <!-- HEADER -->
+<header class="main-header">
 
-    <!-- HEADER -->
-  <div class="top-bar-image">
-        <img src="img/PIXIS WEB 2.png" alt="PIXIS WEB - Tienda de Informática">
+    <div class="header-left">
+        <img src="img\logos\pixis logo.png" alt="PIXIS Informática" class="logo">
+        <img src="img\PIXIS mascos.png" alt="Mascota PIXIS" class="mascota">
+        <div class="logo-area">
+        <span>¡ Tu tienda informatica de confianza !</span>
+        </div>
     </div>
 
-</header>
-<button onclick="toggleTheme()">🌙 / ☀️</button>
+    <div class="header-center">
+        <div class="search-bar">
+            <i class="fas fa-search"></i>
+         <input 
+         type="text"
+         id="searchInput"
+         placeholder="Buscar productos (ej: teclado mecánico, gabinete ATX...)">
+        </div>
+    </div>
+
+    <div class="header-right">
+
+        <div class="header-info">
+            <div class="ubicacion">
+                <i class="fas fa-map-marker-alt"></i>
+                VISITA NUESTRO LOCAL EN
+                <br>
+                <small>Jujuy 412 Edificio San Antonio 2° piso oficina "B"</small>
+            </div>
+
+            <div class="redes-sociales">
+                <a href="https://www.facebook.com/profile.php?id=61583495955781&locale=es_LA"><i class="fab fa-tiktok"></i></a>
+                <a href="https://www.instagram.com/pixisinformatica/"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/profile.php?id=61583495955781&locale=es_LA"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.youtube.com/@PIXIS.INFORMATICA" ><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+
+        <div class="header-web">
+            <span>WEB ABIERTA</span>
+            <div class="open-text">24/7</div>
+        </div>
+
+        <button class="theme-toggle" onclick="toggleTheme()">🌙 / ☀️</button>
+
+    </div>
+
+</header> 
 <section class="brands-carousel">
   <div class="brands-track">
     <img src="img/logos/msi.png" alt="MSI">
@@ -110,55 +151,45 @@
   </div>
   
 </section>
-
-<div class="categorias-nav" id="categorias">
-    <div class="envios-logo">
-    <img src="img/logos/adreani.png" alt="Empresa de envíos">
-    <span class="envios-texto">¡ MUY PRONTO !</span>
- </div>
-    <a href="#Periféricos">Periféricos</a> 
-    <a href="#almacenamiento">Almacenamiento</a>
-    <a href="#gabinetes">Gabinetes</a>
-    <a href="#fuentes">Fuentes</a>
-    <a href="#refrigeracion">Refrigeración</a>
-    <a href="#monitores">Monitores</a>
-    <a href="#Placas de video">Placas de video</a>
-    <a href="#red">Redes</a>
-    <a href="#Cables">Adaptadores & Cables</a>
-    <a href="#Hardware">Hardware</a>
-    <a href="#Placas madres">Placas madres</a>
-    <a href="#Memorias Ram">Memorias Ram</a>
-    <a href="#Procesadores">Procesadores</a>
-    <a href="#Sillas y Escritorios Gamer">Sillas y Escritorios Gamer</a>
-    <a href="#Herramientas">Herramientas</a>
-    <a href="#Cargadores">Cargadores</a> 
-    <a href="#Notebook">Pc y Notebook</a>
-    <a href="#Camara de Seguridad">Camara de Seguridad</a>
+    <div id="categorias">
     
+    <button class="btnCategorias" id="btnCategorias"><span>Categorías</span></button>
 
+    <div class="categorias-nav">
+
+        <a href="#Periféricos">Periféricos</a> 
+        <a href="#almacenamiento">Almacenamiento</a>
+        <a href="#gabinetes">Gabinetes</a>
+        <a href="#fuentes">Fuentes</a>
+        <a href="#refrigeracion">Refrigeración</a>
+        <a href="#monitores">Monitores</a>
+        <a href="#Placas de video">Placas de video</a>
+        <a href="#red">Redes</a>
+        <a href="#Cables">Adaptadores & Cables</a>
+        <a href="#Hardware">Hardware</a>
+        <a href="#Placas madres">Placas madres</a>
+        <a href="#Memorias Ram">Memorias Ram</a>
+        <a href="#Procesadores">Procesadores</a>
+        <a href="#Sillas y Escritorios Gamer">Sillas y Escritorios Gamer</a>
+        <a href="#Herramientas">Herramientas</a>
+        <a href="#Cargadores">Cargadores</a> 
+        <a href="#Notebook">Pc y Notebook</a>
+        <a href="#Camara de Seguridad">Camara de Seguridad</a>
+
+    </div>
 
 </div>
-<div class="buscador-productos">
-  <div class="buscador-wrapper">
-    <span class="icon-search">🔍</span>
-    <input 
-      type="text"
-      id="searchInput"
-      placeholder="Buscar productos (ej: teclado mecánico, gabinete ATX...)">
-  </div>
+    <div id="noResults" class="no-resultados">
+        ❌ No se encontraron coincidencias
+    </div>
+    </div>
+    <section id="busquedaSection" style="display:none;">
+    <h2 class="categoria">RESULTADOS</h2>
+    <div class="productos" id="busquedaProductos"></div>
+    </section>
+    <section class="destacados">
 
-  <div id="noResults" class="no-resultados">
-    ❌ No se encontraron coincidencias
-  </div>
-</div>
-
-<section id="busquedaSection" style="display:none;">
-  <h2 class="categoria">RESULTADOS</h2>
-  <div class="productos" id="busquedaProductos"></div>
-</section>
-<section class="destacados">
-
-    <h2>🔥NUEVOS INGRESOS🔥</h2>
+        <h2>🔥NUEVOS INGRESOS🔥</h2>
     <div class="carousel">
     <div class="productos">
        <div class="card pulsante2"
@@ -6154,6 +6185,7 @@ window.addEventListener('scroll', () => {
 </div>
 </div>
  <div id="cart-toast">Se agregó al carrito</div>
+ 
 <script src="js/cart.js"></script>
 </body>
 </html>

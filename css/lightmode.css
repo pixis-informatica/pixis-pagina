@@ -377,3 +377,25 @@ background:
 .separador-categoria{
     background:#484849;
 }
+/* TEMA CLARO */
+
+.light-theme .categorias-nav{
+
+    background: rgba(255,255,255,0.95);
+    border: 2px solid #7f00ff;
+
+}
+
+.light-theme .categorias-nav a{
+
+    background: #ffffff;
+    color: #222;
+    border: 2px solid #7f00ff;
+
+}
+
+.light-theme #btnCategorias{
+
+    background: white;
+    color: #222;
+}
